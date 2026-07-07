@@ -14,42 +14,36 @@ const CardBackground = ({ view }) => {
   );
 };
 
-const LogoGroup = () => {
-  return (
-    <>
-      <img className="logo logo-1" src={logo} alt="NutriPlan" />
-      <img className="logo logo-2" src={logo} alt="NutriPlan" />
-    </>
-  );
-};
+const LogoGroup = () => (
+  <>
+    <img className="logo logo-1" src={logo} alt="NutriPlan" />
+    <img className="logo logo-2" src={logo} alt="NutriPlan" />
+  </>
+);
 
-const PanelContent = () => {
-  return (
-    <>
-      {/* Left panel — shown when Login form is active */}
-      <div className="panel-content panel-content-1">
-        <h3>Welcome Back!</h3>
-        <p>
-          Sign in to continue tracking your meals, 
-          monitor your progress, and stay on top 
-          of your nutrition goals.
-        </p>
-      </div>
-      <div className="panel-decor panel-decor-1"></div>
+const PanelContent = () => (
+  <>
+    <div className="panel-content panel-content-1">
+      <h3>Welcome Back!</h3>
+      <p>
+        Sign in to track your meals, monitor 
+        your progress, and stay on top of 
+        your nutrition goals.
+      </p>
+    </div>
+    <div className="panel-decor panel-decor-1"></div>
 
-      {/* Right panel — shown when Register form is active */}
-      <div className="panel-content panel-content-2">
-        <h3>Join NutriPlan</h3>
-        <p>
-          Create your personalized meal plan, 
-          get smart recommendations, and build 
-          healthier eating habits.
-        </p>
-      </div>
-      <div className="panel-decor panel-decor-2"></div>
-    </>
-  );
-};
+    <div className="panel-content panel-content-2">
+      <h3>Join NutriPlan</h3>
+      <p>
+        Create your personalized meal plan, 
+        get smart recommendations, and build 
+        healthier eating habits.
+      </p>
+    </div>
+    <div className="panel-decor panel-decor-2"></div>
+  </>
+);
 
 const LoginForm = ({ view, toggleView }) => {
   const [email, setEmail] = useState('');
@@ -63,14 +57,9 @@ const LoginForm = ({ view, toggleView }) => {
     e.preventDefault();
     setError('');
     setIsSubmitting(true);
-
     try {
       const data = await login(email, password);
-      if (data.user.isOnboarded) {
-        navigate('/dashboard');
-      } else {
-        navigate('/onboarding');
-      }
+      navigate(data.user.isOnboarded ? '/dashboard' : '/onboarding');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
     } finally {
@@ -101,11 +90,11 @@ const LoginForm = ({ view, toggleView }) => {
           autoComplete="current-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          <span>{isSubmitting ? 'SIGNING IN...' : 'SIGN IN'}</span>
+          {isSubmitting ? 'SIGNING IN...' : 'SIGN IN'}
         </button>
-        <a onClick={toggleView}>
+        <span className="toggle-link" onClick={toggleView}>
           Don't have an account? <em>Create one</em>
-        </a>
+        </span>
       </form>
     </div>
   );
@@ -124,7 +113,6 @@ const RegisterForm = ({ view, toggleView }) => {
     e.preventDefault();
     setError('');
     setIsSubmitting(true);
-
     try {
       await register(name, email, password);
       navigate('/onboarding');
@@ -167,11 +155,11 @@ const RegisterForm = ({ view, toggleView }) => {
           autoComplete="new-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          <span>{isSubmitting ? 'CREATING...' : 'CREATE ACCOUNT'}</span>
+          {isSubmitting ? 'CREATING...' : 'CREATE ACCOUNT'}
         </button>
-        <a onClick={toggleView}>
+        <span className="toggle-link" onClick={toggleView}>
           Already have an account? <em>Sign in</em>
-        </a>
+        </span>
       </form>
     </div>
   );
