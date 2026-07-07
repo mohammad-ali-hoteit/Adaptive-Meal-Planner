@@ -19,8 +19,34 @@ const LogoGroup = () => {
     <>
       <img className="logo logo-1" src={logo} alt="NutriPlan" />
       <img className="logo logo-2" src={logo} alt="NutriPlan" />
-      <span className="tagline tagline-1">Your adaptive meal companion</span>
-      <span className="tagline tagline-2">Start your journey today</span>
+    </>
+  );
+};
+
+const PanelContent = () => {
+  return (
+    <>
+      {/* Left panel — shown when Login form is active */}
+      <div className="panel-content panel-content-1">
+        <h3>Welcome Back!</h3>
+        <p>
+          Sign in to continue tracking your meals, 
+          monitor your progress, and stay on top 
+          of your nutrition goals.
+        </p>
+      </div>
+      <div className="panel-decor panel-decor-1"></div>
+
+      {/* Right panel — shown when Register form is active */}
+      <div className="panel-content panel-content-2">
+        <h3>Join NutriPlan</h3>
+        <p>
+          Create your personalized meal plan, 
+          get smart recommendations, and build 
+          healthier eating habits.
+        </p>
+      </div>
+      <div className="panel-decor panel-decor-2"></div>
     </>
   );
 };
@@ -46,7 +72,7 @@ const LoginForm = ({ view, toggleView }) => {
         navigate('/onboarding');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -55,15 +81,16 @@ const LoginForm = ({ view, toggleView }) => {
   return (
     <div className={`form login ${view === 'login' ? 'active' : ''}`}>
       <form onSubmit={handleSubmit}>
-        <h2>Welcome Back</h2>
-        <p className="form-subtitle">Sign in to continue</p>
+        <h2>Sign In</h2>
+        <p className="form-subtitle">Enter your credentials to continue</p>
         {error && <div className="form-error">{error}</div>}
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="email"
         />
         <input
           type="password"
@@ -71,12 +98,13 @@ const LoginForm = ({ view, toggleView }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="current-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'SIGNING IN...' : 'LOGIN'}
+          <span>{isSubmitting ? 'SIGNING IN...' : 'SIGN IN'}</span>
         </button>
         <a onClick={toggleView}>
-          Don't have an account? <em>Register here</em>
+          Don't have an account? <em>Create one</em>
         </a>
       </form>
     </div>
@@ -110,36 +138,39 @@ const RegisterForm = ({ view, toggleView }) => {
   return (
     <div className={`form register ${view === 'register' ? 'active' : ''}`}>
       <form onSubmit={handleSubmit}>
-        <h2>Create Account</h2>
-        <p className="form-subtitle">Join NutriPlan today</p>
+        <h2>Get Started</h2>
+        <p className="form-subtitle">Create your free account</p>
         {error && <div className="form-error">{error}</div>}
         <input
           type="text"
-          placeholder="Full Name"
+          placeholder="Full name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          autoComplete="name"
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="email"
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Create password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           minLength={6}
           required
+          autoComplete="new-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'CREATING...' : 'REGISTER'}
+          <span>{isSubmitting ? 'CREATING...' : 'CREATE ACCOUNT'}</span>
         </button>
         <a onClick={toggleView}>
-          Already have an account? <em>Login here</em>
+          Already have an account? <em>Sign in</em>
         </a>
       </form>
     </div>
@@ -155,6 +186,7 @@ const AuthPage = () => {
       <div className="auth-card">
         <CardBackground view={view} />
         <LogoGroup />
+        <PanelContent />
         <LoginForm view={view} toggleView={toggleView} />
         <RegisterForm view={view} toggleView={toggleView} />
       </div>
