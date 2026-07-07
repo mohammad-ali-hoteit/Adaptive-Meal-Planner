@@ -1,6 +1,9 @@
-// Placeholder — will be implemented in Section D with JWT
+const jwt = require('jsonwebtoken');
+
 const generateToken = (userId) => {
-  return 'placeholder-token';
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 module.exports = generateToken;
