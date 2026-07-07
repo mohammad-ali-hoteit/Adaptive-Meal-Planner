@@ -1,0 +1,242 @@
+/* ─── Search Bar ─────────────────── */
+.foods-search-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.foods-search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 480px;
+}
+
+.foods-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #B0B7C3;
+  pointer-events: none;
+}
+
+.foods-search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 44px;
+  border: 1.5px solid #EAEDF3;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  background: #F7F8FC;
+  color: #1A1D2E;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.foods-search-input:focus {
+  border-color: #4CAF6E;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(76, 175, 110, 0.1);
+}
+
+.foods-search-input::placeholder {
+  color: #B0B7C3;
+}
+
+/* ─── Filter Tabs ────────────────── */
+.foods-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.foods-tab {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid #EAEDF3;
+  background: #ffffff;
+  color: #8A92A6;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.foods-tab:hover {
+  border-color: #4CAF6E;
+  color: #4CAF6E;
+}
+
+.foods-tab.active {
+  background: #4CAF6E;
+  color: #ffffff;
+  border-color: #4CAF6E;
+}
+
+/* ─── Results Info ───────────────── */
+.foods-results-info {
+  font-size: 13px;
+  color: #8A92A6;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.foods-results-info span {
+  color: #1A1D2E;
+  font-weight: 700;
+}
+
+/* ─── Food Cards Grid ────────────── */
+.foods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.food-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #EAEDF3;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.food-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Image placeholder */
+.food-card-img {
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(135deg, #E8F5EE 0%, #F7F8FC 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+/* Card body */
+.food-card-body {
+  padding: 14px 16px 16px;
+}
+
+.food-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1D2E;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.food-card-calories {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #E8F5EE;
+  color: #4CAF6E;
+  margin-bottom: 10px;
+}
+
+/* Macro badges row */
+.food-card-macros {
+  display: flex;
+  gap: 6px;
+}
+
+.food-macro {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.food-macro.protein {
+  background: #E8F5EE;
+  color: #4CAF6E;
+}
+
+.food-macro.carbs {
+  background: #FFF0E6;
+  color: #FF8C42;
+}
+
+.food-macro.fat {
+  background: #FFF8E1;
+  color: #D4A800;
+}
+
+/* Meal type tags */
+.food-card-tags {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.food-tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  background: #F7F8FC;
+  color: #8A92A6;
+  border: 1px solid #EAEDF3;
+  text-transform: capitalize;
+}
+
+/* ─── Loading / Empty ────────────── */
+.foods-loading {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.foods-empty {
+  text-align: center;
+  padding: 60px 0;
+  color: #8A92A6;
+}
+
+.foods-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.foods-empty-text {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.foods-empty-hint {
+  font-size: 13px;
+  color: #B0B7C3;
+  margin-top: 4px;
+}
+
+/* ─── Responsive ─────────────────── */
+@media (max-width: 768px) {
+  .foods-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .foods-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .foods-search-wrap {
+    max-width: 100%;
+  }
+}
