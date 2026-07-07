@@ -132,8 +132,29 @@
   font-size: 15px;
   font-weight: 700;
   color: #1A1D2E;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   line-height: 1.3;
+}
+
+.food-card-name-ar {
+  font-size: 13px;
+  color: #8A92A6;
+  margin-bottom: 8px;
+  direction: rtl;
+}
+
+.food-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.food-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .food-card-calories {
@@ -146,7 +167,12 @@
   font-weight: 700;
   background: #E8F5EE;
   color: #4CAF6E;
-  margin-bottom: 10px;
+}
+
+.food-card-size {
+  font-size: 11px;
+  color: #B0B7C3;
+  font-weight: 500;
 }
 
 /* Macro badges row */
@@ -195,6 +221,12 @@
   color: #8A92A6;
   border: 1px solid #EAEDF3;
   text-transform: capitalize;
+}
+
+.food-tag-type {
+  background: #FFF8E1;
+  color: #D4A800;
+  border-color: #FFF0C2;
 }
 
 /* ─── Loading / Empty ────────────── */

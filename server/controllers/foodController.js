@@ -1,18 +1,18 @@
 const Food = require('../models/Food');
 
 // @desc    Get all foods (with optional mealType filter + pagination)
-// @route   GET /api/foods?mealType=breakfast&page=1&limit=20
+// @route   GET /api/foods?mealType=breakfast&page=1&limit=40
 const getAllFoods = async (req, res, next) => {
   try {
     const { mealType, page = 1, limit = 40 } = req.query;
     const query = {};
 
     if (mealType && mealType !== 'all') {
-      query.mealTypeTags = mealType;
+      query.meal_type = mealType;
     }
 
     const foods = await Food.find(query)
-      .sort({ name: 1 })
+      .sort({ 'name.en': 1 })
       .skip((page - 1) * limit)
       .limit(Number(limit));
 
@@ -30,7 +30,7 @@ const getAllFoods = async (req, res, next) => {
   }
 };
 
-// @desc    Search foods by name
+// @desc    Search foods by name (English or Arabic)
 // @route   GET /api/foods/search?q=chicken
 const searchFoods = async (req, res, next) => {
   try {
@@ -40,10 +40,14 @@ const searchFoods = async (req, res, next) => {
       return res.json({ success: true, foods: [] });
     }
 
+    const trimmed = q.trim();
     const foods = await Food.find({
-      name: { $regex: q.trim(), $options: 'i' },
+      $or: [
+        { 'name.en': { $regex: trimmed, $options: 'i' } },
+        { 'name.ar': { $regex: trimmed, $options: 'i' } },
+      ],
     })
-      .sort({ name: 1 })
+      .sort({ 'name.en': 1 })
       .limit(30);
 
     res.json({ success: true, foods });
@@ -52,7 +56,7 @@ const searchFoods = async (req, res, next) => {
   }
 };
 
-// @desc    Get suggested foods (placeholder — will use suggestion engine)
+// @desc    Get suggested foods
 // @route   GET /api/foods/suggestions
 const getSuggestedFoods = async (req, res, next) => {
   try {
@@ -82,7 +86,7 @@ const getFoodById = async (req, res, next) => {
 // @route   POST /api/foods/add-to-day
 const addFoodToDay = async (req, res, next) => {
   try {
-    res.status(501).json({ message: 'Not implemented yet — coming in Section G' });
+    res.status(501).json({ message: 'Not implemented yet' });
   } catch (err) {
     next(err);
   }

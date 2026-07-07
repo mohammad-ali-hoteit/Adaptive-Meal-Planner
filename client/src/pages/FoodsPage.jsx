@@ -9,6 +9,7 @@ const FOOD_ICONS = {
   lunch: '🥗',
   dinner: '🍖',
   snack: '🍎',
+  drink: '🥤',
   default: '🍽️',
 };
 
@@ -24,7 +25,6 @@ const FoodsPage = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [total, setTotal] = useState(0);
 
-  // Fetch foods — either search or filter by tab
   const fetchFoods = useCallback(async () => {
     setLoading(true);
     try {
@@ -48,7 +48,6 @@ const FoodsPage = () => {
     }
   }, [searchQuery, activeTab]);
 
-  // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchFoods();
@@ -56,7 +55,6 @@ const FoodsPage = () => {
     return () => clearTimeout(timer);
   }, [fetchFoods, searchQuery]);
 
-  // Reset search when tab changes
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     setSearchQuery('');
@@ -71,7 +69,7 @@ const FoodsPage = () => {
           <input
             className="foods-search-input"
             type="text"
-            placeholder="Search foods..."
+            placeholder="Search foods... (English or Arabic)"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -123,19 +121,30 @@ const FoodsPage = () => {
           {foods.map((food) => (
             <div key={food._id} className="food-card">
               <div className="food-card-img">
-                {getFoodIcon(food.mealTypeTags)}
+                {food.image_url ? (
+                  <img src={food.image_url} alt={food.name.en} />
+                ) : (
+                  getFoodIcon(food.meal_type)
+                )}
               </div>
               <div className="food-card-body">
-                <div className="food-card-name">{food.name}</div>
-                <div className="food-card-calories">🔥 {food.calories} cal</div>
+                <div className="food-card-name">{food.name.en}</div>
+                <div className="food-card-name-ar">{food.name.ar}</div>
+                <div className="food-card-meta">
+                  <span className="food-card-calories">🔥 {food.nutrition.calories} cal</span>
+                  <span className="food-card-size">{food.size_g}g · {food.unit}</span>
+                </div>
                 <div className="food-card-macros">
-                  <span className="food-macro protein">P: {food.protein}g</span>
-                  <span className="food-macro carbs">C: {food.carbs}g</span>
-                  <span className="food-macro fat">F: {food.fat}g</span>
+                  <span className="food-macro protein">P: {food.nutrition.protein_g}g</span>
+                  <span className="food-macro carbs">C: {food.nutrition.carbs_g}g</span>
+                  <span className="food-macro fat">F: {food.nutrition.fat_g}g</span>
                 </div>
                 <div className="food-card-tags">
-                  {food.mealTypeTags.map((tag) => (
+                  {food.meal_type.map((tag) => (
                     <span key={tag} className="food-tag">{tag}</span>
+                  ))}
+                  {food.type && food.type.map((t) => (
+                    <span key={t} className="food-tag food-tag-type">{t}</span>
                   ))}
                 </div>
               </div>
