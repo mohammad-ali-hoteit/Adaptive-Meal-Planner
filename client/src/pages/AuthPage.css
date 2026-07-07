@@ -9,33 +9,27 @@
   overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
-
-  /* colorful blurred background matching TestProject3 palette */
   background:
-    radial-gradient(ellipse at 20% 10%, rgba(245, 197, 24, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 80%, rgba(76, 175, 110, 0.14) 0%, transparent 55%),
-    radial-gradient(ellipse at 70% 10%, rgba(74, 144, 226, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 90%, rgba(124, 58, 237, 0.10) 0%, transparent 50%),
-    #F0F4FF;
+    radial-gradient(ellipse at 15% 15%, rgba(245, 197, 24, 0.15) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(76, 175, 110, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 15%, rgba(255, 140, 66, 0.10) 0%, transparent 50%),
+    #FFF9F0;
 }
 
 /* === Main Card === */
 .auth-card {
-  --accent: #7C3AED;
-  --accent-end: #4F46E5;
-  --accent-sky: #0EA5E9;
+  --accent: #4CAF6E;
+  --accent-mid: #FF8C42;
+  --accent-end: #F5C518;
   position: relative;
   overflow: hidden;
-  width: 680px;
-  height: 460px;
+  width: 660px;
+  height: 440px;
   border-radius: 28px;
   background: #ffffff;
   box-shadow:
-    0 2px 0 rgba(255, 255, 255, 0.8) inset,
-    0 20px 60px rgba(124, 58, 237, 0.10),
+    0 20px 60px rgba(76, 175, 110, 0.10),
     0 4px 16px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  z-index: 1;
 }
 
 /* === Animated gradient panels === */
@@ -45,15 +39,15 @@
   top: 0;
   bottom: 0;
   left: 0;
-  width: 880px;
-  height: 460px;
+  width: 860px;
+  height: 440px;
   rotate: -45deg;
   transform-origin: 0% 100%;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-end) 50%, var(--accent-sky) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-mid) 55%, var(--accent-end) 100%);
 }
 
 .auth-card .card-bg-2 {
-  background: linear-gradient(225deg, var(--accent) 0%, var(--accent-end) 50%, var(--accent-sky) 100%);
+  background: linear-gradient(225deg, var(--accent) 0%, var(--accent-mid) 55%, var(--accent-end) 100%);
   rotate: 0deg;
   opacity: 0;
   right: 0;
@@ -61,38 +55,29 @@
   transform-origin: 100% 100%;
 }
 
-/* Panel animations */
-.auth-card .card-bg-1.register {
-  animation: card-bg-register 1.5s both;
-}
-.auth-card .card-bg-1.login {
-  animation: card-bg-login 1.5s both;
-}
-.auth-card .card-bg-2.register {
-  animation: card-bg-2-register 1.5s both;
-}
-.auth-card .card-bg-2.login {
-  animation: card-bg-2-login 1.5s both;
-}
+.auth-card .card-bg-1.register { animation: card-bg-register 1.5s both; }
+.auth-card .card-bg-1.login    { animation: card-bg-login 1.5s both; }
+.auth-card .card-bg-2.register { animation: card-bg-2-register 1.5s both; }
+.auth-card .card-bg-2.login    { animation: card-bg-2-login 1.5s both; }
 
 /* === Logo on colored panel === */
 .auth-card .logo {
   position: absolute;
-  top: 56px;
-  z-index: 4;
-  height: 22px;
+  top: 70px;
+  z-index: 3;
+  height: 24px;
   transition: 0.3s;
   opacity: 0;
 }
 
 .auth-card .logo-1 {
   translate: -280px 0;
-  left: 48px;
+  left: 64px;
 }
 
 .auth-card .logo-2 {
   translate: 280px 0;
-  right: 48px;
+  right: 64px;
 }
 
 .auth-card .card-bg.login ~ .logo-1,
@@ -102,10 +87,10 @@
   transition: 0.3s 1.05s;
 }
 
-/* === Panel text content === */
+/* === Panel text (on colored side only) === */
 .auth-card .panel-content {
   position: absolute;
-  z-index: 4;
+  z-index: 3;
   top: 0;
   bottom: 0;
   width: 50%;
@@ -113,7 +98,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 48px;
-  padding-top: 20px;
+  padding-top: 30px;
   transition: 0.3s;
   opacity: 0;
   pointer-events: none;
@@ -121,13 +106,13 @@
 
 .auth-card .panel-content-1 {
   left: 0;
-  translate: -100px 0;
+  translate: -80px 0;
 }
 
 .auth-card .panel-content-2 {
   right: 0;
   left: auto;
-  translate: 100px 0;
+  translate: 80px 0;
   text-align: right;
 }
 
@@ -140,52 +125,22 @@
 
 .auth-card .panel-content h3 {
   color: #ffffff;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   margin-bottom: 10px;
   letter-spacing: -0.3px;
 }
 
 .auth-card .panel-content p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 13px;
   line-height: 1.7;
   font-weight: 400;
 }
 
-/* Decorative blob on panel */
-.auth-card .panel-decor {
-  position: absolute;
-  z-index: 3;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  pointer-events: none;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.auth-card .panel-decor-1 {
-  bottom: -30px;
-  left: -30px;
-  translate: -50px 0;
-}
-
-.auth-card .panel-decor-2 {
-  bottom: -30px;
-  right: -30px;
-  translate: 50px 0;
-}
-
-.auth-card .card-bg.login ~ .panel-decor-1,
-.auth-card .card-bg.register ~ .panel-decor-2 {
-  opacity: 1;
-  translate: 0;
-  transition: 0.5s 1.2s;
-}
-
-/* === Form containers === */
+/* === Form containers ===
+   KEY FIX: background: white makes the form side opaque 
+   so the colored panel and its text never bleed through */
 .auth-card .form {
   position: absolute;
   z-index: 5;
@@ -195,20 +150,21 @@
   width: 50%;
   display: grid;
   place-items: center;
+  background: #ffffff;
 }
 
 .auth-card .form h2 {
   text-align: center;
   font-weight: 800;
-  font-size: 26px;
+  font-size: 24px;
   color: #1A1D2E;
   margin-bottom: 2px;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.3px;
 }
 
 .auth-card .form .form-subtitle {
   text-align: center;
-  font-size: 13.5px;
+  font-size: 13px;
   color: #8A92A6;
   margin-bottom: 14px;
   font-weight: 400;
@@ -244,7 +200,7 @@
 }
 
 .auth-card .form .toggle-link:hover em {
-  color: var(--accent-end);
+  color: var(--accent-mid);
   text-decoration: underline;
 }
 
@@ -270,12 +226,12 @@
 
 /* === Inputs === */
 .auth-card form input {
-  width: 268px;
-  padding: 0 16px;
+  width: 260px;
+  padding: 0 14px;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
-  background: #F8F9FF;
-  border: 1.8px solid #E2E8F0;
+  background: #F7F8F9;
+  border: 1.5px solid #E2E8F0;
   outline: none;
   transition: all 0.25s ease;
   color: #1A1D2E;
@@ -283,7 +239,7 @@
 
 .auth-card form input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 0 0 3px rgba(76, 175, 110, 0.12);
   background: #ffffff;
 }
 
@@ -294,36 +250,36 @@
 
 .auth-card input,
 .auth-card button[type="submit"] {
+  border: 0;
   border-radius: 12px;
-  height: 46px;
+  height: 44px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
 }
 
 /* === Submit button === */
 .auth-card form button[type="submit"] {
-  width: 268px;
-  border: none;
+  width: 260px;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-end) 50%, var(--accent-sky) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-mid) 60%, var(--accent-end) 100%);
   letter-spacing: 1px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 2px;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 16px rgba(76, 175, 110, 0.3);
 }
 
 .auth-card form button[type="submit"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
-  filter: brightness(1.06);
+  box-shadow: 0 8px 24px rgba(76, 175, 110, 0.35);
+  filter: brightness(1.05);
 }
 
 .auth-card form button[type="submit"]:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  box-shadow: 0 4px 12px rgba(76, 175, 110, 0.2);
 }
 
 .auth-card form button[type="submit"]:disabled {
@@ -341,7 +297,7 @@
   border-radius: 10px;
   font-size: 12.5px;
   text-align: center;
-  width: 268px;
+  width: 260px;
   border: 1px solid #FCA5A5;
   animation: shake 0.4s ease-in-out;
   line-height: 1.4;
@@ -385,24 +341,23 @@
 }
 
 /* === Responsive === */
-@media (max-width: 720px) {
+@media (max-width: 700px) {
   .auth-card {
     width: 94vw;
     max-width: 440px;
     height: auto;
-    min-height: 440px;
+    min-height: 420px;
     border-radius: 24px;
   }
 
   .auth-card .card-bg {
     width: 200%;
-    height: 460px;
   }
 
   .auth-card form input,
   .auth-card form button[type="submit"],
   .auth-card .form-error {
-    width: 230px;
+    width: 220px;
   }
 
   .auth-card .panel-content {
@@ -410,11 +365,6 @@
     padding-top: 10px;
   }
 
-  .auth-card .panel-content h3 {
-    font-size: 18px;
-  }
-
-  .auth-card .panel-content p {
-    font-size: 12px;
-  }
+  .auth-card .panel-content h3 { font-size: 17px; }
+  .auth-card .panel-content p { font-size: 11px; }
 }
