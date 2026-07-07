@@ -21,30 +21,6 @@ const LogoGroup = () => (
   </>
 );
 
-const PanelContent = () => (
-  <>
-    <div className="panel-content panel-content-1">
-      <h3>Welcome Back!</h3>
-      <p>
-        Sign in to track your meals, monitor 
-        your progress, and stay on top of 
-        your nutrition goals.
-      </p>
-    </div>
-    <div className="panel-decor panel-decor-1"></div>
-
-    <div className="panel-content panel-content-2">
-      <h3>Join NutriPlan</h3>
-      <p>
-        Create your personalized meal plan, 
-        get smart recommendations, and build 
-        healthier eating habits.
-      </p>
-    </div>
-    <div className="panel-decor panel-decor-2"></div>
-  </>
-);
-
 const LoginForm = ({ view, toggleView }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,12 +46,11 @@ const LoginForm = ({ view, toggleView }) => {
   return (
     <div className={`form login ${view === 'login' ? 'active' : ''}`}>
       <form onSubmit={handleSubmit}>
-        <h2>Sign In</h2>
-        <p className="form-subtitle">Enter your credentials to continue</p>
+        <h2>Login</h2>
         {error && <div className="form-error">{error}</div>}
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -90,10 +65,10 @@ const LoginForm = ({ view, toggleView }) => {
           autoComplete="current-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'SIGNING IN...' : 'SIGN IN'}
+          {isSubmitting ? 'LOGGING IN...' : 'LOGIN'}
         </button>
         <span className="toggle-link" onClick={toggleView}>
-          Don't have an account? <em>Create one</em>
+          Don't have an account? <em>Register here</em>
         </span>
       </form>
     </div>
@@ -126,12 +101,11 @@ const RegisterForm = ({ view, toggleView }) => {
   return (
     <div className={`form register ${view === 'register' ? 'active' : ''}`}>
       <form onSubmit={handleSubmit}>
-        <h2>Get Started</h2>
-        <p className="form-subtitle">Create your free account</p>
+        <h2>Register</h2>
         {error && <div className="form-error">{error}</div>}
         <input
           type="text"
-          placeholder="Full name"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -139,7 +113,7 @@ const RegisterForm = ({ view, toggleView }) => {
         />
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -147,7 +121,7 @@ const RegisterForm = ({ view, toggleView }) => {
         />
         <input
           type="password"
-          placeholder="Create password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           minLength={6}
@@ -155,10 +129,10 @@ const RegisterForm = ({ view, toggleView }) => {
           autoComplete="new-password"
         />
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'CREATING...' : 'CREATE ACCOUNT'}
+          {isSubmitting ? 'REGISTERING...' : 'REGISTER'}
         </button>
         <span className="toggle-link" onClick={toggleView}>
-          Already have an account? <em>Sign in</em>
+          Already have an account? <em>Login here</em>
         </span>
       </form>
     </div>
@@ -174,7 +148,6 @@ const AuthPage = () => {
       <div className="auth-card">
         <CardBackground view={view} />
         <LogoGroup />
-        <PanelContent />
         <LoginForm view={view} toggleView={toggleView} />
         <RegisterForm view={view} toggleView={toggleView} />
       </div>
