@@ -1,43 +1,86 @@
+/* =====================================================
+   SIDEBAR — Dark Olive Design (Stitch)
+   ===================================================== */
+
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   width: 240px;
-  background: #ffffff;
-  border-right: 1px solid #EAEDF3;
+  background: #2C2C1E;
   display: flex;
   flex-direction: column;
   z-index: 100;
   overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.2) transparent;
 }
 
-/* Logo */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(201,168,76,0.2);
+  border-radius: 999px;
+}
+
+/* --- Logo --- */
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 24px 24px 20px;
+  gap: 12px;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
 }
 
-.sidebar-logo-icon {
-  font-size: 24px;
+.sidebar-logo-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(201,168,76,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-fork {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.sidebar-logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .sidebar-logo-text {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1A1D2E;
-  letter-spacing: -0.5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #F5F0E8;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
 }
 
-/* Navigation */
+.sidebar-logo-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: #7A7060;
+  letter-spacing: 0.2px;
+}
+
+/* --- Navigation --- */
 .sidebar-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 8px 12px 20px;
+  padding: 12px 10px 16px;
+  gap: 4px;
 }
 
 .sidebar-nav-group {
@@ -46,59 +89,76 @@
   gap: 2px;
 }
 
+.sidebar-nav-bottom {
+  margin-top: auto;
+}
+
+/* --- Nav Items --- */
 .sidebar-nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  height: 44px;
-  padding: 0 16px;
-  border-radius: 10px;
-  font-size: 14px;
+  gap: 11px;
+  height: 42px;
+  padding: 0 13px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 500;
-  color: #8A92A6;
+  color: #B5A898;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, border-left-color 0.15s ease;
   cursor: pointer;
   border: none;
+  border-left: 3px solid transparent;
   background: none;
   width: 100%;
   font-family: inherit;
+  letter-spacing: 0.1px;
 }
 
 .sidebar-nav-item:hover {
-  background: #F7F8FC;
-  color: #1A1D2E;
+  background: rgba(201,168,76,0.08);
+  color: #F5F0E8;
 }
 
 .sidebar-nav-item.active {
-  background: #E8F5EE;
-  color: #4CAF6E;
+  border-left: 3px solid #C9A84C;
+  color: #C9A84C;
+  background: rgba(201,168,76,0.12);
   font-weight: 600;
-  border-left: 3px solid #4CAF6E;
 }
 
+/* --- Icons --- */
 .sidebar-nav-icon {
-  font-size: 18px;
-  width: 22px;
+  font-size: 16px;
+  width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  line-height: 1;
 }
 
 .sidebar-nav-label {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Divider */
+/* --- Divider --- */
 .sidebar-divider {
   height: 1px;
-  background: #EAEDF3;
-  margin: 12px 16px;
+  background: rgba(255,255,255,0.08);
+  margin: 10px 4px;
 }
 
-/* Logout */
+/* --- Logout --- */
+.sidebar-logout {
+  text-align: left;
+  margin-top: 2px;
+}
+
 .sidebar-logout:hover {
-  background: #FFF0F0;
-  color: #FF5757;
+  background: rgba(217,83,79,0.15);
+  color: #D9534F !important;
+  border-left-color: transparent !important;
 }

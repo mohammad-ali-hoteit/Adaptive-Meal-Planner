@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Your Weight</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f1",
+                        "primary-fixed": "#ffe08b",
+                        "surface-container-low": "#fcf3e1",
+                        "tertiary": "#00687c",
+                        "on-surface-variant": "#4e4633",
+                        "surface-variant": "#ebe1d1",
+                        "on-tertiary-container": "#005e70",
+                        "outline": "#807660",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#f5c518",
+                        "on-primary-container": "#695200",
+                        "background": "#fff8f1",
+                        "surface-dim": "#e2d9c8",
+                        "primary-fixed-dim": "#f0c110",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "tertiary-container": "#49dbff",
+                        "outline-variant": "#d1c5ac",
+                        "on-secondary-fixed": "#25005a",
+                        "secondary": "#712ae2",
+                        "tertiary-fixed-dim": "#42d7fb",
+                        "inverse-primary": "#f0c110",
+                        "surface-tint": "#745b00",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "on-background": "#1f1b11",
+                        "surface-bright": "#fff8f1",
+                        "on-tertiary-fixed": "#001f27",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-fixed": "#241a00",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#eaddff",
+                        "tertiary-fixed": "#b0ecff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#f1e7d6",
+                        "primary": "#745b00",
+                        "on-surface": "#1f1b11",
+                        "secondary-container": "#8a4cfc",
+                        "inverse-on-surface": "#f9f0de",
+                        "inverse-surface": "#353025",
+                        "surface-container-highest": "#ebe1d1",
+                        "on-primary-fixed-variant": "#584400",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#f6eddc",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "topbar_height": "72px",
+                        "sidebar_collapsed": "72px",
+                        "xl": "32px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "sidebar_expanded": "240px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-auth-cta": ["Inter"],
+                        "caption": ["Inter"],
+                        "display-stat": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-nav": ["Inter"],
+                        "label-button": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["17px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-auth-cta": ["15px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "caption": ["11px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "display-stat": ["30px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "body-lg": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-nav": ["13px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "label-button": ["15px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-md": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Entrance Animation for Onboarding Card */
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-entrance {
+            animation: slideUpFade 0.55s ease forwards;
+        }
+
+        /* Hide number input spinners */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex items-center justify-center p-md overflow-x-hidden relative">
+<!-- Ambient Background Blobs (Auth Style) -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0 flex justify-center items-center opacity-30">
+<div class="absolute w-[600px] h-[600px] bg-primary-container rounded-full mix-blend-multiply filter blur-[100px] animate-[spin_30s_linear_infinite] translate-x-1/4 -translate-y-1/4"></div>
+<div class="absolute w-[500px] h-[500px] bg-secondary-container rounded-full mix-blend-multiply filter blur-[100px] animate-[spin_25s_linear_infinite_reverse] -translate-x-1/4 translate-y-1/4"></div>
+</div>
+<!-- Onboarding Card Content -->
+<main class="w-full max-w-md bg-surface-container-lowest rounded-[24px] border-[1.5px] border-outline-variant shadow-[0_8px_32px_rgba(0,0,0,0.04)] p-xl relative z-10 animate-entrance flex flex-col items-center">
+<!-- Progress Indicator -->
+<div class="w-full flex flex-col gap-sm mb-lg">
+<div class="w-full flex justify-between items-center">
+<span class="font-label-auth-cta text-label-auth-cta text-on-surface-variant tracking-wide uppercase text-[12px]">Step 3 of 8</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 37.5%;"></div>
+</div>
+</div>
+<!-- Header -->
+<h1 class="font-headline-lg text-headline-lg text-on-surface text-center mb-xl">What's your current weight?</h1>
+<!-- Visual Representation -->
+<div class="relative w-full h-64 flex justify-center items-center mb-lg">
+<img class="h-full w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmqEdecDH6kG8EY1IuZ1iWgqq7A_PlTH_mcpnoWqGLd87Ajf_eO8hSr3ejUkRJzBHZunOYwggJiet6UuzG7XV605wde_nSQwvtFwsWwZjjjaNyGuG4SC_o2-2LCofsQNln6gXmwAsemZM3LOrqsKeORXCR06h-Lbv9RmnWm5cgtYFRNO7rCaa79ce1kVAWFmJ7vCYxKENWXkK-fMfmX8fVe0lqQjKoYe_gMEwL78LBtxXYks-rqzKAVg"/>
+</div>
+<!-- Input Area -->
+<div class="w-full flex flex-col items-center gap-md">
+<div class="relative flex items-end justify-center gap-sm">
+<input class="w-32 bg-surface-bright border-[1.8px] border-outline-variant rounded-xl text-center font-display-stat text-display-stat text-on-surface py-md focus:outline-none focus:border-secondary focus:ring-4 focus:ring-secondary/20 transition-all duration-200" placeholder="0" type="number" value="75"/>
+<span class="font-title-sm text-title-sm text-on-surface-variant pb-md">kg</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant text-center">You can update this later in your profile.</p>
+</div>
+<!-- Actions -->
+<div class="w-full flex items-center justify-between mt-xl pt-md border-t border-outline-variant/30">
+<button class="font-label-button text-label-button text-on-surface-variant hover:text-on-surface py-2 px-md transition-colors flex items-center gap-xs rounded-lg hover:bg-surface-variant/50">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+                Back
+            </button>
+<!-- Auth CTA Style Button -->
+<button class="bg-gradient-to-r from-secondary to-tertiary-container text-on-secondary font-label-auth-cta text-label-auth-cta py-3 px-xl rounded-[14px] shadow-[0_8px_16px_rgba(113,42,226,0.25)] hover:shadow-[0_12px_20px_rgba(113,42,226,0.35)] transition-all duration-200 hover:-translate-y-1 flex items-center gap-xs">
+                Continue
+                <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

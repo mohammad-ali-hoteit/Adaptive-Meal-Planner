@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Custom Meal - Adaptive Meal Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001f27",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#745b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "background": "#fff8f1",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#745b00",
+                        "on-background": "#1f1b11",
+                        "outline-variant": "#d1c5ac",
+                        "on-surface": "#1f1b11",
+                        "inverse-primary": "#f0c110",
+                        "surface-container-high": "#f1e7d6",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#f0c110",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#353025",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-primary-container": "#695200",
+                        "inverse-on-surface": "#f9f0de",
+                        "tertiary-container": "#49dbff",
+                        "primary-fixed": "#ffe08b",
+                        "surface": "#fff8f1",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#ebe1d1",
+                        "on-secondary-fixed": "#25005a",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface-variant": "#4e4633",
+                        "surface-dim": "#e2d9c8",
+                        "secondary-fixed": "#eaddff",
+                        "outline": "#807660",
+                        "on-tertiary-container": "#005e70",
+                        "tertiary": "#00687c",
+                        "surface-container-low": "#fcf3e1",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#712ae2",
+                        "surface-bright": "#fff8f1",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#42d7fb",
+                        "secondary-container": "#8a4cfc",
+                        "surface-container-highest": "#ebe1d1",
+                        "surface-container": "#f6eddc",
+                        "primary-container": "#f5c518",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "tertiary-fixed": "#b0ecff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "sidebar_collapsed": "72px",
+                        "topbar_height": "72px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "sidebar_expanded": "240px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-stat": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-auth-cta": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "label-nav": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-button": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-stat": ["30px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "body-md": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-auth-cta": ["15px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "title-sm": ["17px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-nav": ["13px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "body-lg": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-button": ["15px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom Input Styles based on guidelines */
+        .custom-input {
+            background-color: #F7F8FC;
+            border: 1.5px solid #EAEDF3;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .custom-input:focus {
+            border-color: #745b00; /* Primary Gold */
+            box-shadow: 0 0 0 2px rgba(116, 91, 0, 0.1);
+            outline: none;
+        }
+        
+        /* Card Elevate on Hover */
+        .card-elevate {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-elevate:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top Bar (Visible only on mobile) -->
+<div class="md:hidden flex items-center justify-between p-md border-b border-outline-variant bg-surface sticky top-0 z-30">
+<div class="font-headline-md text-headline-md text-primary font-bold">Adaptive Planner</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- SideNavBar (Web Only) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-sidebar_expanded z-40 transition-all duration-300 border-r border-outline-variant bg-surface p-md">
+<div class="mb-xl flex items-center gap-sm">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, stylized logo icon representing a healthy green leaf and a modern fork, rendered in minimalist vector style on a transparent background, suitable for a health tech app logo mark." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3b3eTd7sNdbZnwBSSShoKO5iPob8L2OKQBe4DqkH9SEcGcgUISBd8seuKTNReadAkkgaZCg3LUh7pkho46RBj97YR0J72VFJFk-sH3so7Rar5vSbNFp3aqRrjTb0uTmKZl2Xe0nCa7x_J0CV4vLF-2WMPUCrTP6DcQFQWARLZQi1emS0ZEzYmSswgmHbjYDSGUPMI1yzQaXjbDYr6gRvF7CorY7mnjRTY00oKHZQ5nhnFALcAfe_mdQ"/>
+<div>
+<div class="font-headline-md text-headline-md text-primary font-bold">Adaptive Planner</div>
+<div class="font-caption text-caption text-on-surface-variant">Nutrition System</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2 font-label-nav text-label-nav">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+                Today's Meals
+            </a>
+<a class="flex items-center gap-sm px-md py-sm bg-surface-container-low text-primary font-bold rounded-lg hover:bg-surface-container-high transition-all duration-200" href="#" style="background-color: #FFF3B0; color: #D4A800;">
+<span class="material-symbols-outlined icon-fill">add_circle</span>
+                Add Custom Meal
+            </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                Weekly Plan
+            </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+                Progress
+            </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+                History
+            </a>
+<div class="mt-auto pt-lg border-t border-outline-variant space-y-2">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">person</span>
+                    Profile
+                </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar_expanded min-h-screen flex flex-col relative pb-20 md:pb-0">
+<!-- TopNavBar (Web Only) -->
+<header class="hidden md:flex fixed top-0 right-0 h-topbar_height z-30 flex items-center justify-between px-lg w-[calc(100%-240px)] ml-auto bg-surface border-b border-outline-variant">
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface">Add Custom Meal</div>
+<div class="flex items-center gap-md">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="custom-input w-full pl-10 pr-4 py-2 rounded-full font-body-md text-body-md" placeholder="Search database..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant cursor-pointer hover:opacity-80 transition-opacity" data-alt="A clear, professional headshot of a young professional smiling slightly, wearing a casual light blue shirt, against a soft gray studio background, suitable for a high-end application profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmfrCQ1VyfmufNiBPLt9CCVAm-NLGH3d7j40CSKn4oREwyVBNC2PG3DTkC_plrGUhCtEvj8Xffi-O4mj6XsObcQAuipjTkkAKwVCXi5uy4RzoBbIEMBVPZSfqx2SNLH_Gl8rgPdvRsdd34Sa7H98Xiq0AP52e-l4tHvonnXFup2PGqGfvyk97yTGyUnSHKf2X76fGN1A65Q1OusUnIAyNKZXVCRvDjUEeBfcfFYcVWg3QF7-K8RadV6w"/>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-md md:p-lg md:pt-[calc(72px+24px)] flex-1 max-w-4xl mx-auto w-full">
+<div class="md:hidden font-headline-lg text-headline-lg font-bold text-on-surface mb-lg">Add Custom Meal</div>
+<!-- Warning Banner -->
+<div class="bg-error-container text-on-error-container p-md rounded-lg flex items-start gap-md mb-lg border border-[#f5b8b5]">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<h4 class="font-title-sm text-title-sm font-semibold text-error">Warning: Target Exceeded</h4>
+<p class="font-body-md text-body-md mt-1">This meal exceeds your remaining daily calorie target by 240 kcal. Consider reducing portion sizes.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Left Column: Inputs -->
+<div class="lg:col-span-2 space-y-lg">
+<!-- Basic Info Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<div class="space-y-md">
+<div>
+<label class="block font-label-button text-label-button text-on-surface mb-sm">Meal Name</label>
+<input class="custom-input w-full px-4 py-3 rounded-lg font-body-lg text-body-lg" placeholder="e.g., Avocado Toast with Eggs" type="text" value="Post-Workout Avocado Toast"/>
+</div>
+<div>
+<label class="block font-label-button text-label-button text-on-surface mb-sm">Meal Slot</label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="slot" type="radio"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary peer-checked:font-semibold transition-all hover:bg-surface-container-high">Breakfast</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="slot" type="radio"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary peer-checked:font-semibold transition-all hover:bg-surface-container-high">Lunch</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="slot" type="radio"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary peer-checked:font-semibold transition-all hover:bg-surface-container-high">Dinner</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="slot" type="radio"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary peer-checked:font-semibold transition-all hover:bg-surface-container-high">Snack</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Ingredients Builder Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">kitchen</span>
+                            Ingredients
+                        </h3>
+<!-- Ingredient Search -->
+<div class="relative mb-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="custom-input w-full pl-10 pr-4 py-3 rounded-lg font-body-md text-body-md" placeholder="Search to add ingredient..." type="text"/>
+</div>
+<!-- Added Ingredients List -->
+<div class="space-y-sm">
+<!-- Row 1 -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-md p-md bg-surface-container rounded-lg border border-outline-variant card-elevate">
+<div class="flex-1 flex items-center gap-md">
+<div class="w-10 h-10 rounded-md overflow-hidden bg-white flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of a sliced whole wheat bread piece against a pure white background, high quality food photography with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk57NQfyaDXsBcZWZy6zQtVBLtRmDlwzl0bkCA_45BW3IU7URdHNi3Psr1SM2zbcX4tX9EadCE9KpoUJCmuAd7VzLlMuytCbbMZ3iNlxmtYOX3Ghynq8Dqz-U_n290nYFXRDSGpnFbObksYVNveF2rqojuWbEX0hrRKEYW66L3LutDoXTjC5oxzO8NgWOOOFSiRcWDyEmS40YGMkI9Esl3FW9W0f_NwtBaLnj-r34rl86qQS8ddZylw"/>
+</div>
+<div>
+<div class="font-label-button text-label-button text-on-surface">Whole Wheat Bread</div>
+<div class="font-caption text-caption text-on-surface-variant">80 kcal / slice</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-2">
+<input class="custom-input w-16 text-center py-1.5 rounded-md font-body-md" type="number" value="2"/>
+<span class="font-body-md text-on-surface-variant">slices</span>
+</div>
+<div class="text-right w-16 hidden sm:block">
+<div class="font-label-button text-label-button">160</div>
+<div class="font-caption text-caption text-on-surface-variant">kcal</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-md p-md bg-surface-container rounded-lg border border-outline-variant card-elevate">
+<div class="flex-1 flex items-center gap-md">
+<div class="w-10 h-10 rounded-md overflow-hidden bg-white flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of fresh green avocado halves against a pure white background, high quality food photography with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD77YJQWmFJEE3EAZknJhKFsxvuyLQZwte961GHTub3cIY47o8-N3BkObTjJOx6C_xPXnbzAjB03_PRIQCV2uSCGCoPgQoHtMIzE8g0HyjXYGweXkxUYWsNHMI6zScXMfotJWTlSV22yew5qMmCT32V3YTx4VscLjm-FjS8XGPeZzllSe9qUeSubAqS10BBrgt9DTatZrd96Mphbrs7k-Q_yyHLN4uZA907qNYx2W50UVRIznp5kZtb0w"/>
+</div>
+<div>
+<div class="font-label-button text-label-button text-on-surface">Hass Avocado</div>
+<div class="font-caption text-caption text-on-surface-variant">1.6 kcal / gram</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-2">
+<input class="custom-input w-20 text-center py-1.5 rounded-md font-body-md" type="number" value="100"/>
+<span class="font-body-md text-on-surface-variant">g</span>
+</div>
+<div class="text-right w-16 hidden sm:block">
+<div class="font-label-button text-label-button">160</div>
+<div class="font-caption text-caption text-on-surface-variant">kcal</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-md p-md bg-surface-container rounded-lg border border-outline-variant card-elevate">
+<div class="flex-1 flex items-center gap-md">
+<div class="w-10 h-10 rounded-md overflow-hidden bg-white flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of two brown eggs against a pure white background, high quality food photography with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMPkloe3UaLaGr-5CZLxuN9fePLBVAzRiCrE2X397af0Gh6mSHW53pd-vrF4hBFQ42oA_BEjF7Nsmm7fACAJFOozyITfZFmLhiJQzxKTOilF552Aerg6OXs3gBXlgamRLp-coGDviwOCqyc8gyRxnwdbqZen4MBJMAxa-cbGUuMhPTlFiqZoeevty3sOjDEDawOWrVSJ2CNCkyaFrf1yG4qAHljpMMOPlL612N5K4ZMQr-WXNkyTd7cA"/>
+</div>
+<div>
+<div class="font-label-button text-label-button text-on-surface">Large Egg</div>
+<div class="font-caption text-caption text-on-surface-variant">72 kcal / large</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-2">
+<input class="custom-input w-16 text-center py-1.5 rounded-md font-body-md" type="number" value="2"/>
+<span class="font-body-md text-on-surface-variant">large</span>
+</div>
+<div class="text-right w-16 hidden sm:block">
+<div class="font-label-button text-label-button">144</div>
+<div class="font-caption text-caption text-on-surface-variant">kcal</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary Box -->
+<div class="lg:col-span-1">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm sticky top-[100px]">
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface mb-md">Nutrition Total</h3>
+<div class="flex justify-between items-end mb-lg pb-lg border-b border-outline-variant">
+<div>
+<div class="font-caption text-caption text-on-surface-variant uppercase tracking-wider mb-1">Total Calories</div>
+<div class="font-display-stat text-display-stat text-error">464 <span class="text-body-lg text-on-surface-variant font-normal">/ 224 left</span></div>
+</div>
+</div>
+<div class="space-y-md mb-xl">
+<!-- Macro Progress -->
+<div>
+<div class="flex justify-between font-label-nav text-label-nav mb-xs">
+<span class="text-on-surface">Protein</span>
+<span class="text-primary font-bold">22g</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-nav text-label-nav mb-xs">
+<span class="text-on-surface">Carbs</span>
+<span class="text-secondary font-bold">36g</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-nav text-label-nav mb-xs">
+<span class="text-on-surface">Fat</span>
+<span class="text-tertiary font-bold">26g</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-tertiary h-2 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-[#D4A800] text-on-primary font-label-button text-label-button py-3 px-4 rounded-lg transition-all duration-200 shadow-md hover:-translate-y-px flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">check_circle</span>
+                            Confirm &amp; Add Meal
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation Shell (Visible only on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant pb-safe z-40 flex justify-around items-center h-16 px-2">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] mt-1 font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="text-[10px] mt-1 font-medium">Meals</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<div class="bg-primary-container px-4 py-1 rounded-full mb-1">
+<span class="material-symbols-outlined icon-fill">add_circle</span>
+</div>
+<span class="text-[10px] font-bold">Add</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-[10px] mt-1 font-medium">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] mt-1 font-medium">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,157 +1,334 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/logo.svg';
 import './AuthPage.css';
 
-const CardBackground = ({ view }) => {
-  const bgClass = view === 'login' ? 'register' : 'login';
+/* =====================================================
+   AuthPage — Stitch "Kinetic Gold" Design
+   Two-card layout: info card (left) + form card (right)
+   ===================================================== */
+
+const AuthPage = () => {
+  const location = useLocation();
+  const initialView = location.pathname === '/register' ? 'register' : 'login';
+  const [view, setView] = useState(initialView);
+
   return (
-    <>
-      <div className={`card-bg card-bg-1 ${bgClass}`}></div>
-      <div className={`card-bg card-bg-2 ${bgClass}`}></div>
-    </>
+    <div className="auth-page">
+      {/* Background blobs */}
+      <svg className="auth-blob-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path
+          d="M42.5,-73.4C54.8,-66.5,64.4,-53.4,72.4,-39.9C80.4,-26.4,86.8,-12.5,85.6,0.9C84.4,14.3,75.6,27.1,65.6,37.3C55.6,47.5,44.4,55.1,31.7,62.1C19,69.1,4.8,75.5,-8.4,73.5C-21.6,71.5,-33.8,61.1,-46.3,50.7C-58.8,40.3,-71.6,29.9,-77.3,16.4C-83,2.9,-81.6,-13.7,-74.6,-28.1C-67.6,-42.5,-55,-54.7,-41.2,-61.2C-27.4,-67.7,-12.4,-68.5,1.9,-71.4C16.2,-74.3,30.2,-80.3,42.5,-73.4Z"
+          fill="#F5C518"
+          opacity="0.08"
+          transform="translate(800 200) scale(2)"
+        />
+        <path
+          d="M37.3,-58.5C48.8,-49.5,58.8,-38.3,64.2,-25C69.6,-11.7,70.4,3.7,66.6,18.1C62.8,32.5,54.4,45.9,42.6,54.2C30.8,62.5,15.4,65.7,0.8,64.5C-13.8,63.3,-27.6,57.7,-38.6,48.5C-49.6,39.3,-57.8,26.5,-62.4,12.5C-67,-1.5,-68,-16.7,-61.4,-29C-54.8,-41.3,-40.6,-50.7,-27.1,-58.4C-13.6,-66.1,-1,-72.1,12.2,-70.5C25.4,-68.9,38.6,-59.7,37.3,-58.5Z"
+          fill="#8B7BC8"
+          opacity="0.06"
+          transform="translate(200 800) scale(2)"
+        />
+      </svg>
+
+      <div className="auth-cards-row">
+        {/* ---- INFO CARD (left) ---- */}
+        <div className="auth-info-card auth-entry">
+          <div className="auth-info-icon-wrap">
+            <span className="auth-info-icon" aria-hidden="true">🍴</span>
+          </div>
+          <h1 className="auth-info-title">Adaptive Meal Planner</h1>
+          <p className="auth-info-desc">
+            Your personalized nutrition system — intelligent tracking,
+            adaptive planning, and seamless progress all in one place.
+          </p>
+          <div className="auth-info-features">
+            {[
+              { icon: '📊', text: 'AI-powered macro targets' },
+              { icon: '📅', text: 'Schedule-aware meal timing' },
+              { icon: '📈', text: 'Real-time progress tracking' },
+            ].map((f) => (
+              <div key={f.text} className="auth-info-feature">
+                <span className="auth-info-feature-icon">{f.icon}</span>
+                <span className="auth-info-feature-text">{f.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ---- FORM CARD (right) ---- */}
+        <div className="auth-form-card auth-entry" style={{ animationDelay: '0.15s' }}>
+          {view === 'login'
+            ? <LoginForm onSwitch={() => setView('register')} />
+            : <RegisterForm onSwitch={() => setView('login')} />
+          }
+        </div>
+      </div>
+    </div>
   );
 };
 
-const LogoGroup = () => (
-  <>
-    <img className="logo logo-1" src={logo} alt="NutriPlan" />
-    <img className="logo logo-2" src={logo} alt="NutriPlan" />
-  </>
-);
-
-const LoginForm = ({ view, toggleView }) => {
+/* =====================================================
+   LOGIN FORM
+   ===================================================== */
+const LoginForm = ({ onSwitch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setIsSubmitting(true);
+    setLoading(true);
     try {
       const data = await login(email, password);
-      navigate(data.user.isOnboarded ? '/dashboard' : '/onboarding');
+      navigate(data.user?.isOnboarded ? '/dashboard' : '/onboarding');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className={`form login ${view === 'login' ? 'active' : ''}`}>
-      <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        {error && <div className="form-error">{error}</div>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          autoComplete="current-password"
-        />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'LOGGING IN...' : 'LOGIN'}
+    <>
+      <div className="auth-form-header">
+        <h2 className="auth-form-title">Sign In</h2>
+        <p className="auth-form-subtitle">Enter your details to access your dashboard.</p>
+      </div>
+
+      {error && (
+        <div className="auth-error" role="alert">{error}</div>
+      )}
+
+      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+        {/* Email */}
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="login-email">Email Address</label>
+          <input
+            id="login-email"
+            className="auth-input"
+            type="email"
+            placeholder="name@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+        </div>
+
+        {/* Password */}
+        <div className="auth-field">
+          <div className="auth-label-row">
+            <label className="auth-label" htmlFor="login-password">Password</label>
+            <a href="#" className="auth-forgot-link" onClick={(e) => e.preventDefault()}>
+              Forgot password?
+            </a>
+          </div>
+          <div className="auth-input-wrap">
+            <input
+              id="login-password"
+              className="auth-input auth-input-pw"
+              type={showPw ? 'text' : 'password'}
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              className="auth-pw-toggle"
+              onClick={() => setShowPw(!showPw)}
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? '🙈' : '👁️'}
+            </button>
+          </div>
+        </div>
+
+        {/* Remember me */}
+        <div className="auth-remember">
+          <input
+            id="login-remember"
+            type="checkbox"
+            className="auth-checkbox"
+            checked={remember}
+            onChange={(e) => setRemember(e.target.checked)}
+          />
+          <label htmlFor="login-remember" className="auth-remember-label">
+            Remember me for 30 days
+          </label>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="auth-submit-btn"
+          disabled={loading}
+          id="login-submit-btn"
+        >
+          {loading ? (
+            <span className="auth-spinner" />
+          ) : (
+            <>Sign In <span aria-hidden="true">→</span></>
+          )}
         </button>
-        <span className="toggle-link" onClick={toggleView}>
-          Don't have an account? <em>Register here</em>
-        </span>
       </form>
-    </div>
+
+      {/* Divider */}
+      <div className="auth-divider">
+        <div className="auth-divider-line" />
+        <span className="auth-divider-text">Or continue with</span>
+        <div className="auth-divider-line" />
+      </div>
+
+      {/* SSO Buttons */}
+      <div className="auth-sso-row">
+        <button type="button" className="auth-sso-btn" id="google-sso-btn">
+          <span className="auth-sso-icon" aria-hidden="true">G</span>
+          <span>Google</span>
+        </button>
+        <button type="button" className="auth-sso-btn" id="apple-sso-btn">
+          <span className="auth-sso-icon" aria-hidden="true">🍎</span>
+          <span>Apple</span>
+        </button>
+      </div>
+
+      {/* Switch to register */}
+      <p className="auth-switch-text">
+        Don't have an account?{' '}
+        <button type="button" className="auth-switch-link" onClick={onSwitch} id="switch-to-register-btn">
+          Sign up now
+        </button>
+      </p>
+    </>
   );
 };
 
-const RegisterForm = ({ view, toggleView }) => {
+/* =====================================================
+   REGISTER FORM
+   ===================================================== */
+const RegisterForm = ({ onSwitch }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setIsSubmitting(true);
+    setLoading(true);
     try {
       await register(name, email, password);
       navigate('/onboarding');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className={`form register ${view === 'register' ? 'active' : ''}`}>
-      <form onSubmit={handleSubmit}>
-        <h2>Register</h2>
-        {error && <div className="form-error">{error}</div>}
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          autoComplete="name"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          minLength={6}
-          required
-          autoComplete="new-password"
-        />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'REGISTERING...' : 'REGISTER'}
-        </button>
-        <span className="toggle-link" onClick={toggleView}>
-          Already have an account? <em>Login here</em>
-        </span>
-      </form>
-    </div>
-  );
-};
-
-const AuthPage = () => {
-  const [view, setView] = useState('login');
-  const toggleView = () => setView(view === 'login' ? 'register' : 'login');
-
-  return (
-    <section className="page auth-page">
-      <div className="auth-card">
-        <CardBackground view={view} />
-        <LogoGroup />
-        <LoginForm view={view} toggleView={toggleView} />
-        <RegisterForm view={view} toggleView={toggleView} />
+    <>
+      <div className="auth-form-header">
+        <h2 className="auth-form-title">Create Account</h2>
+        <p className="auth-form-subtitle">Join thousands getting smarter about nutrition.</p>
       </div>
-    </section>
+
+      {error && (
+        <div className="auth-error" role="alert">{error}</div>
+      )}
+
+      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+        {/* Name */}
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="reg-name">Full Name</label>
+          <input
+            id="reg-name"
+            className="auth-input"
+            type="text"
+            placeholder="Alex Johnson"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            autoComplete="name"
+          />
+        </div>
+
+        {/* Email */}
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="reg-email">Email Address</label>
+          <input
+            id="reg-email"
+            className="auth-input"
+            type="email"
+            placeholder="name@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+        </div>
+
+        {/* Password */}
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="reg-password">Password</label>
+          <div className="auth-input-wrap">
+            <input
+              id="reg-password"
+              className="auth-input auth-input-pw"
+              type={showPw ? 'text' : 'password'}
+              placeholder="Min. 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={6}
+              required
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              className="auth-pw-toggle"
+              onClick={() => setShowPw(!showPw)}
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? '🙈' : '👁️'}
+            </button>
+          </div>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="auth-submit-btn"
+          disabled={loading}
+          id="register-submit-btn"
+        >
+          {loading ? (
+            <span className="auth-spinner" />
+          ) : (
+            <>Create Account <span aria-hidden="true">→</span></>
+          )}
+        </button>
+      </form>
+
+      {/* Switch to login */}
+      <p className="auth-switch-text" style={{ marginTop: '24px' }}>
+        Already have an account?{' '}
+        <button type="button" className="auth-switch-link" onClick={onSwitch} id="switch-to-login-btn">
+          Sign in
+        </button>
+      </p>
+    </>
   );
 };
 

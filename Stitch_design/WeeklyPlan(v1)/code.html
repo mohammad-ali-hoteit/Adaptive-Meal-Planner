@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weekly Plan - Adaptive Meal Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001f27",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#745b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "background": "#fff8f1",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#745b00",
+                        "on-background": "#1f1b11",
+                        "outline-variant": "#d1c5ac",
+                        "on-surface": "#1f1b11",
+                        "inverse-primary": "#f0c110",
+                        "surface-container-high": "#f1e7d6",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#f0c110",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#353025",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-primary-container": "#695200",
+                        "inverse-on-surface": "#f9f0de",
+                        "tertiary-container": "#49dbff",
+                        "primary-fixed": "#ffe08b",
+                        "surface": "#fff8f1",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#ebe1d1",
+                        "on-secondary-fixed": "#25005a",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface-variant": "#4e4633",
+                        "surface-dim": "#e2d9c8",
+                        "secondary-fixed": "#eaddff",
+                        "outline": "#807660",
+                        "on-tertiary-container": "#005e70",
+                        "tertiary": "#00687c",
+                        "surface-container-low": "#fcf3e1",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#712ae2",
+                        "surface-bright": "#fff8f1",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#42d7fb",
+                        "secondary-container": "#8a4cfc",
+                        "surface-container-highest": "#ebe1d1",
+                        "surface-container": "#f6eddc",
+                        "primary-container": "#f5c518",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "tertiary-fixed": "#b0ecff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card": "16px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "sidebar_collapsed": "72px",
+                        "topbar_height": "72px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "sidebar_expanded": "240px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-stat": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-auth-cta": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "label-nav": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-button": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-stat": ["30px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "body-md": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-auth-cta": ["15px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "title-sm": ["17px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-nav": ["13px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "body-lg": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-button": ["15px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #fff8f1; }
+        .card-border { border: 1.5px solid #EAEDF3; }
+        .interactive-card { transition: all 0.2s ease; }
+        .interactive-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="font-body-md text-on-surface min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-sidebar_expanded z-40 transition-all duration-300 border-r border-outline-variant bg-surface flex flex-col h-full p-md hidden md:flex">
+<div class="flex items-center gap-3 mb-8 px-2">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A clean, minimalist abstract logo for a modern health and fitness application, using soft gradient colors in an energetic gold and navy palette on a light background. Smooth edges, crisp vector style graphic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBaV4IaAQq8XxqurDUSYMGgT8sUIgwkHiHtYsl9ZP2WpLgPUW5a6QE948tQmFS2pUVw1ZqCXr9F92gmgflG0nfRMYwwW3FMuzqeHzcPIcg4rWlwyiJPzkSD4E_ltHnH4Atkq26PXZXoAz_pcAyPFi-PDGCMHKHSArHww_jgdkuL1XkEFWzwO8joEMEyjyeNaRvlhHToIKNFHXaRm7riL_6_tIpi-agHgzCTu18X1eC3nPVf11JQAcOjw"/>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Adaptive Planner</h1>
+<p class="font-caption text-caption text-on-surface-variant">Nutrition System</p>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="font-label-nav text-label-nav">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">restaurant</span>
+<span class="font-label-nav text-label-nav">Today's Meals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+<span class="font-label-nav text-label-nav">Add Custom Meal</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-low text-primary font-bold transition-all duration-200 transform scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-nav text-label-nav">Weekly Plan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">monitoring</span>
+<span class="font-label-nav text-label-nav">Progress</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">history</span>
+<span class="font-label-nav text-label-nav">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">person</span>
+<span class="font-label-nav text-label-nav">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="font-label-nav text-label-nav">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area Wrapper -->
+<div class="flex-1 ml-0 md:ml-sidebar_expanded flex flex-col min-h-screen relative">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 h-topbar_height z-30 border-b border-outline-variant bg-surface flex items-center justify-between px-lg w-full md:w-[calc(100%-240px)] ml-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer md:hidden">menu</span>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-[#F7F8FC] border border-[#EAEDF3] rounded-lg focus:border-primary focus:ring-0 font-body-md text-body-md w-64 transition-colors" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container transition-all duration-200">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-highest cursor-pointer hover:opacity-80 transition-opacity" data-alt="A professional headshot of a smiling user, well-lit with soft natural light, wearing a casual dark top, set against a soft, bright, slightly out-of-focus modern office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiMxsx9AG5jlp5rDS2xVbWpXpAySEpqX8i5kwW6EcSWxvDpyoIFw8ksCsMIlDNHfo4QQRw1L8hUtPqMnZQJrw2UfT1jx6jJwOWKA0gZpBRozuCKgK8QxvNtlOVvwAb4UrGO56FPalqPSAyBBDEI3Xo3omPjeJWo6Fu8xYAXtlBcYKmpKW34OJVvU2crZhDMoph3GNKC18N6qHB0BttKGL1RPUrf0vxVAJVYQiX1uCNs58EL-dyVPojEw"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 pt-topbar_height p-lg md:p-xl overflow-y-auto">
+<div class="max-w-6xl mx-auto space-y-6">
+<header class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Weekly Plan</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Oct 23 - Oct 29</p>
+</div>
+<div class="flex gap-3">
+<button class="p-2 rounded-lg border border-[#EAEDF3] bg-[#F7F8FC] hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg border border-[#EAEDF3] bg-[#F7F8FC] hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</header>
+<!-- Bento Grid Layout for Week -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Monday (Expanded Active State) -->
+<div class="lg:col-span-2 lg:row-span-2 bg-surface-container-lowest rounded-card card-border p-6 flex flex-col shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8"></div>
+<div class="flex justify-between items-start mb-6 z-10">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-primary">Monday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 23</p>
+</div>
+<div class="bg-[#FFF3B0] text-[#D4A800] px-3 py-1 rounded-full font-label-button text-label-button text-xs">
+                                2,150 / 2,400 kcal
+                            </div>
+</div>
+<div class="space-y-4 z-10 flex-1">
+<!-- Meal: Breakfast -->
+<div class="bg-[#F7F8FC] rounded-lg p-4 border border-[#EAEDF3] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-sm">bakery_dining</span>
+</div>
+<div>
+<p class="font-label-button text-label-button">Oatmeal &amp; Berries</p>
+<p class="font-caption text-caption text-on-surface-variant">Breakfast</p>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">350 kcal</span>
+</div>
+<!-- Meal: Lunch -->
+<div class="bg-[#F7F8FC] rounded-lg p-4 border border-[#EAEDF3] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-sm">lunch_dining</span>
+</div>
+<div>
+<p class="font-label-button text-label-button">Grilled Chicken Salad</p>
+<p class="font-caption text-caption text-on-surface-variant">Lunch</p>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">650 kcal</span>
+</div>
+<!-- Meal: Dinner -->
+<div class="bg-[#F7F8FC] rounded-lg p-4 border border-[#EAEDF3] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined text-sm">ramen_dining</span>
+</div>
+<div>
+<p class="font-label-button text-label-button">Salmon &amp; Quinoa</p>
+<p class="font-caption text-caption text-on-surface-variant">Dinner</p>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">850 kcal</span>
+</div>
+<!-- Meal: Snacks -->
+<div class="bg-[#F7F8FC] rounded-lg p-4 border border-[#EAEDF3] flex items-center justify-between opacity-70">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-sm">icecream</span>
+</div>
+<div>
+<p class="font-label-button text-label-button">Protein Bar</p>
+<p class="font-caption text-caption text-on-surface-variant">Snacks</p>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">300 kcal</span>
+</div>
+</div>
+<button class="mt-4 w-full py-3 bg-surface-container-high rounded-lg font-label-button text-label-button text-on-surface hover:bg-surface-variant transition-colors">Edit Day</button>
+</div>
+<!-- Tuesday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Tuesday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 24</p>
+</div>
+<div>
+<p class="font-display-stat text-display-stat text-on-surface">2,300</p>
+<p class="font-caption text-caption text-on-surface-variant">kcal logged</p>
+</div>
+</div>
+<!-- Wednesday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Wednesday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 25</p>
+</div>
+<div>
+<p class="font-display-stat text-display-stat text-on-surface">1,950</p>
+<p class="font-caption text-caption text-on-surface-variant">kcal logged</p>
+</div>
+</div>
+<!-- Thursday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Thursday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 26</p>
+</div>
+<div>
+<p class="font-body-md text-body-md text-outline italic">Not logged yet</p>
+</div>
+</div>
+<!-- Friday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Friday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 27</p>
+</div>
+<div>
+<p class="font-body-md text-body-md text-outline italic">Not logged yet</p>
+</div>
+</div>
+<!-- Saturday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48 opacity-80 bg-surface-container-high/20">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Saturday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 28</p>
+</div>
+<div>
+<p class="font-body-md text-body-md text-outline italic">Upcoming</p>
+</div>
+</div>
+<!-- Sunday -->
+<div class="bg-surface-container-lowest rounded-card card-border p-6 interactive-card cursor-pointer flex flex-col justify-between h-48 opacity-80 bg-surface-container-high/20">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Sunday</h3>
+<p class="font-caption text-caption text-on-surface-variant">Oct 29</p>
+</div>
+<div>
+<p class="font-body-md text-body-md text-outline italic">Upcoming</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

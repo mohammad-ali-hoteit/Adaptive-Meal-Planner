@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Progress - Adaptive Meal Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001f27",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#745b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "background": "#fff8f1",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#745b00",
+                        "on-background": "#1f1b11",
+                        "outline-variant": "#d1c5ac",
+                        "on-surface": "#1f1b11",
+                        "inverse-primary": "#f0c110",
+                        "surface-container-high": "#f1e7d6",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#f0c110",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#353025",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-primary-container": "#695200",
+                        "inverse-on-surface": "#f9f0de",
+                        "tertiary-container": "#49dbff",
+                        "primary-fixed": "#ffe08b",
+                        "surface": "#fff8f1",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#ebe1d1",
+                        "on-secondary-fixed": "#25005a",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface-variant": "#4e4633",
+                        "surface-dim": "#e2d9c8",
+                        "secondary-fixed": "#eaddff",
+                        "outline": "#807660",
+                        "on-tertiary-container": "#005e70",
+                        "tertiary": "#00687c",
+                        "surface-container-low": "#fcf3e1",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#712ae2",
+                        "surface-bright": "#fff8f1",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#42d7fb",
+                        "secondary-container": "#8a4cfc",
+                        "surface-container-highest": "#ebe1d1",
+                        "surface-container": "#f6eddc",
+                        "primary-container": "#f5c518",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "tertiary-fixed": "#b0ecff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "sidebar_collapsed": "72px",
+                        "topbar_height": "72px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "sidebar_expanded": "240px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-stat": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-auth-cta": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "label-nav": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-button": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-stat": ["30px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "body-md": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-auth-cta": ["15px", { "lineHeight": "1", "fontWeight": "800" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "title-sm": ["17px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-nav": ["13px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "body-lg": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-button": ["15px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Chart Mockup Styles */
+        .chart-grid-line {
+            stroke: #d1c5ac; /* outline-variant approximation for #EAEDF3 in theme context */
+            stroke-dasharray: 4 4;
+            stroke-width: 1;
+        }
+        .chart-tooltip {
+            background-color: #1f1b11; /* on-background approximation for #1A1D2E */
+            color: #ffffff;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 h-topbar_height z-30 border-b border-outline-variant dark:border-outline flat no shadows flex items-center justify-between px-lg w-full md:w-[calc(100%-240px)] md:ml-auto bg-surface dark:bg-surface-dim transition-all duration-300">
+<div class="flex items-center gap-md">
+<!-- Mobile Menu Toggle -->
+<button aria-label="Toggle Menu" class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="hidden md:block font-headline-md text-headline-md font-bold text-primary">Adaptive Meal Planner</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="bg-[#F7F8FC] border-[1.5px] border-[#EAEDF3] focus:border-primary focus:ring-0 rounded-lg pl-10 pr-4 py-2 w-64 text-sm font-body-md transition-colors" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container transition-all duration-200 p-2 rounded-full relative group">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional individual smiling softly. The lighting is bright and clean, typical of a modern profile photo in a corporate but approachable light-mode setting. Warm undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRN38ArpSWT5ISbKcQcK3CdBei8_CAq5oCeqyIjMIxux0EMuPt-36-s31T1JIThU_tpb-JRpovlhfuiF6F0lZLL9gg2WK3aIyaj8SRqs21NPspAWIls0bWH4SXMEGwWaeM8I_Zk0R_PTroAPFnUbwSFUbgJQlbFHW4N717-os_AXUUwXfb0JVgxCNNWtcPXoIiehz3q8xIzHmO89BmvrgKcvt8wOiX8xpLFW3hrcDFlMc9dIWxWB1ugw"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-sidebar_expanded z-40 transition-all duration-300 border-r border-outline-variant dark:border-outline flat no shadows bg-surface dark:bg-surface-dim flex flex-col h-full p-md hidden md:flex">
+<div class="flex items-center gap-3 mb-xl px-2">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">A</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary font-bold leading-tight">Adaptive Planner</h2>
+<p class="font-caption text-caption text-on-surface-variant">Nutrition System</p>
+</div>
+</div>
+<ul class="flex flex-col gap-sm flex-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="restaurant">restaurant</span>
+                    Today's Meals
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="add_circle">add_circle</span>
+                    Add Custom Meal
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="calendar_month">calendar_month</span>
+                    Weekly Plan
+                </a>
+</li>
+<li>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary font-bold rounded-lg transition-all duration-200 group font-body-md text-body-md transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring" data-weight="fill" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                    Progress
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="history">history</span>
+                    History
+                </a>
+</li>
+</ul>
+<div class="mt-auto border-t border-outline-variant pt-md">
+<ul class="flex flex-col gap-sm">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="person">person</span>
+                        Profile
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 rounded-lg group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-sidebar_expanded pt-topbar_height min-h-screen p-md md:p-xl transition-all duration-300">
+<!-- Header Section -->
+<div class="mb-xl flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Progress Tracking</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review your historical data and trends over time.</p>
+</div>
+<div class="flex gap-2">
+<select class="bg-surface border-outline-variant text-on-surface rounded-lg font-body-md text-body-md py-2 pl-3 pr-8 focus:ring-primary focus:border-primary shadow-sm hover:-translate-y-[1px] transition-transform">
+<option>Last 30 Days</option>
+<option>Last 3 Months</option>
+<option>Last 6 Months</option>
+<option>This Year</option>
+</select>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-button text-label-button shadow-sm hover:bg-[#D4A800] hover:-translate-y-[1px] transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                    Export
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout for Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-md md:gap-lg mb-lg">
+<!-- Weight Trend Chart Card -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative group overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="scale">scale</span>
+                            Weight Trend
+                        </h3>
+<p class="font-display-stat text-display-stat text-primary">164.2 <span class="font-body-md text-body-md text-on-surface-variant">lbs</span></p>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded text-primary font-label-nav text-label-nav flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_down">trending_down</span>
+                        -2.4%
+                    </div>
+</div>
+<!-- SVG Line Chart Mockup -->
+<div class="w-full h-48 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 200">
+<!-- Grid Lines -->
+<line class="chart-grid-line" x1="0" x2="400" y1="40" y2="40"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="90" y2="90"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="140" y2="140"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="190" y2="190"></line>
+<!-- Area Fill Gradient Definition -->
+<defs>
+<lineargradient id="weightGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#745b00" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#745b00" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area Fill -->
+<polygon fill="url(#weightGradient)" points="0,200 0,60 50,80 100,75 150,110 200,105 250,140 300,130 350,160 400,150 400,200"></polygon>
+<!-- Line -->
+<polyline fill="none" points="0,60 50,80 100,75 150,110 200,105 250,140 300,130 350,160 400,150" stroke="#745b00" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Data Points -->
+<circle class="cursor-pointer hover:r-6 transition-all" cx="50" cy="80" fill="#ffffff" r="4" stroke="#745b00" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-6 transition-all" cx="150" cy="110" fill="#ffffff" r="4" stroke="#745b00" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-6 transition-all" cx="250" cy="140" fill="#ffffff" r="4" stroke="#745b00" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-6 transition-all" cx="350" cy="160" fill="#ffffff" r="4" stroke="#745b00" stroke-width="2"></circle>
+<circle cx="400" cy="150" fill="#745b00" r="5"></circle>
+</svg>
+<!-- X-Axis Labels Mock -->
+<div class="flex justify-between text-[11px] text-on-surface-variant mt-2 font-caption">
+<span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>Today</span>
+</div>
+</div>
+</div>
+<!-- Body Fat % Chart Card -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative group overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="accessibility_new">accessibility_new</span>
+                            Body Fat %
+                        </h3>
+<p class="font-display-stat text-display-stat text-secondary">18.5 <span class="font-body-md text-body-md text-on-surface-variant">%</span></p>
+</div>
+<div class="bg-secondary-fixed px-2 py-1 rounded text-secondary-fixed-dim font-label-nav text-label-nav flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_down">trending_down</span>
+                        -0.8%
+                    </div>
+</div>
+<!-- SVG Area Chart Mockup -->
+<div class="w-full h-48 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 200">
+<!-- Grid Lines -->
+<line class="chart-grid-line" x1="0" x2="400" y1="40" y2="40"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="90" y2="90"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="140" y2="140"></line>
+<line class="chart-grid-line" x1="0" x2="400" y1="190" y2="190"></line>
+<defs>
+<lineargradient id="bfGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#712ae2" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#712ae2" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<polygon fill="url(#bfGradient)" points="0,200 0,90 80,95 160,110 240,115 320,135 400,130 400,200"></polygon>
+<polyline fill="none" points="0,90 80,95 160,110 240,115 320,135 400,130" stroke="#712ae2" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<circle cx="160" cy="110" fill="#ffffff" r="4" stroke="#712ae2" stroke-width="2"></circle>
+<circle cx="320" cy="135" fill="#ffffff" r="4" stroke="#712ae2" stroke-width="2"></circle>
+<circle cx="400" cy="130" fill="#712ae2" r="5"></circle>
+</svg>
+<div class="flex justify-between text-[11px] text-on-surface-variant mt-2 font-caption">
+<span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>Today</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Full Width Bar Chart: Planned vs Actual -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 w-full mb-lg">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="bar_chart">bar_chart</span>
+                        Calorie Intake: Planned vs Actual
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Daily adherence to macro goals.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm bg-primary-fixed"></div>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Planned</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm bg-primary"></div>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Actual</span>
+</div>
+</div>
+</div>
+<!-- SVG Bar Chart Mockup -->
+<div class="w-full h-64 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 240">
+<!-- Y-Axis Labels & Grid -->
+<text class="font-caption text-caption fill-outline-variant text-[10px]" x="0" y="35">3000</text>
+<line class="chart-grid-line" x1="30" x2="800" y1="30" y2="30"></line>
+<text class="font-caption text-caption fill-outline-variant text-[10px]" x="0" y="95">2000</text>
+<line class="chart-grid-line" x1="30" x2="800" y1="90" y2="90"></line>
+<text class="font-caption text-caption fill-outline-variant text-[10px]" x="0" y="155">1000</text>
+<line class="chart-grid-line" x1="30" x2="800" y1="150" y2="150"></line>
+<text class="font-caption text-caption fill-outline-variant text-[10px]" x="0" y="215">0</text>
+<line class="chart-grid-line stroke-outline" stroke-dasharray="none" x1="30" x2="800" y1="210" y2="210"></line>
+<!-- Bars (Mon-Sun) -->
+<!-- Mon -->
+<rect fill="#ffe08b" height="160" rx="2" width="20" x="60" y="50"></rect> <!-- Planned -->
+<rect fill="#745b00" height="145" rx="2" width="20" x="82" y="65"></rect> <!-- Actual -->
+<!-- Tue -->
+<rect fill="#ffe08b" height="160" rx="2" width="20" x="160" y="50"></rect>
+<rect fill="#ba1a1a" height="170" opacity="0.8" rx="2" width="20" x="182" y="40"></rect> <!-- Over limit -->
+<!-- Wed -->
+<rect fill="#ffe08b" height="160" rx="2" width="20" x="260" y="50"></rect>
+<rect fill="#745b00" height="155" rx="2" width="20" x="282" y="55"></rect>
+<!-- Thu -->
+<rect fill="#ffe08b" height="160" rx="2" width="20" x="360" y="50"></rect>
+<rect fill="#745b00" height="162" rx="2" width="20" x="382" y="48"></rect>
+<!-- Fri -->
+<rect fill="#ffe08b" height="180" rx="2" width="20" x="460" y="30"></rect> <!-- Higher planned for workout day -->
+<rect fill="#745b00" height="175" rx="2" width="20" x="482" y="35"></rect>
+<!-- Sat -->
+<rect fill="#ffe08b" height="130" rx="2" width="20" x="560" y="80"></rect> <!-- Lower planned rest day -->
+<rect fill="#745b00" height="120" rx="2" width="20" x="582" y="90"></rect>
+<!-- Sun -->
+<rect fill="#ffe08b" height="130" rx="2" width="20" x="660" y="80"></rect>
+<rect fill="#ba1a1a" height="150" opacity="0.8" rx="2" width="20" x="682" y="60"></rect> <!-- Over limit -->
+</svg>
+<!-- X-Axis Labels -->
+<div class="flex justify-between pl-[30px] pr-[100px] text-[11px] text-on-surface-variant mt-3 font-label-nav font-medium">
+<span class="w-[60px] text-center">Mon</span>
+<span class="w-[60px] text-center">Tue</span>
+<span class="w-[60px] text-center">Wed</span>
+<span class="w-[60px] text-center">Thu</span>
+<span class="w-[60px] text-center">Fri</span>
+<span class="w-[60px] text-center">Sat</span>
+<span class="w-[60px] text-center">Sun</span>
+</div>
+<!-- Floating Tooltip Mock -->
+<div class="absolute top-1/4 left-[200px] chart-tooltip opacity-100 shadow-lg" style="transform: translate(-50%, -100%);">
+<div class="font-bold mb-1">Tuesday</div>
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-fixed"></span> Planned: 2,200</div>
+<div class="flex items-center gap-2 text-error-container"><span class="w-2 h-2 rounded-full bg-error"></span> Actual: 2,450</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

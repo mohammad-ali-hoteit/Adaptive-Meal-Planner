@@ -1,47 +1,170 @@
+/* =====================================================
+   TOPBAR — White header, fixed, right of sidebar
+   ===================================================== */
+
 .topbar {
   position: fixed;
   top: 0;
   left: 240px;
   right: 0;
   height: 72px;
-  background: #ffffff;
-  border-bottom: 1px solid #EAEDF3;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E8E2D6;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 28px;
   z-index: 90;
+  gap: 20px;
 }
 
-.topbar-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1A1D2E;
-  letter-spacing: -0.2px;
+/* --- Search --- */
+.topbar-search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
 }
 
+.topbar-search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.topbar-search {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px 0 38px;
+  background: #F5F0E8;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #1f1b11;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  font-family: inherit;
+}
+
+.topbar-search::placeholder {
+  color: #8A92A6;
+}
+
+.topbar-search:focus {
+  border-color: #C9A84C;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+}
+
+/* --- Right side --- */
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* --- Bell --- */
+.topbar-bell {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.topbar-bell:hover {
+  background: #F5F0E8;
+}
+
+.topbar-bell-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.topbar-bell-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 8px;
+  height: 8px;
+  background: #ba1a1a;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+}
+
+/* --- Separator --- */
+.topbar-sep {
+  width: 1px;
+  height: 28px;
+  background: #E8E2D6;
+  flex-shrink: 0;
+}
+
+/* --- User --- */
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.topbar-user:hover {
+  background: #F5F0E8;
+}
+
+.topbar-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .topbar-user-name {
   font-size: 14px;
-  font-weight: 500;
-  color: #8A92A6;
+  font-weight: 600;
+  color: #1f1b11;
+  line-height: 1;
+  white-space: nowrap;
 }
 
+.topbar-user-sub {
+  font-size: 11px;
+  color: #8A92A6;
+  line-height: 1;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Avatar --- */
 .topbar-avatar {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: #4CAF6E;
-  color: #ffffff;
+  background: #C9A84C;
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.35);
 }

@@ -2,40 +2,45 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AppShell from './components/AppShell';
-import AuthPage from './pages/AuthPage';
-import DashboardPage from './pages/DashboardPage';
-import FoodsPage from './pages/FoodsPage';
-import MyMealsPage from './pages/MyMealsPage';
-import CommunityPage from './pages/CommunityPage';
-import HistoryPage from './pages/HistoryPage';
-import ProgressPage from './pages/ProgressPage';
-import SettingsPage from './pages/SettingsPage';
-import ProfilePage from './pages/ProfilePage';
+
+// Public pages
+import LandingPage    from './pages/LandingPage';
+import AuthPage       from './pages/AuthPage';
+import OnboardingPage from './pages/OnboardingPage';
+
+// Protected pages
+import DashboardPage  from './pages/DashboardPage';
+import HistoryPage    from './pages/HistoryPage';
+import ProgressPage   from './pages/ProgressPage';
+import SettingsPage   from './pages/SettingsPage';
+import ProfilePage    from './pages/ProfilePage';
+import { TodaysMealsPage, AddCustomMealPage, WeeklyPlanPage } from './pages/PlaceholderPage';
 
 function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes — no sidebar */}
-      <Route path="/login" element={<AuthPage />} />
-      <Route path="/register" element={<AuthPage />} />
+      {/* ── Public (no shell) ── */}
+      <Route path="/"          element={<LandingPage />} />
+      <Route path="/login"     element={<AuthPage />} />
+      <Route path="/register"  element={<AuthPage />} />
+      <Route path="/onboarding" element={<OnboardingPage />} />
 
-      {/* Protected routes — with AppShell (sidebar + topbar) */}
+      {/* ── Protected (with AppShell) ── */}
       <Route element={<ProtectedRoute />}>
         <Route element={<AppShell />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/foods" element={<FoodsPage />} />
-          <Route path="/my-meals" element={<MyMealsPage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/history" element={<HistoryPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/dashboard"        element={<DashboardPage />} />
+          <Route path="/todays-meals"     element={<TodaysMealsPage />} />
+          <Route path="/add-custom-meal"  element={<AddCustomMealPage />} />
+          <Route path="/weekly-plan"      element={<WeeklyPlanPage />} />
+          <Route path="/progress"         element={<ProgressPage />} />
+          <Route path="/history"          element={<HistoryPage />} />
+          <Route path="/profile"          element={<ProfilePage />} />
+          <Route path="/settings"         element={<SettingsPage />} />
         </Route>
       </Route>
 
-      {/* Redirects */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      {/* ── Catch-all ── */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
