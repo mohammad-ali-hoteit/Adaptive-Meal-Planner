@@ -1,0 +1,185 @@
+/* WeeklyPlanPage.css */
+.weekly-plan-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+}
+
+.weekly-plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.weekly-plan-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.week-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-surface);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border);
+}
+
+.week-date-range {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .weekly-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .weekly-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .weekly-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+.day-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+}
+
+.day-card.featured {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.15);
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.day-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.day-date {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.day-kcal-badge {
+  background: #FFF8E1;
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.day-meals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.mini-meal-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #FAF8F3;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.mini-meal-slot {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.mini-meal-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-meal-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-meal-kcal {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.empty-day-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 24px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+}
+
+.mt-auto {
+  margin-top: auto;
+}

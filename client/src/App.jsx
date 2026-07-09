@@ -14,7 +14,9 @@ import HistoryPage    from './pages/HistoryPage';
 import ProgressPage   from './pages/ProgressPage';
 import SettingsPage   from './pages/SettingsPage';
 import ProfilePage    from './pages/ProfilePage';
-import { TodaysMealsPage, AddCustomMealPage, WeeklyPlanPage } from './pages/PlaceholderPage';
+import TodaysMealsPage from './pages/TodaysMealsPage';
+import AddCustomMealPage from './pages/AddCustomMealPage';
+import WeeklyPlanPage from './pages/WeeklyPlanPage';
 
 function AppRoutes() {
   return (

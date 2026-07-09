@@ -1,0 +1,117 @@
+/* SettingsPage.css */
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 800px;
+}
+
+.settings-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.settings-header p {
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-row:hover {
+  background: rgba(201, 168, 76, 0.05); /* very light gold */
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.settings-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-right: 20px;
+  flex-shrink: 0;
+  color: var(--color-primary-dark);
+}
+
+.settings-row:hover .settings-icon {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.settings-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.settings-info p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.chevron {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+
+.settings-row:hover .chevron {
+  opacity: 1;
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--color-red);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  margin-top: 16px;
+}
+
+.logout-btn:hover {
+  background: #FDEDED;
+}
+
+.logout-icon {
+  font-size: 20px;
+}

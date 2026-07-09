@@ -1,0 +1,206 @@
+/* ProgressPage.css */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.progress-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .progress-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.progress-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.progress-header p {
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.progress-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-dropdown {
+  padding: 8px 12px;
+  height: 40px;
+  font-weight: 600;
+}
+
+.charts-top-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .charts-top-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chart-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.current-stat {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.trend-badge {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.trend-badge.down {
+  background: #E8F5EE;
+  color: var(--color-green);
+}
+
+.trend-badge.up {
+  background: #F3E5F5;
+  color: var(--color-purple);
+}
+
+/* SVG Line Charts */
+.svg-container {
+  width: 100%;
+  position: relative;
+  margin-top: auto;
+}
+
+.line-chart {
+  width: 100%;
+  height: 120px;
+  overflow: visible;
+}
+
+.x-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Bar Chart */
+.chart-legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-box.planned { background: var(--color-primary); }
+.legend-box.actual { background: var(--color-primary-dark); }
+
+.bar-chart-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 250px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 100%;
+  width: 40px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  min-height: 4px;
+  transition: height 0.5s ease;
+}
+
+.bar.planned {
+  background: var(--color-primary);
+}
+
+.bar.actual {
+  background: var(--color-primary-dark);
+}
+
+.bar.actual.over {
+  background: var(--color-red);
+}
+
+.bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}

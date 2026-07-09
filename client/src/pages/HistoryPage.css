@@ -1,0 +1,231 @@
+/* HistoryPage.css */
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.history-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.history-header p {
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.history-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .history-filters {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.summary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #E8F0E8;
+  color: var(--color-green);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.summary-icon {
+  font-size: 16px;
+}
+
+.month-filter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-accordion-card {
+  padding: 0; /* Reset padding for accordion */
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.history-accordion-card.expanded {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.1);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  background: var(--color-surface);
+}
+
+.accordion-header:hover {
+  background: #FAF8F3;
+}
+
+.accordion-date {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accordion-date h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.accordion-date span {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.accordion-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.kcal-info {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.kcal-consumed {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.kcal-target {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-badge.on-target {
+  background: #E8F5EE;
+  color: var(--color-green);
+}
+
+.status-badge.over {
+  background: #FDEDED;
+  color: var(--color-red);
+}
+
+.status-badge.under {
+  background: #E0F7FA;
+  color: var(--color-teal);
+}
+
+.status-icon {
+  font-size: 14px;
+}
+
+.chevron {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  transition: transform 0.3s ease;
+}
+
+.chevron.up {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  padding: 0 24px 24px 24px;
+  border-top: 1px solid var(--color-border);
+  background: #FAF8F3;
+}
+
+.accordion-body h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 20px 0 16px 0;
+}
+
+.logged-meals-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .logged-meals-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.logged-meal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-surface);
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.logged-meal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logged-slot {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.logged-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.logged-kcal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.no-meals-text {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
