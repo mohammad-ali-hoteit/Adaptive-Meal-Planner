@@ -40,6 +40,10 @@ const dailyLogSchema = new mongoose.Schema({
       default: Date.now,
     },
   }],
+  waterGlasses: {
+    type: Number,
+    default: 0
+  }
 }, { timestamps: true });
 
 // Each user can only have one daily log per date

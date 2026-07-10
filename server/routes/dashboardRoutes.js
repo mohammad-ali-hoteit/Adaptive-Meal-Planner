@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getDailyMeals, updateMealTime, assignMealToSlot, completeMeal, removeMealFromSlot } = require('../controllers/dashboardController');
+const { getDailyMeals, getWeeklyLogs, updateMealTime, assignMealToSlot, completeMeal, removeMealFromSlot, updateWater } = require('../controllers/dashboardController');
+const { protect } = require('../middleware/authMiddleware');
+
+router.use(protect);
 
 router.get('/daily-meals', getDailyMeals);
+router.get('/weekly-logs', getWeeklyLogs);
 router.put('/meal-time', updateMealTime);
 router.post('/assign-meal', assignMealToSlot);
 router.post('/complete-meal', completeMeal);
 router.delete('/remove-meal', removeMealFromSlot);
+router.post('/water', updateWater);
 
 module.exports = router;

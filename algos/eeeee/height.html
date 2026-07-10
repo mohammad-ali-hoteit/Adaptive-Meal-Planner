@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Height</title>
+
+<style>
+:root {
+    --bg-color: #0b0c10;
+    --card-bg: #12141c;
+    --card-item-bg: #1a1d24;
+    --card-border: #2c313c;
+    --neon-green: #90ee02;
+    --text-color: #ffffff;
+    --gray-text: #8b8f9a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}
+
+/* --- Progress Bar à 5 Étapes (3 Vertes) --- */
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--gray-text);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.progress-steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.step-segment {
+    flex: 1;
+    height: 6px;
+    background: var(--card-border);
+    border-radius: 999px;
+    transition: background 0.3s ease;
+}
+
+/* Les 3 premières étapes sur 5 sont activées en vert */
+.step-segment.active {
+    background: var(--neon-green);
+    box-shadow: 0 0 8px rgba(144, 238, 2, 0.4);
+}
+
+/* Header */
+.header-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header-section h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.header-section p {
+    color: var(--gray-text);
+    font-size: 16px;
+}
+
+/* Toggle Unit */
+.unit-toggle {
+    display: flex;
+    background: var(--card-item-bg);
+    border: 1px solid var(--card-border);
+    width: 140px;
+    margin: 0 auto 25px auto;
+    border-radius: 999px;
+    padding: 4px;
+}
+
+.unit-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--gray-text);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+}
+
+.unit-btn.active {
+    background: var(--neon-green);
+    color: #000000;
+}
+
+/* Height Display */
+.height-display {
+    text-align: center;
+    font-size: 56px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    height: 70px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+}
+
+.height-display span.unit {
+    font-size: 22px;
+    color: var(--gray-text);
+    font-weight: 500;
+}
+
+/* Main Selector Area */
+.height-selector-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 420px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Model Container */
+.model-container {
+    height: 100%;
+    width: 220px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.model-container img {
+    height: 90%;
+    object-fit: contain;
+}
+
+/* Ruler Styling */
+.ruler-outer {
+    position: relative;
+    width: 200px;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    cursor: grab;
+    scroll-behavior: smooth;
+}
+
+.ruler-outer.dragging {
+    scroll-behavior: auto;
+    cursor: grabbing;
+}
+
+.ruler-outer::-webkit-scrollbar {
+    display: none; 
+}
+
+.ruler-inner {
+    padding-top: 70px;
+    padding-bottom: 350px;
+    position: relative;
+}
+
+.ruler-mark {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 15px; 
+    color: var(--gray-text);
+    font-size: 13px;
+}
+
+.ruler-mark::before {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: var(--card-border);
+    margin-right: 12px;
+}
+
+.ruler-mark.minor::before {
+    width: 45px;
+    background: rgba(44, 49, 60, 0.4);
+}
+
+.ruler-mark span {
+    font-weight: 600;
+}
+
+/* Flèche Fixe */
+.ruler-pointer {
+    position: absolute;
+    right: calc(50% - 120px); 
+    top: 70px; 
+    transform: translateY(-50%);
+    width: 130px;
+    height: 2px;
+    background: var(--neon-green);
+    pointer-events: none; 
+    z-index: 10;
+    box-shadow: 0 0 12px rgba(144,238,2,0.6);
+}
+
+.ruler-pointer::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -5px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 10px solid var(--neon-green);
+}
+
+/* Action Button */
+.action-button-container {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.confirm-btn {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    background: var(--neon-green);
+    color: #000000;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.confirm-btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    .page-container {
+        padding: 25px 20px;
+    }
+    .height-selector-container {
+        gap: 15px;
+        height: 360px;
+    }
+    .ruler-inner {
+        padding-top: 70px;
+        padding-bottom: 290px;
+    }
+    .ruler-pointer {
+        right: calc(50% - 100px);
+        width: 110px;
+    }
+    .model-container {
+        width: 150px;
+    }
+    .header-section h1 {
+        font-size: 26px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- Barre de Progression : Step 3 of 5 avec 3 segments verts sur 5 -->
+    <div class="progress-header">
+        <span>Step 3 of 5</span>
+        <span>60%</span>
+    </div>
+    <div class="progress-steps">
+        <div class="step-segment active"></div>
+        <div class="step-segment active"></div>
+        <div class="step-segment active"></div>
+        <div class="step-segment"></div>
+        <div class="step-segment"></div>
+    </div>
+
+    <div class="header-section">
+        <h1>What's your height?</h1>
+        <p>This helps us personalize your fitness goals.</p>
+    </div>
+
+    <div class="unit-toggle">
+        <button class="unit-btn active" id="unit-cm">cm</button>
+        <button class="unit-btn" id="unit-ft">ft</button>
+    </div>
+
+    <div class="height-display">
+        <span id="height-number">175</span>
+        <span class="unit" id="unit-label">cm</span>
+    </div>
+
+    <div class="height-selector-container">
+        
+        <div class="ruler-pointer"></div>
+
+        <div class="model-container">
+            <img src="male.png" id="model-image" alt="Model">
+        </div>
+
+        <div class="ruler-outer" id="ruler-scroll">
+            <div class="ruler-inner" id="ruler-ticks"></div>
+        </div>
+
+    </div>
+
+    <div class="action-button-container">
+        <button class="confirm-btn" id="btn-submit">Continue</button>
+    </div>
+
+</div>
+
+<script>
+const minHeight = 100; 
+const maxHeight = 250; 
+const defaultHeight = 175; 
+const tickHeight = 15; 
+
+const rulerScroll = document.getElementById('ruler-scroll');
+const rulerTicks = document.getElementById('ruler-ticks');
+const heightNumber = document.getElementById('height-number');
+const unitLabel = document.getElementById('unit-label');
+
+let currentUnit = 'cm';
+let selectedHeightCm = defaultHeight;
+let snapTimeout;
+
+function generateRuler() {
+    rulerTicks.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    
+    for (let i = maxHeight; i >= minHeight; i--) {
+        const mark = document.createElement('div');
+        mark.classList.add('ruler-mark');
+        if (i % 10 === 0) {
+            mark.innerHTML = `<span>${i}</span>`;
+        } else {
+            mark.classList.add('minor');
+        }
+        fragment.appendChild(mark);
+    }
+    rulerTicks.appendChild(fragment);
+}
+
+function updateDisplay(heightCm) {
+    if (currentUnit === 'cm') {
+        heightNumber.innerText = heightCm;
+        unitLabel.innerText = 'cm';
+    } else {
+        const totalInches = heightCm / 2.54;
+        const feet = Math.floor(totalInches / 12);
+        const inches = Math.round(totalInches % 12);
+        
+        if (inches === 12) {
+            heightNumber.innerText = `${feet + 1}'0"`;
+        } else {
+            heightNumber.innerText = `${feet}'${inches}"`;
+        }
+        unitLabel.innerText = '';
+    }
+}
+
+function snapToNearestTick() {
+    const st = rulerScroll.scrollTop;
+    const roundedIndex = Math.round(st / tickHeight);
+    const targetScroll = roundedIndex * tickHeight;
+
+    if (Math.abs(st - targetScroll) > 0.5) {
+        rulerScroll.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
+    }
+}
+
+rulerScroll.addEventListener('scroll', () => {
+    const st = rulerScroll.scrollTop;
+    let calculated = maxHeight - Math.round(st / tickHeight);
+    
+    if (calculated > maxHeight) calculated = maxHeight;
+    if (calculated < minHeight) calculated = minHeight;
+
+    selectedHeightCm = calculated;
+    updateDisplay(selectedHeightCm);
+
+    clearTimeout(snapTimeout);
+    snapTimeout = setTimeout(snapToNearestTick, 150);
+});
+
+let isDragging = false;
+let startY = 0;
+let startScrollTop = 0;
+
+function startDrag(e) {
+    isDragging = true;
+    rulerScroll.classList.add('dragging');
+    startY = e.pageY || e.touches[0].pageY;
+    startScrollTop = rulerScroll.scrollTop;
+}
+
+function stopDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    rulerScroll.classList.remove('dragging');
+    snapToNearestTick();
+}
+
+function moveDrag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const currentY = e.pageY || e.touches[0].pageY;
+    const walk = (currentY - startY) * 1.2;
+    rulerScroll.scrollTop = startScrollTop - walk;
+}
+
+rulerScroll.addEventListener('mousedown', startDrag);
+window.addEventListener('mouseup', stopDrag);
+window.addEventListener('mousemove', moveDrag);
+
+rulerScroll.addEventListener('touchstart', startDrag, { passive: true });
+window.addEventListener('touchend', stopDrag);
+window.addEventListener('touchmove', moveDrag, { passive: false });
+
+function setHeightPosition(heightCm, smooth = false) {
+    const targetScroll = (maxHeight - heightCm) * tickHeight;
+    rulerScroll.scrollTo({
+        top: targetScroll,
+        behavior: smooth ? 'smooth' : 'auto'
+    });
+}
+
+window.addEventListener('load', () => {
+    generateRuler();
+    
+    const savedGender = localStorage.getItem('userGender');
+    const modelImage = document.getElementById('model-image');
+    
+    if (savedGender === 'female') {
+        modelImage.src = 'female.png';
+        modelImage.alt = 'Female Model';
+    } else {
+        modelImage.src = 'male.png';
+        modelImage.alt = 'Male Model';
+    }
+
+    setTimeout(() => setHeightPosition(defaultHeight, false), 50);
+});
+
+document.getElementById('unit-cm').addEventListener('click', function() {
+    if (currentUnit !== 'cm') {
+        currentUnit = 'cm';
+        this.classList.add('active');
+        document.getElementById('unit-ft').classList.remove('active');
+        updateDisplay(selectedHeightCm);
+    }
+});
+
+document.getElementById('unit-ft').addEventListener('click', function() {
+    if (currentUnit !== 'ft') {
+        currentUnit = 'ft';
+        this.classList.add('active');
+        document.getElementById('unit-cm').classList.remove('active');
+        updateDisplay(selectedHeightCm);
+    }
+});
+
+document.getElementById('btn-submit').addEventListener('click', () => {
+    localStorage.setItem('userHeight', selectedHeightCm);
+    window.location.href = "weight.html";
+});
+</script>
+
+</body>
+</html>

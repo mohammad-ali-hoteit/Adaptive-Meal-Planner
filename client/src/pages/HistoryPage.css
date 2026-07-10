@@ -1,231 +1,149 @@
-/* HistoryPage.css */
 .history-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
+.history-header {
+  margin-bottom: 40px;
+}
 .history-header h2 {
+  font-family: 'Syne', sans-serif;
   font-size: 28px;
-  font-weight: 800;
-  color: var(--color-text);
-  margin-bottom: 4px;
-}
-
-.history-header p {
-  font-size: 15px;
-  color: var(--color-text-muted);
-}
-
-.history-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-@media (min-width: 768px) {
-  .history-filters {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.summary-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #E8F0E8;
-  color: var(--color-green);
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 14px;
-}
-
-.summary-icon {
-  font-size: 16px;
-}
-
-.month-filter {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  color: var(--color-text-muted);
-}
-
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.history-accordion-card {
-  padding: 0; /* Reset padding for accordion */
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.history-accordion-card.expanded {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.1);
-}
-
-.accordion-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  cursor: pointer;
-  background: var(--color-surface);
-}
-
-.accordion-header:hover {
-  background: #FAF8F3;
-}
-
-.accordion-date {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.accordion-date h3 {
-  font-size: 18px;
   font-weight: 700;
   color: var(--color-text);
+  margin-bottom: 8px;
 }
-
-.accordion-date span {
+.history-header p {
   font-size: 14px;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
-.accordion-stats {
+.history-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.history-day-card {
+  position: relative;
+  padding: 32px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-day-date {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
-
-.kcal-info {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
+.date-icon {
+  color: var(--color-teal);
+  background: rgba(74, 173, 168, 0.1);
+  padding: 8px;
+  border-radius: 12px;
 }
-
-.kcal-consumed {
+.history-day-date h3 {
+  font-family: 'Syne', sans-serif;
   font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
 }
 
-.kcal-target {
-  font-size: 14px;
-  color: var(--color-text-muted);
+.history-day-stats {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 24px;
 }
 
-.status-badge {
+.score-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.score-ring {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--color-border);
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
+  justify-content: center;
+  position: relative;
 }
-
-.status-badge.on-target {
-  background: #E8F5EE;
-  color: var(--color-green);
+.score-inner {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-text);
+  font-family: 'Syne', sans-serif;
 }
-
-.status-badge.over {
-  background: #FDEDED;
-  color: var(--color-red);
-}
-
-.status-badge.under {
-  background: #E0F7FA;
-  color: var(--color-teal);
-}
-
-.status-icon {
-  font-size: 14px;
-}
-
-.chevron {
+.score-status {
   font-size: 12px;
-  color: var(--color-text-muted);
-  transition: transform 0.3s ease;
-}
-
-.chevron.up {
-  transform: rotate(180deg);
-}
-
-.accordion-body {
-  padding: 0 24px 24px 24px;
-  border-top: 1px solid var(--color-border);
-  background: #FAF8F3;
-}
-
-.accordion-body h4 {
-  font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-muted);
+  color: var(--color-teal);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 20px 0 16px 0;
 }
 
-.logged-meals-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.history-macros {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
-
-@media (min-width: 768px) {
-  .logged-meals-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.logged-meal-item {
+.macro-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--color-surface);
-  padding: 12px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
 }
-
-.logged-meal-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.macro-label {
+  font-size: 14px;
+  color: var(--color-text-secondary);
 }
-
-.logged-slot {
-  font-size: 12px;
+.macro-val {
+  font-size: 15px;
   font-weight: 700;
-  color: var(--color-primary-dark);
 }
+.text-teal { color: var(--color-teal); }
+.text-red { color: var(--color-red); }
 
-.logged-name {
+.history-meals-list h4 {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text);
+  margin-bottom: 12px;
+}
+.meals-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.meal-tag {
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid var(--color-border);
 }
 
-.logged-kcal {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-}
-
-.no-meals-text {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  font-style: italic;
+.timeline-connector {
+  position: absolute;
+  bottom: -24px;
+  left: 48px;
+  width: 2px;
+  height: 24px;
+  background: var(--color-border);
 }

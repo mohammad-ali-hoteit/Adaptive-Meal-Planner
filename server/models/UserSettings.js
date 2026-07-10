@@ -20,6 +20,22 @@ const userSettingsSchema = new mongoose.Schema({
     default: 'light',
     enum: ['light', 'dark'],
   },
+  wakeTime: {
+    type: String,
+    default: '07:00'
+  },
+  sleepTime: {
+    type: String,
+    default: '23:00'
+  },
+  busyPeriods: {
+    type: [{
+      label: String,
+      startTime: String,
+      endTime: String
+    }],
+    default: []
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('UserSettings', userSettingsSchema);

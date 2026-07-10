@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { saveMetrics, savePlanSettings, completeOnboarding, getResults } = require('../controllers/onboardingController');
+const { completeOnboarding } = require('../controllers/onboardingController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.post('/metrics', saveMetrics);
-router.post('/plan-settings', savePlanSettings);
-router.post('/complete', completeOnboarding);
-router.get('/results', getResults);
+router.post('/', protect, completeOnboarding);
 
 module.exports = router;

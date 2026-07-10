@@ -17,22 +17,28 @@ const customMealSchema = new mongoose.Schema({
   },
   ingredients: {
     type: [{
-      ingredientId: {
+      foodId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Ingredient',
+        ref: 'Food',
       },
       grams: {
         type: Number,
         required: true,
-        min: 1,
+        min: 0.1,
       },
     }],
-    validate: {
-      validator: (v) => v.length >= 1,
-      message: 'At least one ingredient is required',
-    },
+    default: []
   },
+  slot: {
+    type: String,
+    enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'All'],
+    default: 'Lunch',
+  },
+  kcal: { type: Number, default: 0 },
+  pro: { type: Number, default: 0 },
+  carb: { type: Number, default: 0 },
+  fat: { type: Number, default: 0 },
   // Controls whether this meal appears on the Community Meals page
   // Default true = all meals are shared. Users can set to false for private meals.
   isPublic: {

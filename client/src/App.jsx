@@ -13,10 +13,10 @@ import DashboardPage  from './pages/DashboardPage';
 import HistoryPage    from './pages/HistoryPage';
 import ProgressPage   from './pages/ProgressPage';
 import SettingsPage   from './pages/SettingsPage';
-import ProfilePage    from './pages/ProfilePage';
-import TodaysMealsPage from './pages/TodaysMealsPage';
-import AddCustomMealPage from './pages/AddCustomMealPage';
+import MealDiscoveryPage from './pages/MealDiscoveryPage';
+import CustomMealsPage from './pages/CustomMealsPage';
 import WeeklyPlanPage from './pages/WeeklyPlanPage';
+import PantryGeneratorPage from './pages/PantryGeneratorPage';
 
 function AppRoutes() {
   return (
@@ -31,13 +31,13 @@ function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AppShell />}>
           <Route path="/dashboard"        element={<DashboardPage />} />
-          <Route path="/todays-meals"     element={<TodaysMealsPage />} />
-          <Route path="/add-custom-meal"  element={<AddCustomMealPage />} />
+          <Route path="/todays-meals"     element={<MealDiscoveryPage />} />
+          <Route path="/custom-meals"     element={<CustomMealsPage />} />
           <Route path="/weekly-plan"      element={<WeeklyPlanPage />} />
           <Route path="/progress"         element={<ProgressPage />} />
           <Route path="/history"          element={<HistoryPage />} />
-          <Route path="/profile"          element={<ProfilePage />} />
           <Route path="/settings"         element={<SettingsPage />} />
+          <Route path="/pantry"           element={<PantryGeneratorPage />} />
         </Route>
       </Route>
 

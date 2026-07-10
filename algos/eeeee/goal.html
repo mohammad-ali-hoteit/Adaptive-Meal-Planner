@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planificateur de Composition Corporelle Expert</title>
+ 
+<style>
+:root {
+    --bg-color: #0b0c10;
+    --card-bg: #12141c;
+    --card-item-bg: #1a1d24;
+    --card-border: #2c313c;
+    --neon-green: #90ee02;
+    --text-color: #ffffff;
+    --gray-text: #8b8f9a;
+    
+    --color-very-low: #3a86ff;
+    --color-low: #00d2ff;
+    --color-normal: #90ee02;
+    --color-high: #ffaa00;
+    --color-very-high: #ff3838;
+}
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+ 
+.page-container {
+    width: 100%;
+    max-width: 760px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}
+ 
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+ 
+.header-section h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+ 
+.profile-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    background: rgba(144, 238, 2, 0.1);
+    color: var(--neon-green);
+    margin-top: 10px;
+    border: 1px solid rgba(144, 238, 2, 0.2);
+}
+ 
+.strategy-callout {
+    background: rgba(58, 134, 255, 0.08);
+    border: 1px dashed rgba(58, 134, 255, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #a2c4ff;
+    text-align: left;
+}
+ 
+.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-left: 4px solid var(--neon-green);
+    padding-left: 10px;
+}
+ 
+.setup-card {
+    background: var(--card-item-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+ 
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+ 
+.form-group {
+    margin-bottom: 15px;
+}
+ 
+label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-text);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+ 
+select, input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--card-border);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+ 
+select:focus, input:focus {
+    border-color: var(--neon-green);
+}
+ 
+.range-info {
+    font-size: 12px;
+    color: var(--neon-green);
+    margin-top: 4px;
+    display: block;
+}
+ 
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+ 
+.res-card {
+    background: rgba(26, 29, 36, 0.5);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+}
+ 
+.res-title {
+    font-size: 11px;
+    color: var(--gray-text);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+ 
+.res-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--neon-green);
+}
+ 
+.macros-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+ 
+.macro-box {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+.macro-p { background: rgba(58, 134, 255, 0.15); color: #3a86ff; border: 1px solid rgba(58, 134, 255, 0.3); }
+.macro-l { background: rgba(255, 170, 0, 0.15); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.3); }
+.macro-g { background: rgba(0, 210, 255, 0.15); color: #00d2ff; border: 1px solid rgba(0, 210, 255, 0.3); }
+ 
+.alert-banner {
+    background: rgba(255, 56, 56, 0.1);
+    border: 1px solid var(--color-very-high);
+    color: #ff5e5e;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: none;
+}
+ 
+.confirm-btn {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 18px;
+    background: var(--neon-green);
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+ 
+.hidden { display: none !important; }
+ 
+.lock-note {
+    font-size: 11px;
+    color: var(--gray-text);
+    margin-top: 4px;
+    font-style: italic;
+}
+</style>
+</head>
+<body>
+ 
+<div class="page-container">
+ 
+    <div class="header-section">
+        <h1>Définition des Objectifs Cibles</h1>
+        <div class="profile-badge" id="txt-case-badge">Analyse...</div>
+        <div class="strategy-callout" id="txt-case-desc">Chargement...</div>
+    </div>
+ 
+    <div class="alert-banner" id="limit-alert">⚠️ Attention : Limite métabolique ou physiologique de sécurité atteinte. Ajustement automatique appliqué.</div>
+ 
+    <div class="section-title">1. Cibles Personnalisées</div>
+    <div class="setup-card">
+        <div class="form-grid">
+            <div>
+                <div class="form-group">
+                    <label>Type de Masse Grasse Cible</label>
+                    <select id="select-fat-type"></select>
+                    <div class="lock-note">La masse grasse peut être augmentée ou diminuée.</div>
+                </div>
+                <div class="form-group">
+                    <label>Valeur Spécifique (%)</label>
+                    <input type="number" id="input-fat-value" step="0.1">
+                    <span class="range-info" id="info-fat-range">Plage : --</span>
+                </div>
+            </div>
+ 
+            <div>
+                <div class="form-group">
+                    <label>Niveau Musculaire Cible</label>
+                    <select id="select-muscle-type"></select>
+                    <div class="lock-note">Le muscle ne peut jamais être diminué, seulement maintenu ou augmenté.</div>
+                </div>
+                <div class="form-group">
+                    <label>Masse SMM Spécifique (kg)</label>
+                    <input type="number" id="input-muscle-value" step="0.1">
+                    <span class="range-info" id="info-muscle-range">Plage : --</span>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="wrapper-loss-rate" class="hidden">
+        <div class="section-title">2. Rythme de Perte de Masse Grasse Pure</div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>Vitesse de restriction souhaitée</label>
+                <select id="select-loss-rate">
+                    <option value="0.25">0.25 kg / semaine (-275 kcal)</option>
+                    <option value="0.50" selected>0.50 kg / semaine (-550 kcal)</option>
+                    <option value="0.75">0.75 kg / semaine (-825 kcal)</option>
+                    <option value="1.00">1.00 kg / semaine (-1100 kcal)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="section-title">3. Évaluation du Plan Nutritionnel Généré</div>
+    <div class="results-grid">
+        <div class="res-card">
+            <div class="res-title">Poids Global Visé</div>
+            <div class="res-value" id="res-weight">-- kg</div>
+        </div>
+        <div class="res-card">
+            <div class="res-title">Budget Énergétique Quotidien</div>
+            <div class="res-value" id="res-calories">-- kcal</div>
+        </div>
+        <div class="res-card">
+            <div class="res-title">Masse Grasse à Perdre/Gagner</div>
+            <div class="res-value" id="res-fat-delta">-- kg</div>
+        </div>
+        <div class="res-card">
+            <div class="res-title">Masse Musculaire à Obtenir</div>
+            <div class="res-value" id="res-muscle-delta">-- kg</div>
+        </div>
+    </div>
+ 
+    <div class="setup-card" style="margin-bottom: 30px;">
+        <div class="res-title" style="text-align: center; margin-bottom: 10px;">Répartition Macro-nutritionnelle Scientifique</div>
+        <div class="macros-container">
+            <div class="macro-box macro-p">Protides<br><span id="macro-p">--</span>g <span id="macro-p-pct" style="font-size:10px; font-weight:normal;"></span></div>
+            <div class="macro-box macro-l">Lipides<br><span id="macro-l">--</span>g <span id="macro-l-pct" style="font-size:10px; font-weight:normal;"></span></div>
+            <div class="macro-box macro-g">Glucides<br><span id="macro-g">--</span>g <span id="macro-g-pct" style="font-size:10px; font-weight:normal;"></span></div>
+        </div>
+    </div>
+ 
+    <button class="confirm-btn" id="btn-save">Valider et Sauvegarder le Plan</button>
+</div>
+ 
+<script>
+(() => {
+    'use strict';
+
+    // =========================================================================
+    // 1. CONSTANTES PHYSIOLOGIQUES ET CONFIGURATION SCIENTIFIQUE
+    // =========================================================================
+    const PHYSIOLOGICAL_LIMITS = {
+        MAX_SMMI_MALE: 15.0,       // Limite supérieure naturelle de l'indice de muscle squelettique (Hommes)
+        MAX_SMMI_FEMALE: 11.5,     // Limite supérieure naturelle de l'indice de muscle squelettique (Femmes)
+        ABS_MIN_FAT_PERCENT: 3.0,  // Taux de masse grasse minimal de survie physiologique humaine
+        MIN_BRAIN_CARBS_G: 30.0,   // Seuil plancher de glucides requis pour la fonction cérébrale de base
+        ANABOLIC_EFFICIENCY: 0.8,  // Rendement de la synthèse protéique (20% de perte thermique/structurelle additionnelle)
+        KCAL_PER_KG_FAT: 7700.0,   // Énergie stockée par kilogramme de tissu adipeux pur
+        DAYS_PER_WEEK: 7.0         // Facteur de conversion temporel hebdomadaire
+    };
+
+    const MACRO_COEFFICIENTS = {
+        // Quantités de protéines par kg de Masse Maigre (LBM) selon le statut métabolique
+        PROTEIN_CUT: 2.5,          // Élevé pour préserver l'azote musculaire en situation catabolique
+        PROTEIN_BULK: 2.0,         // Modéré car les glucides et l'insuline exercent un rôle d'épargne azotée
+        PROTEIN_DEFAULT: 2.2,      // Équilibre homéostatique standard pour la synthèse musculaire
+        
+        FAT_STANDARD: 0.9,         // Seuil optimal pour le maintien des fonctions lipidiques et endocriniennes par kg de LBM
+        FAT_LOW_LIMIT: 0.7,        // Seuil d'urgence restrictif lors de déficits agressifs pour sauvegarder les volumes de glucides
+        
+        KCAL_PER_GRAM_PROT: 4,     // Énergie métabolisable d'Atwater pour les protéines
+        KCAL_PER_GRAM_FAT: 9,      // Énergie métabolisable d'Atwater pour les lipides
+        KCAL_PER_GRAM_CARB: 4      // Énergie métabolisable d'Atwater pour les glucides
+    };
+
+    const ENERGY_STRATEGIES = {
+        BULK_SURPLUS_KCAL: 300,    // Surplus optimal sécurisé pour maximiser l'anabolisme en limitant l'adipogenèse
+        RECOMP_DEFICIT_PCT: 0.05   // Léger déficit de 5% pour mobiliser les acides gras endogènes vers la synthèse protéique
+    };
+
+    const STRATEGY_GOALS = {
+        MAINTENANCE: "MAINTENANCE",
+        FAT_LOSS: "FAT_LOSS",
+        BODY_RECOMPOSITION: "BODY_RECOMPOSITION",
+        CONTROLLED_BULK: "CONTROLLED_BULK"
+    };
+
+    // Bases de données normatives cliniques
+    const fatNormsByAge = {
+        male: {
+            "18-24": { very_low: { max: 6.0 },  low: { min: 6.1,  max: 10.0 }, normal: { min: 10.1, max: 18.0 }, high: { min: 18.1, max: 22.0 }, very_high: { min: 22.1 } },
+            "25-34": { very_low: { max: 8.0 },  low: { min: 8.1,  max: 13.0 }, normal: { min: 13.1, max: 21.0 }, high: { min: 21.1, max: 25.0 }, very_high: { min: 25.1 } },
+            "35-44": { very_low: { max: 10.0 }, low: { min: 10.1, max: 16.0 }, normal: { min: 16.1, max: 23.0 }, high: { min: 23.1, max: 27.0 }, very_high: { min: 27.1 } },
+            "45-54": { very_low: { max: 12.0 }, low: { min: 12.1, max: 18.0 }, normal: { min: 18.1, max: 25.0 }, high: { min: 25.1, max: 29.0 }, very_high: { min: 29.1 } },
+            "55-64": { very_low: { max: 14.0 }, low: { min: 14.1, max: 20.0 }, normal: { min: 20.1, max: 26.0 }, high: { min: 26.1, max: 30.0 }, very_high: { min: 30.1 } },
+            "65+"  : { very_low: { max: 15.0 }, low: { min: 15.1, max: 22.0 }, normal: { min: 22.1, max: 28.0 }, high: { min: 28.1, max: 32.0 }, very_high: { min: 32.1 } }
+        },
+        female: {
+            "18-24": { very_low: { max: 13.0 }, low: { min: 13.1, max: 17.0 }, normal: { min: 17.1, max: 25.0 }, high: { min: 25.1, max: 29.0 }, very_high: { min: 29.1 } },
+            "25-34": { very_low: { max: 14.0 }, low: { min: 14.1, max: 20.0 }, normal: { min: 20.1, max: 28.0 }, high: { min: 28.1, max: 33.0 }, very_high: { min: 33.1 } },
+            "35-44": { very_low: { max: 16.0 }, low: { min: 16.1, max: 22.0 }, normal: { min: 22.1, max: 30.0 }, high: { min: 30.1, max: 35.0 }, very_high: { min: 35.1 } },
+            "45-54": { very_low: { max: 18.0 }, low: { min: 18.1, max: 24.0 }, normal: { min: 24.1, max: 32.0 }, high: { min: 32.1, max: 37.0 }, very_high: { min: 37.1 } },
+            "55-64": { very_low: { max: 20.0 }, low: { min: 20.1, max: 26.0 }, normal: { min: 26.1, max: 34.0 }, high: { min: 34.1, max: 39.0 }, very_high: { min: 39.1 } },
+            "65+"  : { very_low: { max: 21.0 }, low: { min: 21.1, max: 28.0 }, normal: { min: 28.1, max: 36.0 }, high: { min: 36.1, max: 41.0 }, very_high: { min: 41.1 } }
+        }
+    };
+ 
+    const smmiNormsByAge = {
+        male: {
+            "18-24": { very_low: { max: 7.5 }, low: { min: 7.6,  max: 9.0 },  normal: { min: 9.1,  max: 11.5 }, high: { min: 11.6, max: 13.5 }, very_high: { min: 13.6 } },
+            "25-34": { very_low: { max: 7.5 }, low: { min: 7.6,  max: 9.0 },  normal: { min: 9.1,  max: 11.5 }, high: { min: 11.6, max: 13.5 }, very_high: { min: 13.6 } },
+            "35-44": { very_low: { max: 7.3 }, low: { min: 7.4,  max: 8.8 },  normal: { min: 8.9,  max: 11.3 }, high: { min: 11.4, max: 13.2 }, very_high: { min: 13.3 } },
+            "45-54": { very_low: { max: 7.0 }, low: { min: 7.1,  max: 8.5 },  normal: { min: 8.6,  max: 11.0 }, high: { min: 11.1, max: 12.8 }, very_high: { min: 12.9 } },
+            "55-64": { very_low: { max: 6.7 }, low: { min: 6.8,  max: 8.2 },  normal: { min: 8.3,  max: 10.5 }, high: { min: 10.6, max: 12.3 }, very_high: { min: 12.4 } },
+            "65+"  : { very_low: { max: 6.4 }, low: { min: 6.5,  max: 7.8 },  normal: { min: 7.9,  max: 10.0 }, high: { min: 10.1, max: 11.8 }, very_high: { min: 11.9 } }
+        },
+        female: {
+            "18-24": { very_low: { max: 5.6 }, low: { min: 5.7,  max: 6.7 },  normal: { min: 6.8,  max: 8.7 },  high: { min: 8.8,  max: 10.2 }, very_high: { min: 10.3 } },
+            "25-34": { very_low: { max: 5.6 }, low: { min: 5.7,  max: 6.7 },  normal: { min: 6.8,  max: 8.7 },  high: { min: 8.8,  max: 10.2 }, very_high: { min: 10.3 } },
+            "35-44": { very_low: { max: 5.4 }, low: { min: 5.5,  max: 6.5 },  normal: { min: 6.6,  max: 8.4 },  high: { min: 8.5,  max: 9.9 },  very_high: { min: 10.0 } },
+            "45-54": { very_low: { max: 5.2 }, low: { min: 5.3,  max: 6.2 },  normal: { min: 6.3,  max: 8.1 },  high: { min: 8.2,  max: 9.5 },  very_high: { min: 9.6 } },
+            "55-64": { very_low: { max: 4.9 }, low: { min: 5.0,  max: 5.9 },  normal: { min: 6.0,  max: 7.7 },  high: { min: 7.8,  max: 9.1 },  very_high: { min: 9.2 } },
+            "65+"  : { very_low: { max: 4.6 }, low: { min: 4.7,  max: 5.5 },  normal: { min: 5.6,  max: 7.3 },  high: { min: 7.4,  max: 8.6 },  very_high: { min: 8.7 } }
+        }
+    };
+
+    // =========================================================================
+    // 2. ÉTAT ET DONNÉES UTILISATEUR ENTRANTES
+    // =========================================================================
+    const user = {
+        gender: (localStorage.getItem('userGender') || 'male').toLowerCase(),
+        ageGroup: localStorage.getItem('userAgeGroup') || "25-34", 
+        height: parseFloat(localStorage.getItem('userHeight')) || 176.0,
+        weight: parseFloat(localStorage.getItem('userWeight')) || 90.0,
+        bfPercent: parseFloat(localStorage.getItem('userBodyFat')) || 26.0,
+        smmKg: parseFloat(localStorage.getItem('userSMM')) || 32.0,
+        bmr: 1850.0,
+        tdee: 2500.0
+    };
+
+    // Cache des sélecteurs DOM pour minimiser le coût d'accès à l'arbre DOM
+    const DOM = {
+        txtCaseBadge: document.getElementById('txt-case-badge'),
+        txtCaseDesc: document.getElementById('txt-case-desc'),
+        limitAlert: document.getElementById('limit-alert'),
+        selectFatType: document.getElementById('select-fat-type'),
+        inputFatValue: document.getElementById('input-fat-value'),
+        infoFatRange: document.getElementById('info-fat-range'),
+        selectMuscleType: document.getElementById('select-muscle-type'),
+        inputMuscleValue: document.getElementById('input-muscle-value'),
+        infoMuscleRange: document.getElementById('info-muscle-range'),
+        wrapperLossRate: document.getElementById('wrapper-loss-rate'),
+        selectLossRate: document.getElementById('select-loss-rate'),
+        resWeight: document.getElementById('res-weight'),
+        resCalories: document.getElementById('res-calories'),
+        resFatDelta: document.getElementById('res-fat-delta'),
+        resMuscleDelta: document.getElementById('res-muscle-delta'),
+        macroP: document.getElementById('macro-p'),
+        macroPPct: document.getElementById('macro-p-pct'),
+        macroL: document.getElementById('macro-l'),
+        macroLPct: document.getElementById('macro-l-pct'),
+        macroG: document.getElementById('macro-g'),
+        macroGPct: document.getElementById('macro-g-pct'),
+        btnSave: document.getElementById('btn-save')
+    };
+
+    // Extraction sécurisée des configurations de référence
+    const userFatNorms = fatNormsByAge[user.gender]?.[user.ageGroup] || fatNormsByAge.male["25-34"];
+    const userSmmiNorms = smmiNormsByAge[user.gender]?.[user.ageGroup] || smmiNormsByAge.male["25-34"];
+    
+    // Calcul de la taille au carré en mètres (M²) pour l'indice SMMI
+    const heightInMetersSquared = Math.pow(user.height / 100.0, 2);
+    const currentSMMI = user.smmKg / heightInMetersSquared;
+    const absoluteMaxSMMI = (user.gender === 'male') ? PHYSIOLOGICAL_LIMITS.MAX_SMMI_MALE : PHYSIOLOGICAL_LIMITS.MAX_SMMI_FEMALE;
+
+    // =========================================================================
+    // 3. MOTEUR DE VALIDATION ET STRATÉGIE PHYSIOLOGIQUE
+    // =========================================================================
+    function getFatStatus5(bf) {
+        if (bf <= userFatNorms.very_low.max) return "very_low";
+        if (bf <= userFatNorms.low.max) return "low";
+        if (bf <= userFatNorms.normal.max) return "normal";
+        if (bf <= userFatNorms.high.max) return "high";
+        return "very_high";
+    }
+ 
+    function getMuscleStatus5(smmi) {
+        if (smmi <= userSmmiNorms.very_low.max) return "very_low";
+        if (smmi <= userSmmiNorms.low.max) return "low";
+        if (smmi <= userSmmiNorms.normal.max) return "normal";
+        if (smmi <= userSmmiNorms.high.max) return "high";
+        return "very_high";
+    }
+ 
+    function getMuscleBucket(status5) {
+        if (status5 === "very_low" || status5 === "low") return "low_group";
+        if (status5 === "normal") return "normal_group";
+        return "high_group"; 
+    }
+ 
+    const currentFatStatus = getFatStatus5(user.bfPercent);
+    const currentMuscleStatus = getMuscleStatus5(currentSMMI);
+    const currentMuscleBucket = getMuscleBucket(currentMuscleStatus);
+
+    // =========================================================================
+    // 4. ARCHITECTURE COMPOSANTS & INITIALISATION INTERFACE
+    // =========================================================================
+    function initInterface() {
+        DOM.txtCaseBadge.innerText = 
+            `Profil : Gras [${currentFatStatus.toUpperCase()}] | Muscle [${currentMuscleStatus.toUpperCase()}] | SMMI actuel : ${currentSMMI.toFixed(1)}`;
+        
+        DOM.txtCaseDesc.innerText = 
+            `Objectifs cohérents générés pour votre groupe d'âge (${user.ageGroup} ans) et votre sexe : la masse grasse peut être réduite ou augmentée, mais la masse musculaire ne peut jamais être diminuée par rapport à votre niveau actuel.`;
+ 
+        DOM.selectFatType.innerHTML = "";
+        DOM.selectFatType.options.add(new Option("Healthy / Normal", "normal"));
+        DOM.selectFatType.options.add(new Option("Lean / Athlétique (Bas)", "low"));
+        DOM.selectFatType.value = "normal";
+ 
+        DOM.selectMuscleType.innerHTML = "";
+        if (currentMuscleBucket === "high_group") {
+            DOM.selectMuscleType.options.add(new Option("Athlétique / Élevé", "high"));
+            DOM.selectMuscleType.options.add(new Option("Elite / Très Élevé", "very_high"));
+            DOM.selectMuscleType.value = "high";
+        } else {
+            DOM.selectMuscleType.options.add(new Option("Optimisé / Normal", "normal"));
+            DOM.selectMuscleType.options.add(new Option("Athlétique / Élevé", "high"));
+            DOM.selectMuscleType.options.add(new Option("Elite / Très Élevé", "very_high"));
+            DOM.selectMuscleType.value = "normal";
+        }
+    }
+ 
+    function handleTypeChanges() {
+        const fatType = DOM.selectFatType.value;
+        const muscleType = DOM.selectMuscleType.value;
+ 
+        let fatMin, fatMax, fatDef;
+        if (fatType === 'low') {
+            fatMin = PHYSIOLOGICAL_LIMITS.ABS_MIN_FAT_PERCENT;
+            fatMax = userFatNorms.low.max;
+            fatDef = (fatMin + fatMax) / 2.0;
+        } else { 
+            fatMin = userFatNorms.normal.min;
+            fatMax = userFatNorms.normal.max;
+            fatDef = (fatMin + fatMax) / 2.0;
+        }
+ 
+        DOM.inputFatValue.min = fatMin.toFixed(1);
+        DOM.inputFatValue.max = fatMax.toFixed(1);
+        DOM.inputFatValue.value = fatDef.toFixed(1);
+        DOM.infoFatRange.innerText = `Plage recommandée : [${fatMin.toFixed(1)}% - ${fatMax.toFixed(1)}%]`;
+ 
+        let catMinKg, catMaxKg;
+        if (muscleType === 'normal') {
+            catMinKg = userSmmiNorms.normal.min * heightInMetersSquared;
+            catMaxKg = userSmmiNorms.normal.max * heightInMetersSquared;
+        } else if (muscleType === 'high') {
+            catMinKg = userSmmiNorms.high.min * heightInMetersSquared;
+            catMaxKg = userSmmiNorms.high.max * heightInMetersSquared;
+        } else { 
+            catMinKg = userSmmiNorms.very_high.min * heightInMetersSquared;
+            catMaxKg = absoluteMaxSMMI * heightInMetersSquared;
+        }
+ 
+        const mMin = Math.max(catMinKg, user.smmKg);
+        const mMax = Math.max(catMaxKg, mMin);
+        let mDef = Math.max((catMinKg + catMaxKg) / 2.0, user.smmKg);
+        if (mDef > mMax) mDef = mMax;
+ 
+        DOM.inputMuscleValue.min = mMin.toFixed(1);
+        DOM.inputMuscleValue.max = mMax.toFixed(1);
+        DOM.inputMuscleValue.value = mDef.toFixed(1);
+        DOM.infoMuscleRange.innerText = `Plage recommandée : [${mMin.toFixed(1)}kg - ${mMax.toFixed(1)}kg]`;
+    }
+
+    // =========================================================================
+    // 5. SECURE ALGORITHMIC CALCULATIONS (MOTEUR INDÉPENDANT)
+    // =========================================================================
+    
+    function validateAndClampInputs(targetBF, targetSMM) {
+        let cleanBF = isNaN(targetBF) ? user.bfPercent : targetBF;
+        let cleanSMM = isNaN(targetSMM) ? user.smmKg : targetSMM;
+
+        // Anti-catabolisme structurel : Empêche la dégradation forcée du muscle sous le niveau actuel
+        if (cleanSMM < user.smmKg) {
+            cleanSMM = user.smmKg;
+            DOM.inputMuscleValue.value = cleanSMM.toFixed(1);
+        }
+
+        // Garde-fou physiologique absolu (Limite génétique/médicale de masse musculaire)
+        if ((cleanSMM / heightInMetersSquared) > absoluteMaxSMMI) {
+            cleanSMM = absoluteMaxSMMI * heightInMetersSquared;
+            DOM.inputMuscleValue.value = cleanSMM.toFixed(1);
+            showLimitAlert("⚠️ Attention : Limite métabolique ou physiologique de sécurité atteinte. Ajustement automatique appliqué.");
+        }
+
+        // Sol plancher de graisse essentiel
+        if (cleanBF < PHYSIOLOGICAL_LIMITS.ABS_MIN_FAT_PERCENT) {
+            cleanBF = PHYSIOLOGICAL_LIMITS.ABS_MIN_FAT_PERCENT;
+            DOM.inputFatValue.value = cleanBF.toFixed(1);
+        }
+
+        return { cleanBF, cleanSMM };
+    }
+
+    function determineGoalStrategy(fatDelta, muscleDelta) {
+        if (fatDelta < -0.5) {
+            return STRATEGY_GOALS.FAT_LOSS;
+        } else if (muscleDelta > 0.5 && Math.abs(fatDelta) <= 1.0) {
+            return STRATEGY_GOALS.BODY_RECOMPOSITION;
+        } else if (muscleDelta > 0.5 && fatDelta > 0.5) {
+            return STRATEGY_GOALS.CONTROLLED_BULK;
+        }
+        return STRATEGY_GOALS.MAINTENANCE;
+    }
+
+    function calculateTargetWeight(currentLeanMass, muscleDelta, targetBF) {
+        // Formule mathématique avancée équilibrant le gain de lean mass estimé (avec taux de rendement de 80%) 
+        // divisé par le ratio complémentaire de masse grasse cible attendu.
+        const dynamicAnabolicGain = muscleDelta > 0 ? muscleDelta * PHYSIOLOGICAL_LIMITS.ANABOLIC_EFFICIENCY : muscleDelta;
+        const estimatedFinalLeanMass = currentLeanMass + dynamicAnabolicGain;
+        return estimatedFinalLeanMass / (1.0 - (targetBF / 100.0));
+    }
+
+    function calculateTargetCalories(strategy, lossRate) {
+        let calories = user.tdee;
+
+        switch(strategy) {
+            case STRATEGY_GOALS.FAT_LOSS:
+                // Équivalence énergétique exacte : 1kg adipeux = ~7700 kcal. 
+                // Un rythme de 1kg/semaine induit un déficit de 1100 kcal journalier.
+                const deficit = lossRate * (PHYSIOLOGICAL_LIMITS.KCAL_PER_KG_FAT / PHYSIOLOGICAL_LIMITS.DAYS_PER_WEEK);
+                calories = user.tdee - deficit;
+                DOM.wrapperLossRate.classList.remove('hidden');
+                break;
+            case STRATEGY_GOALS.BODY_RECOMPOSITION:
+                calories = user.tdee * (1.0 - ENERGY_STRATEGIES.RECOMP_DEFICIT_PCT);
+                DOM.wrapperLossRate.classList.add('hidden');
+                break;
+            case STRATEGY_GOALS.CONTROLLED_BULK:
+                calories = user.tdee + ENERGY_STRATEGIES.BULK_SURPLUS_KCAL;
+                DOM.wrapperLossRate.classList.add('hidden');
+                break;
+            default:
+                calories = user.tdee;
+                DOM.wrapperLossRate.classList.add('hidden');
+                break;
+        }
+
+        // Sécurité métabolique : interdiction absolue de basculer en dessous du métabolisme de base (BMR)
+        if (calories < user.bmr) {
+            calories = user.bmr;
+            showLimitAlert("⚠️ Sécurité : Calories bloquées au niveau du BMR pour préserver votre santé métabolique.");
+        }
+
+        return calories;
+    }
+
+    function calculateMacronutrients(dailyCalories, currentLeanMassMassKg, strategy) {
+        // Attribution dynamique des protéines selon l'environnement de balance énergétique
+        let proteinFactor = MACRO_COEFFICIENTS.PROTEIN_DEFAULT;
+        if (dailyCalories < user.tdee) proteinFactor = MACRO_COEFFICIENTS.PROTEIN_CUT;
+        if (dailyCalories > user.tdee) proteinFactor = MACRO_COEFFICIENTS.PROTEIN_BULK;
+
+        let gProtein = currentLeanMassMassKg * proteinFactor;
+        let gFat = currentLeanMassMassKg * MACRO_COEFFICIENTS.FAT_STANDARD;
+
+        let proteinCalories = gProtein * MACRO_COEFFICIENTS.KCAL_PER_GRAM_PROT;
+        let fatCalories = gFat * MACRO_COEFFICIENTS.KCAL_PER_GRAM_FAT;
+        let remainingCalories = dailyCalories - (proteinCalories + fatCalories);
+
+        // Ajustement d'urgence si le budget calorique restant est trop bas pour intégrer les lipides structurels
+        if (remainingCalories < 0) {
+            gFat = currentLeanMassMassKg * MACRO_COEFFICIENTS.FAT_LOW_LIMIT;
+            fatCalories = gFat * MACRO_COEFFICIENTS.KCAL_PER_GRAM_FAT;
+            remainingCalories = dailyCalories - (proteinCalories + fatCalories);
+        }
+
+        // Attribution résiduelle totale des calories aux glucides pour soutenir le glycogène musculaire
+        let gCarbs = remainingCalories / MACRO_COEFFICIENTS.KCAL_PER_GRAM_CARB;
+        if (gCarbs < PHYSIOLOGICAL_LIMITS.MIN_BRAIN_CARBS_G) {
+            gCarbs = PHYSIOLOGICAL_LIMITS.MIN_BRAIN_CARBS_G;
+        }
+
+        // Recalcul précis de la distribution calorique finale (corrige les arrondis)
+        const totalCalcKcal = (gProtein * MACRO_COEFFICIENTS.KCAL_PER_GRAM_PROT) + 
+                             (gFat * MACRO_COEFFICIENTS.KCAL_PER_GRAM_FAT) + 
+                             (gCarbs * MACRO_COEFFICIENTS.KCAL_PER_GRAM_CARB);
+
+        const pPct = Math.round(((gProtein * MACRO_COEFFICIENTS.KCAL_PER_GRAM_PROT) / totalCalcKcal) * 100);
+        const lPct = Math.round(((gFat * MACRO_COEFFICIENTS.KCAL_PER_GRAM_FAT) / totalCalcKcal) * 100);
+        const cPct = 100 - pPct - lPct;
+
+        return { gProtein, gFat, gCarbs, pPct, lPct, cPct };
+    }
+
+    // =========================================================================
+    // 6. PIPELINE PRINCIPALE ET INTERFACE RENDERING
+    // =========================================================================
+    function showLimitAlert(message) {
+        DOM.limitAlert.innerText = message;
+        DOM.limitAlert.style.display = 'block';
+    }
+
+    function clearLimitAlert() {
+        DOM.limitAlert.style.display = 'none';
+    }
+
+    function updateView(targetWeight, dailyCalories, fatDelta, muscleDelta, macros) {
+        DOM.resWeight.innerText = `${targetWeight.toFixed(1)} kg`;
+        DOM.resCalories.innerText = `${Math.round(dailyCalories)} kcal`;
+ 
+        DOM.resFatDelta.innerText = `${fatDelta > 0 ? '+' : ''}${fatDelta.toFixed(1)} kg`;
+        DOM.resFatDelta.style.color = fatDelta > 0 ? 'var(--color-high)' : 'var(--neon-green)';
+ 
+        DOM.resMuscleDelta.innerText = `${muscleDelta > 0 ? '+' : ''}${muscleDelta.toFixed(1)} kg`;
+ 
+        DOM.macroP.innerText = Math.round(macros.gProtein);
+        DOM.macroPPct.innerText = `(${macros.pPct}%)`;
+        DOM.macroL.innerText = Math.round(macros.gFat);
+        DOM.macroLPct.innerText = `(${macros.lPct}%)`;
+        DOM.macroG.innerText = Math.round(macros.gCarbs);
+        DOM.macroGPct.innerText = `(${macros.cPct}%)`;
+    }
+
+    function calculatePlan() {
+        try {
+            clearLimitAlert();
+
+            const rawTargetBF = parseFloat(DOM.inputFatValue.value);
+            const rawTargetSMM = parseFloat(DOM.inputMuscleValue.value);
+            const lossRate = parseFloat(DOM.selectLossRate.value);
+
+            // 1. Validation & Filtrage des entrées
+            const { cleanBF, cleanSMM } = validateAndClampInputs(rawTargetBF, rawTargetSMM);
+
+            // 2. Détermination de la composition actuelle
+            const currentLeanMass = user.weight * (1.0 - (user.bfPercent / 100.0));
+            const muscleDelta = cleanSMM - user.smmKg;
+
+            // 3. Modélisation de la cible de poids et d'ajustement adipeux
+            const targetWeight = calculateTargetWeight(currentLeanMass, muscleDelta, cleanBF);
+            const fatDelta = (targetWeight * (cleanBF / 100.0)) - (user.weight * (user.bfPercent / 100.0));
+
+            // 4. Exécution du Moteur de Décision d'Objectif (Goal Engine)
+            const strategy = determineGoalStrategy(fatDelta, muscleDelta);
+
+            // 5. Calcul des Besoins Métaboliques et Macro-nutritionnels
+            const dailyCalories = calculateTargetCalories(strategy, lossRate);
+            const macros = calculateMacronutrients(dailyCalories, currentLeanMass, strategy);
+
+            // 6. Rendu graphique des flux mis à jour
+            updateView(targetWeight, dailyCalories, fatDelta, muscleDelta, macros);
+
+        } catch (error) {
+            console.error("Erreur critique d'exécution dans le calcul métabolique : ", error);
+        }
+    }
+
+    // =========================================================================
+    // 7. ÉCOUTEURS D'ÉVÉNEMENTS & INITIALISATION INITIALE
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+        initInterface();
+        handleTypeChanges();
+        calculatePlan();
+ 
+        DOM.selectFatType.addEventListener('change', () => { 
+            handleTypeChanges(); 
+            calculatePlan(); 
+        });
+        DOM.selectMuscleType.addEventListener('change', () => { 
+            handleTypeChanges(); 
+            calculatePlan(); 
+        });
+        
+        DOM.inputFatValue.addEventListener('input', calculatePlan);
+        DOM.inputMuscleValue.addEventListener('input', calculatePlan);
+        DOM.selectLossRate.addEventListener('change', calculatePlan);
+    });
+ 
+    DOM.btnSave.addEventListener('click', () => {
+        alert("Plan scientifique enregistré avec succès !");
+    });
+
+})();
+</script>
+ 
+</body>
+</html>

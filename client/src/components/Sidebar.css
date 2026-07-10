@@ -1,5 +1,5 @@
 /* =====================================================
-   SIDEBAR — Dark Olive Design (Stitch)
+   SIDEBAR — Light Cream Design (Stitch)
    ===================================================== */
 
 .sidebar {
@@ -8,14 +8,15 @@
   left: 0;
   bottom: 0;
   width: 240px;
-  background: #2C2C1E;
+  background: #fff8f1;
+  border-right: 1px solid #d1c5ac;
   display: flex;
   flex-direction: column;
   z-index: 100;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: rgba(201,168,76,0.2) transparent;
+  scrollbar-color: rgba(116,91,0,0.2) transparent;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -23,7 +24,7 @@
 }
 .sidebar::-webkit-scrollbar-track { background: transparent; }
 .sidebar::-webkit-scrollbar-thumb {
-  background: rgba(201,168,76,0.2);
+  background: rgba(116,91,0,0.2);
   border-radius: 999px;
 }
 
@@ -31,25 +32,20 @@
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 24px 20px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  gap: 8px;
+  padding: 16px 20px 24px;
   flex-shrink: 0;
 }
 
-.sidebar-logo-icon-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(201,168,76,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.sidebar-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .sidebar-logo-fork {
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1;
 }
 
@@ -60,18 +56,17 @@
 }
 
 .sidebar-logo-text {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
-  color: #F5F0E8;
-  letter-spacing: -0.3px;
+  color: #745b00;
+  letter-spacing: -0.5px;
   line-height: 1.2;
 }
 
 .sidebar-logo-sub {
   font-size: 11px;
   font-weight: 400;
-  color: #7A7060;
-  letter-spacing: 0.2px;
+  color: #4e4633;
 }
 
 /* --- Navigation --- */
@@ -79,14 +74,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 12px 10px 16px;
-  gap: 4px;
+  padding: 0 12px 16px;
 }
 
 .sidebar-nav-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .sidebar-nav-bottom {
@@ -97,45 +90,49 @@
 .sidebar-nav-item {
   display: flex;
   align-items: center;
-  gap: 11px;
-  height: 42px;
-  padding: 0 13px;
+  gap: 12px;
+  padding: 10px 12px;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 500;
-  color: #B5A898;
+  color: #4e4633;
   text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease, border-left-color 0.15s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
   border: none;
-  border-left: 3px solid transparent;
-  background: none;
+  background: transparent;
   width: 100%;
   font-family: inherit;
-  letter-spacing: 0.1px;
+  margin-bottom: 4px;
 }
 
 .sidebar-nav-item:hover {
-  background: rgba(201,168,76,0.08);
-  color: #F5F0E8;
+  background: #f1e7d6;
+  color: #745b00;
 }
 
 .sidebar-nav-item.active {
-  border-left: 3px solid #C9A84C;
-  color: #C9A84C;
-  background: rgba(201,168,76,0.12);
-  font-weight: 600;
+  background: #fcf3e1;
+  color: #745b00;
+  font-weight: 700;
+}
+
+/* Override for icons in active/hover state to use FILL if we want, or just rely on the class */
+.sidebar-nav-item.active .sidebar-nav-icon,
+.sidebar-nav-item:hover .sidebar-nav-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 /* --- Icons --- */
 .sidebar-nav-icon {
-  font-size: 16px;
-  width: 20px;
+  font-size: 24px;
+  width: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   line-height: 1;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .sidebar-nav-label {
@@ -147,18 +144,65 @@
 /* --- Divider --- */
 .sidebar-divider {
   height: 1px;
-  background: rgba(255,255,255,0.08);
-  margin: 10px 4px;
+  background: #d1c5ac;
+  margin: 16px 0;
 }
 
-/* --- Logout --- */
-.sidebar-logout {
-  text-align: left;
-  margin-top: 2px;
+/* --- Toggle Button --- */
+.sidebar-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #745b00;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+  margin-left: auto;
+}
+.sidebar-toggle-btn:hover {
+  background: rgba(116, 91, 0, 0.1);
 }
 
-.sidebar-logout:hover {
-  background: rgba(217,83,79,0.15);
-  color: #D9534F !important;
-  border-left-color: transparent !important;
+/* --- Collapsed State --- */
+.sidebar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-logo-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s, width 0.2s;
+  overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-logo-content {
+  opacity: 0;
+  width: 0;
+  display: none;
+}
+.sidebar.collapsed .sidebar-logo {
+  justify-content: center;
+  padding: 16px 0 24px;
+}
+.sidebar.collapsed .sidebar-toggle-btn {
+  margin: 0;
+}
+
+.sidebar.collapsed .sidebar-nav-label {
+  display: none;
+}
+.sidebar.collapsed .sidebar-nav-item {
+  justify-content: center;
+  padding: 10px 0;
+}
+.sidebar.collapsed .sidebar-nav-icon {
+  margin: 0;
+}
+

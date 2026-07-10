@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Weight</title>
+
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #12141c;
+            --card-item-bg: #1a1d24;
+            --card-border: #2c313c;
+            --neon-green: #90ee02;
+            --text-color: #ffffff;
+            --gray-text: #8b8f9a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* --- Progress Bar (Step 4 of 5 - 80%) --- */
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .progress-steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .step-segment {
+            flex: 1;
+            height: 6px;
+            background: var(--card-border);
+            border-radius: 999px;
+            transition: background 0.3s ease;
+        }
+
+        /* Les 4 premières étapes sur 5 sont activées en vert */
+        .step-segment.active {
+            background: var(--neon-green);
+            box-shadow: 0 0 8px rgba(144, 238, 2, 0.4);
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+        }
+
+        .header-section h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header-section p {
+            color: var(--gray-text);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Unit Switcher (kg / lb) */
+        .unit-toggle {
+            display: flex;
+            background: var(--card-item-bg);
+            border: 1px solid var(--card-border);
+            width: 140px;
+            margin: 0 auto;
+            border-radius: 999px;
+            padding: 4px;
+        }
+
+        .unit-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            color: var(--gray-text);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .unit-btn.active {
+            background: var(--neon-green);
+            color: #000000;
+        }
+
+        /* Weight Display Area */
+        .weight-display {
+            text-align: center;
+            font-size: 56px;
+            font-weight: 800;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 6px;
+            height: 70px;
+        }
+
+        .weight-unit {
+            font-size: 22px;
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        /* Horizontal Ruler Container */
+        .ruler-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+            background-color: var(--card-item-bg);
+            border-radius: 20px;
+            padding: 30px 0;
+            border: 1px solid var(--card-border);
+        }
+
+        /* Scroll Area */
+        .ruler-outer {
+            width: 100%;
+            overflow-x: auto;
+            scroll-behavior: auto;
+            cursor: grab;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ruler-outer:active {
+            cursor: grabbing;
+        }
+
+        .ruler-outer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ruler-container {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            height: 70px;
+        }
+
+        /* Spacers to center first/last ticks */
+        .ruler-spacer {
+            min-width: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Ruler Ticks */
+        .tick {
+            width: 2px;
+            height: 25px;
+            background-color: var(--card-border);
+            margin-right: 12px;
+            flex-shrink: 0;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        .tick.major {
+            height: 45px;
+            background-color: var(--gray-text);
+        }
+
+        .tick-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gray-text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Green Center Indicator */
+        .center-indicator {
+            position: absolute;
+            left: 50%;
+            top: 15px;
+            width: 4px;
+            background-color: var(--neon-green);
+            transform: translateX(-50%);
+            z-index: 10;
+            pointer-events: none;
+            height: 65px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(144, 238, 2, 0.5);
+        }
+
+        /* Confirm Button */
+        .action-button-container {
+            max-width: 380px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            background: var(--neon-green);
+            color: #000000;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .confirm-btn:hover {
+            opacity: 0.9;
+        }
+
+        .confirm-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media(max-width: 768px) {
+            .page-container {
+                padding: 25px 20px;
+            }
+            .header-section h1 {
+                font-size: 26px;
+            }
+            .weight-display {
+                font-size: 46px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- Progress Header (Step 4 of 5 - 80%) -->
+        <div class="progress-header">
+            <span>Step 4 of 5</span>
+            <span>80%</span>
+        </div>
+        <div class="progress-steps">
+            <div class="step-segment active"></div>
+            <div class="step-segment active"></div>
+            <div class="step-segment active"></div>
+            <div class="step-segment active"></div>
+            <div class="step-segment"></div>
+        </div>
+
+        <div class="header-section">
+            <h1>What's your current weight?</h1>
+            <p>This helps us calibrate your fitness plan.</p>
+            
+            <div class="unit-toggle">
+                <button class="unit-btn active" id="btn-kg">kg</button>
+                <button class="unit-btn" id="btn-lb">lb</button>
+            </div>
+        </div>
+
+        <div class="weight-display">
+            <span id="weight-num">70.0</span>
+            <span class="weight-unit" id="weight-unit-label">kg</span>
+        </div>
+
+        <div class="ruler-wrapper">
+            <div class="center-indicator"></div>
+            <div class="ruler-outer" id="ruler-scroll">
+                <div class="ruler-container" id="ruler-content"></div>
+            </div>
+        </div>
+
+        <div class="action-button-container">
+            <button class="confirm-btn" id="btn-next">Continue</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentUnit = 'kg';
+        let currentWeightKg = 70.0;
+
+        const minKg = 30;
+        const maxKg = 160;
+        const ticksPerUnit = 10;
+        const tickSpacing = 14; // Width 2px + Margin 12px
+
+        const rulerScroll = document.getElementById('ruler-scroll');
+        const rulerContent = document.getElementById('ruler-content');
+        const weightNum = document.getElementById('weight-num');
+        const unitLabel = document.getElementById('weight-unit-label');
+        const btnKg = document.getElementById('btn-kg');
+        const btnLb = document.getElementById('btn-lb');
+
+        // --- 1. GENERATE RULER ---
+        function generateRuler() {
+            rulerContent.innerHTML = '';
+
+            const leftSpacer = document.createElement('div');
+            leftSpacer.className = 'ruler-spacer';
+            rulerContent.appendChild(leftSpacer);
+
+            for (let i = minKg * ticksPerUnit; i <= maxKg * ticksPerUnit; i++) {
+                const kgValue = i / ticksPerUnit;
+                const tickElement = document.createElement('div');
+                
+                if (i % ticksPerUnit === 0) {
+                    tickElement.className = 'tick major';
+                    const label = document.createElement('div');
+                    label.className = 'tick-label';
+                    
+                    if (currentUnit === 'kg') {
+                        label.innerText = kgValue;
+                    } else {
+                        label.innerText = Math.round(kgValue * 2.20462);
+                    }
+                    tickElement.appendChild(label);
+                } else {
+                    tickElement.className = 'tick';
+                }
+                
+                rulerContent.appendChild(tickElement);
+            }
+
+            const rightSpacer = document.createElement('div');
+            rightSpacer.className = 'ruler-spacer';
+            rulerContent.appendChild(rightSpacer);
+        }
+
+        // --- 2. DISPLAY & SCROLL LOGIC ---
+        function updateWeightDisplay() {
+            if (currentUnit === 'kg') {
+                weightNum.innerText = currentWeightKg.toFixed(1);
+            } else {
+                const weightInLb = currentWeightKg * 2.20462;
+                weightNum.innerText = weightInLb.toFixed(1);
+            }
+        }
+
+        rulerScroll.addEventListener('scroll', () => {
+            const scrollLeft = rulerScroll.scrollLeft;
+            const targetTickIndex = Math.round(scrollLeft / tickSpacing);
+            
+            let calculatedKg = minKg + (targetTickIndex / ticksPerUnit);
+            
+            if (calculatedKg < minKg) calculatedKg = minKg;
+            if (calculatedKg > maxKg) calculatedKg = maxKg;
+
+            currentWeightKg = calculatedKg;
+            updateWeightDisplay();
+        });
+
+        function setRulerToWeight(kgValue) {
+            const index = (kgValue - minKg) * ticksPerUnit;
+            rulerScroll.scrollLeft = index * tickSpacing;
+        }
+
+        // --- 3. MOUSE DRAG SUPPORT ---
+        let isDown = false;
+        let startX;
+        let scrollLeftStart;
+
+        rulerScroll.addEventListener('mousedown', (e) => {
+            isDown = true;
+            rulerScroll.style.cursor = 'grabbing';
+            startX = e.pageX - rulerScroll.offsetLeft;
+            scrollLeftStart = rulerScroll.scrollLeft;
+        });
+
+        rulerScroll.addEventListener('mouseleave', () => {
+            isDown = false;
+            rulerScroll.style.cursor = 'grab';
+        });
+
+        rulerScroll.addEventListener('mouseup', () => {
+            isDown = false;
+            rulerScroll.style.cursor = 'grab';
+        });
+
+        rulerScroll.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - rulerScroll.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            rulerScroll.scrollLeft = scrollLeftStart - walk;
+        });
+
+        // --- 4. TOGGLE UNITS ---
+        btnKg.addEventListener('click', () => {
+            if (currentUnit === 'kg') return;
+            currentUnit = 'kg';
+            btnKg.classList.add('active');
+            btnLb.classList.remove('active');
+            unitLabel.innerText = 'kg';
+            
+            generateRuler();
+            setRulerToWeight(currentWeightKg);
+            updateWeightDisplay();
+        });
+
+        btnLb.addEventListener('click', () => {
+            if (currentUnit === 'lb') return;
+            currentUnit = 'lb';
+            btnLb.classList.add('active');
+            btnKg.classList.remove('active');
+            unitLabel.innerText = 'lb';
+            
+            generateRuler();
+            setRulerToWeight(currentWeightKg);
+            updateWeightDisplay();
+        });
+
+        // --- 5. SUBMIT & NAVIGATION ---
+        document.getElementById('btn-next').addEventListener('click', () => {
+            localStorage.setItem('userWeight', currentWeightKg);
+            window.location.href = 'us_navy.html';
+        });
+
+        // --- INITIALIZATION ---
+        window.addEventListener('load', () => {
+            generateRuler();
+            setTimeout(() => {
+                setRulerToWeight(currentWeightKg);
+                updateWeightDisplay();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

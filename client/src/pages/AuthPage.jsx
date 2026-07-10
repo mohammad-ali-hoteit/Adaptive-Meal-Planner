@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logoImg from '../assets/logo.png';
 import './AuthPage.css';
 
 /* =====================================================
    AuthPage — Stitch "Kinetic Gold" Design
    Two-card layout: info card (left) + form card (right)
+   with animated swap!
    ===================================================== */
 
 const AuthPage = () => {
@@ -31,20 +33,18 @@ const AuthPage = () => {
         />
       </svg>
 
-      <div className="auth-cards-row">
-        {/* ---- INFO CARD (left) ---- */}
+      <div className={`auth-cards-row ${view === 'register' ? 'swapped' : ''}`}>
+        {/* ---- INFO CARD (left initially) ---- */}
         <div className="auth-info-card auth-entry">
-          <div className="auth-info-icon-wrap">
-            <span className="auth-info-icon" aria-hidden="true">🍴</span>
-          </div>
-          <h1 className="auth-info-title">Adaptive Meal Planner</h1>
+          <img src={logoImg} alt="NutriSync Logo" className="auth-info-logo-img" />
+          <h1 className="auth-info-title">NutriSync</h1>
           <p className="auth-info-desc">
             Your personalized nutrition system — intelligent tracking,
             adaptive planning, and seamless progress all in one place.
           </p>
           <div className="auth-info-features">
             {[
-              { icon: '📊', text: 'AI-powered macro targets' },
+              { icon: '📊', text: 'Smart macro targets' },
               { icon: '📅', text: 'Schedule-aware meal timing' },
               { icon: '📈', text: 'Real-time progress tracking' },
             ].map((f) => (
@@ -56,7 +56,7 @@ const AuthPage = () => {
           </div>
         </div>
 
-        {/* ---- FORM CARD (right) ---- */}
+        {/* ---- FORM CARD (right initially) ---- */}
         <div className="auth-form-card auth-entry" style={{ animationDelay: '0.15s' }}>
           {view === 'login'
             ? <LoginForm onSwitch={() => setView('register')} />
@@ -84,6 +84,15 @@ const LoginForm = ({ onSwitch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return setError('Please enter a valid email address (e.g., name@gmail.com).');
+    }
+    if (password.length < 6) {
+      return setError('Password must be at least 6 characters long.');
+    }
+
     setLoading(true);
     try {
       const data = await login(email, password);
@@ -96,7 +105,7 @@ const LoginForm = ({ onSwitch }) => {
   };
 
   return (
-    <>
+    <div className="auth-form-fade-in">
       <div className="auth-form-header">
         <h2 className="auth-form-title">Sign In</h2>
         <p className="auth-form-subtitle">Enter your details to access your dashboard.</p>
@@ -124,12 +133,7 @@ const LoginForm = ({ onSwitch }) => {
 
         {/* Password */}
         <div className="auth-field">
-          <div className="auth-label-row">
-            <label className="auth-label" htmlFor="login-password">Password</label>
-            <a href="#" className="auth-forgot-link" onClick={(e) => e.preventDefault()}>
-              Forgot password?
-            </a>
-          </div>
+          <label className="auth-label" htmlFor="login-password">Password</label>
           <div className="auth-input-wrap">
             <input
               id="login-password"
@@ -141,14 +145,23 @@ const LoginForm = ({ onSwitch }) => {
               required
               autoComplete="current-password"
             />
-            <button
-              type="button"
-              className="auth-pw-toggle"
-              onClick={() => setShowPw(!showPw)}
-              aria-label={showPw ? 'Hide password' : 'Show password'}
-            >
-              {showPw ? '🙈' : '👁️'}
-            </button>
+            {password.length > 0 && (
+              <button
+                type="button"
+                className="auth-pw-toggle"
+                onClick={() => setShowPw(!showPw)}
+                aria-label={showPw ? 'Hide password' : 'Show password'}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                  {showPw ? 'visibility_off' : 'visibility'}
+                </span>
+              </button>
+            )}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '6px' }}>
+            <a href="#" className="auth-forgot-link" onClick={(e) => e.preventDefault()}>
+              Forgot password?
+            </a>
           </div>
         </div>
 
@@ -181,33 +194,14 @@ const LoginForm = ({ onSwitch }) => {
         </button>
       </form>
 
-      {/* Divider */}
-      <div className="auth-divider">
-        <div className="auth-divider-line" />
-        <span className="auth-divider-text">Or continue with</span>
-        <div className="auth-divider-line" />
-      </div>
-
-      {/* SSO Buttons */}
-      <div className="auth-sso-row">
-        <button type="button" className="auth-sso-btn" id="google-sso-btn">
-          <span className="auth-sso-icon" aria-hidden="true">G</span>
-          <span>Google</span>
-        </button>
-        <button type="button" className="auth-sso-btn" id="apple-sso-btn">
-          <span className="auth-sso-icon" aria-hidden="true">🍎</span>
-          <span>Apple</span>
-        </button>
-      </div>
-
       {/* Switch to register */}
-      <p className="auth-switch-text">
+      <p className="auth-switch-text" style={{ marginTop: '24px' }}>
         Don't have an account?{' '}
         <button type="button" className="auth-switch-link" onClick={onSwitch} id="switch-to-register-btn">
           Sign up now
         </button>
       </p>
-    </>
+    </div>
   );
 };
 
@@ -227,6 +221,18 @@ const RegisterForm = ({ onSwitch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!name.trim()) {
+      return setError('Please enter your full name.');
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return setError('Please enter a valid email address (e.g., name@gmail.com).');
+    }
+    if (password.length < 6) {
+      return setError('Password must be at least 6 characters long.');
+    }
+
     setLoading(true);
     try {
       await register(name, email, password);
@@ -239,7 +245,7 @@ const RegisterForm = ({ onSwitch }) => {
   };
 
   return (
-    <>
+    <div className="auth-form-fade-in">
       <div className="auth-form-header">
         <h2 className="auth-form-title">Create Account</h2>
         <p className="auth-form-subtitle">Join thousands getting smarter about nutrition.</p>
@@ -295,14 +301,18 @@ const RegisterForm = ({ onSwitch }) => {
               required
               autoComplete="new-password"
             />
-            <button
-              type="button"
-              className="auth-pw-toggle"
-              onClick={() => setShowPw(!showPw)}
-              aria-label={showPw ? 'Hide password' : 'Show password'}
-            >
-              {showPw ? '🙈' : '👁️'}
-            </button>
+            {password.length > 0 && (
+              <button
+                type="button"
+                className="auth-pw-toggle"
+                onClick={() => setShowPw(!showPw)}
+                aria-label={showPw ? 'Hide password' : 'Show password'}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                  {showPw ? 'visibility_off' : 'visibility'}
+                </span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -328,7 +338,7 @@ const RegisterForm = ({ onSwitch }) => {
           Sign in
         </button>
       </p>
-    </>
+    </div>
   );
 };
 

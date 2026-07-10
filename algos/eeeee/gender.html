@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Onboarding - Genre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #161a23;
+      --card-item-bg: #1d232e;
+      --card-border: #2d3545;
+      --neon-green: #8cf500;
+      --text-color: #ffffff;
+      --gray-text: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 850px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid #232936;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- PROGRESS BAR --- */
+    .steps-container {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 35px;
+    }
+
+    .step {
+      flex: 1;
+      height: 6px;
+      background-color: #232936;
+      border-radius: 10px;
+    }
+
+    .step.active {
+      background-color: var(--neon-green);
+      box-shadow: 0 0 10px rgba(140, 245, 0, 0.5);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      color: var(--gray-text);
+      font-size: 0.95rem;
+    }
+
+    .gender-grid {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      max-width: 650px;
+      margin-bottom: 25px;
+    }
+
+    .gender-card {
+      flex: 1;
+      background-color: var(--card-item-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .gender-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(140, 245, 0, 0.5);
+    }
+
+    .gender-img-wrapper {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      background-color: #141820;
+      position: relative;
+    }
+
+    .gender-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.3s ease;
+    }
+
+    .gender-card:hover .gender-img-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .gender-label {
+      padding: 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      background-color: var(--card-item-bg);
+      color: #ffffff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .gender-card.active {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 25px rgba(140, 245, 0, 0.35);
+    }
+
+    .gender-card.active .gender-label {
+      background-color: var(--neon-green);
+      color: #000000;
+    }
+
+    .btn-skip {
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: color 0.2s ease;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .btn-skip:hover {
+      color: var(--gray-text);
+    }
+
+    .btn-continue {
+      background-color: var(--neon-green);
+      color: #000000;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      width: 320px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(140, 245, 0, 0.25);
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+
+    .btn-continue:hover {
+      background-color: #7be000;
+    }
+
+    .btn-continue:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 768px) {
+      .gender-grid {
+        flex-direction: column;
+      }
+      .gender-img-wrapper {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="steps-container">
+      <div class="step active"></div>
+      <div class="step active"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+    </div>
+
+    <div class="header">
+      <h1>Select Your Gender</h1>
+      <p>This helps us personalize your fitness plan.</p>
+    </div>
+
+    <div class="gender-grid">
+      <div class="gender-card active" data-gender="male">
+        <div class="gender-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="Male Fitness">
+        </div>
+        <div class="gender-label">Male</div>
+      </div>
+
+      <div class="gender-card" data-gender="female">
+        <div class="gender-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" alt="Female Fitness">
+        </div>
+        <div class="gender-label">Female</div>
+      </div>
+    </div>
+
+    <button class="btn-skip" id="btnSkipGender">I prefer not to say</button>
+    <button class="btn-continue" id="btnContinuePage2">Continue</button>
+  </div>
+
+  <script>
+    let selectedGender = localStorage.getItem('userGender') || 'male';
+    const genderCards = document.querySelectorAll('.gender-card');
+
+    // Mettre à jour l'état initial
+    genderCards.forEach(card => {
+      if (card.dataset.gender === selectedGender) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+
+    genderCards.forEach(card => {
+      card.addEventListener('click', () => {
+        genderCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedGender = card.dataset.gender;
+      });
+    });
+
+    function navigateNext() {
+      localStorage.setItem('userGender', selectedGender);
+      window.location.href = 'height.html';
+    }
+
+    document.getElementById('btnSkipGender').addEventListener('click', () => {
+      selectedGender = 'unspecified';
+      navigateNext();
+    });
+
+    document.getElementById('btnContinuePage2').addEventListener('click', navigateNext);
+  </script>
+</body>
+</html>

@@ -23,6 +23,7 @@ const historyRoutes = require('./routes/historyRoutes');
 const progressRoutes = require('./routes/progressRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const pantryRoutes = require('./routes/pantryRoutes');
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use('/api/history', historyRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/pantry', pantryRoutes);
 
 // Error handler (AFTER all routes)
 app.use(errorHandler);

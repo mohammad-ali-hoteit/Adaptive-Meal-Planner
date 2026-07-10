@@ -1,8 +1,36 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logoImg from '../assets/logo.png';
 import './LandingPage.css';
+
+const testimonialsData = [
+  {
+    name: 'Sarah Jenkins',
+    role: 'Fitness Enthusiast',
+    text: 'The best part is how it adapts. When I increased my gym sessions, my macros automatically adjusted. I finally broke my plateau after 6 months!',
+    rating: '⭐⭐⭐⭐⭐'
+  },
+  {
+    name: 'Michael Chen',
+    role: 'Busy Professional',
+    text: 'I used to spend 3 hours every Sunday meal prepping and calculating macros. Now it takes me 15 minutes. This app is a complete game-changer.',
+    rating: '⭐⭐⭐⭐⭐'
+  },
+  {
+    name: 'Elena Rodriguez',
+    role: 'Marathon Runner',
+    text: 'I love the ingredient stash feature. It tells me exactly what I can make with what I already have in the fridge, perfectly hitting my targets.',
+    rating: '⭐⭐⭐⭐⭐'
+  }
+];
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
 
   return (
     <div className="landing-root">
@@ -10,8 +38,8 @@ const LandingPage = () => {
       <nav className="landing-nav">
         <div className="landing-nav-inner">
           <div className="landing-nav-logo">
-            <div className="landing-nav-logo-icon">🍴</div>
-            <span className="landing-nav-logo-text">Adaptive Planner</span>
+            <img src={logoImg} alt="NutriSync Logo" className="landing-nav-logo-img" />
+            <span className="landing-nav-logo-text">NutriSync</span>
           </div>
           <button
             className="landing-nav-login-btn"
@@ -30,7 +58,7 @@ const LandingPage = () => {
           <div className="landing-hero-left">
             <div className="landing-hero-label">
               <span className="landing-hero-label-dot" />
-              AI-Powered Nutrition
+              Smart Personalized Nutrition
             </div>
             <h1 className="landing-hero-headline">
               Nutrition that adapts<br />
@@ -147,8 +175,8 @@ const LandingPage = () => {
               {
                 num: '03',
                 title: 'The Result',
-                desc: 'Our AI generates your custom calorie and macro targets based on your unique data.',
-                icon: '🤖',
+                desc: 'Our system generates your custom calorie and macro targets based on your unique data.',
+                icon: '⚡',
               },
               {
                 num: '04',
@@ -162,6 +190,68 @@ const LandingPage = () => {
                 <div className="landing-step-icon">{step.icon}</div>
                 <h3 className="landing-step-title">{step.title}</h3>
                 <p className="landing-step-desc">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TESTIMONIALS ===== */}
+      <section className="landing-testimonials">
+        <div className="landing-how-inner">
+          <div className="landing-section-label">Success Stories</div>
+          <h2 className="landing-section-title">Real People, Real Results</h2>
+          <p className="landing-section-sub">
+            See how NutriSync is changing lives and helping people hit their goals without the stress.
+          </p>
+          <div className="landing-marquee-wrapper">
+            <div className="landing-marquee-track">
+              {/* Duplicate the array 3 times for a seamless infinite scroll loop */}
+              {[...testimonialsData, ...testimonialsData, ...testimonialsData].map((t, idx) => (
+                <div key={idx} className="landing-testimonial-card">
+                  <div className="testimonial-rating">{t.rating}</div>
+                  <p className="testimonial-text">"{t.text}"</p>
+                  <div className="testimonial-author">
+                    <div className="testimonial-avatar">{t.name.charAt(0)}</div>
+                    <div>
+                      <div className="testimonial-name">{t.name}</div>
+                      <div className="testimonial-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
+      <section className="landing-faq">
+        <div className="landing-how-inner">
+          <h2 className="landing-section-title">Frequently Asked Questions</h2>
+          <div className="faq-container">
+            {[
+              {
+                q: 'How do you create my meal plan?',
+                a: 'Our smart algorithm uses your biometric data (height, weight, body fat estimates) alongside the Mifflin-St Jeor formula to calculate precise energy expenditure, then generates meal combinations that hit those exact numbers.'
+              },
+              {
+                q: 'Do I have to eat the exact meals suggested?',
+                a: 'Not at all! You can log your own food, use the "Ingredient Stash" to see what you can make with what you have, or swap meals out. Your daily targets will adapt to whatever you do.'
+              },
+              {
+                q: 'Is this only for weight loss?',
+                a: 'No. Adaptive Planner works just as perfectly for muscle gain (bulking), maintenance, or specific athletic goals. Just set your target weight during onboarding.'
+              }
+            ].map((faq, idx) => (
+              <div key={idx} className={`faq-item ${openFaq === idx ? 'open' : ''}`}>
+                <button className="faq-question" onClick={() => toggleFaq(idx)}>
+                  {faq.q}
+                  <span className="faq-icon">{openFaq === idx ? '−' : '+'}</span>
+                </button>
+                <div className="faq-answer">
+                  <p>{faq.a}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -194,11 +284,11 @@ const LandingPage = () => {
       <footer className="landing-footer">
         <div className="landing-footer-inner">
           <div className="landing-footer-logo">
-            <span className="landing-footer-logo-icon">🍴</span>
-            <span className="landing-footer-logo-text">Adaptive Planner</span>
+            <img src={logoImg} alt="NutriSync Logo" className="landing-footer-logo-img" />
+            <span className="landing-footer-logo-text">NutriSync</span>
           </div>
           <p className="landing-footer-copy">
-            © {new Date().getFullYear()} Adaptive Meal Planner. All rights reserved.
+            © {new Date().getFullYear()} NutriSync. All rights reserved.
           </p>
         </div>
       </footer>

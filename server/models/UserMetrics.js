@@ -23,6 +23,11 @@ const userMetricsSchema = new mongoose.Schema({
     required: [true, 'Weight is required'],
     min: 1,
   },
+  height: {
+    type: Number,
+    required: [true, 'Height is required'],
+    min: 1,
+  },
   neck: {
     type: Number,
     required: [true, 'Neck measurement is required'],

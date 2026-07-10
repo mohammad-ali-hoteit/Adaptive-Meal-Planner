@@ -77,6 +77,9 @@ const login = async (req, res, next) => {
 
     // Generate token and respond
     const token = generateToken(user._id);
+    const metrics = await UserMetrics.findOne({ userId: user._id });
+    const settings = await UserSettings.findOne({ userId: user._id });
+
     res.json({
       success: true,
       token,
@@ -85,6 +88,8 @@ const login = async (req, res, next) => {
         name: user.name,
         email: user.email,
         isOnboarded: user.isOnboarded,
+        metrics: metrics || null,
+        schedule: settings || null
       },
     });
   } catch (err) {
@@ -92,13 +97,23 @@ const login = async (req, res, next) => {
   }
 };
 
+const UserMetrics = require('../models/UserMetrics');
+const UserSettings = require('../models/UserSettings');
+
 // @desc    Get current user
 // @route   GET /api/auth/me
 const getMe = async (req, res, next) => {
   try {
+    const metrics = await UserMetrics.findOne({ userId: req.user._id });
+    const settings = await UserSettings.findOne({ userId: req.user._id });
+    
     res.json({
       success: true,
-      user: req.user,
+      user: {
+        ...req.user._doc,
+        metrics: metrics || null,
+        schedule: settings || null
+      }
     });
   } catch (err) {
     next(err);

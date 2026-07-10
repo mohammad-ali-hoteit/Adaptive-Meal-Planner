@@ -1,6 +1,6 @@
 /* =====================================================
    AUTH PAGE — Stitch "Kinetic Gold" Design
-   Two-card side-by-side layout
+   Two-card side-by-side layout with swap animation
    ===================================================== */
 
 /* ---- Page wrapper ---- */
@@ -14,6 +14,7 @@
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  perspective: 1200px; /* Added perspective for 3D flip */
 }
 
 /* ---- Background SVG blobs ---- */
@@ -35,19 +36,20 @@
   z-index: 1;
   width: 100%;
   max-width: 760px;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
 }
 
 /* ---- Entrance animation ---- */
 .auth-entry {
   animation: auth-slide-up 0.55s ease forwards;
   opacity: 0;
-  transform: translateY(20px);
+  /* Don't use translateY here as it might conflict with the 3D flip transform, use fade-in */
 }
 
 @keyframes auth-slide-up {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -64,23 +66,18 @@
   flex-direction: column;
   border: 1.5px solid #EAEDF3;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  backface-visibility: visible;
 }
 
 /* Icon */
-.auth-info-icon-wrap {
+.auth-info-logo-img {
   width: 60px;
   height: 60px;
   border-radius: 16px;
-  background: rgba(245,197,24,0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
   margin-bottom: 20px;
-}
-
-.auth-info-icon {
-  font-size: 28px;
-  line-height: 1;
 }
 
 .auth-info-title {
@@ -141,6 +138,28 @@
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  backface-visibility: visible;
+}
+
+.auth-form-fade-in {
+  animation: fade-in 0.4s ease forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Swap Animation (3D Flip) ---- */
+.auth-cards-row.swapped {
+  transform: rotateY(180deg);
+}
+
+.auth-cards-row.swapped .auth-info-card,
+.auth-cards-row.swapped .auth-form-card {
+  transform: rotateY(-180deg);
 }
 
 /* ---- Form header ---- */
@@ -349,64 +368,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* ---- Divider ---- */
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0;
-}
-
-.auth-divider-line {
-  flex: 1;
-  height: 1px;
-  background: #EAEDF3;
-}
-
-.auth-divider-text {
-  font-size: 12px;
-  color: #8A92A6;
-  white-space: nowrap;
-  font-weight: 400;
-}
-
-/* ---- SSO Buttons ---- */
-.auth-sso-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.auth-sso-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 44px;
-  background: #FFFFFF;
-  border: 1.5px solid #EAEDF3;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f1b11;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.auth-sso-btn:hover {
-  background: #F7F8FC;
-  transform: translateY(-1px);
-  border-color: #d1c5ac;
-}
-
-.auth-sso-icon {
-  font-size: 16px;
-  line-height: 1;
-  font-weight: 900;
-  font-style: normal;
-}
-
 /* ---- Switch text ---- */
 .auth-switch-text {
   text-align: center;
@@ -435,7 +396,7 @@
 /* =====================================================
    RESPONSIVE
    ===================================================== */
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .auth-cards-row {
     flex-direction: column;
     max-width: 420px;
@@ -446,5 +407,15 @@
   }
   .auth-form-card {
     padding: 28px 24px;
+  }
+  
+  /* Disable 3D flip swap on small screens and use stack reverse instead */
+  .auth-cards-row.swapped {
+    transform: none;
+    flex-direction: column-reverse;
+  }
+  .auth-cards-row.swapped .auth-info-card,
+  .auth-cards-row.swapped .auth-form-card {
+    transform: none;
   }
 }

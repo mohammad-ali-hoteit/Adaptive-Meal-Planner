@@ -1,120 +1,123 @@
 import React from 'react';
 import './ProgressPage.css';
 
-const MOCK_WEIGHT_DATA = [168, 167.5, 166.8, 166.2, 165.8, 165.1, 164.5, 164.2];
-const MOCK_BODY_FAT_DATA = [18.0, 18.1, 18.2, 18.3, 18.4, 18.4, 18.5, 18.5];
-const MOCK_CALORIE_DATA = [
-  { day: 'Mon', planned: 2200, actual: 2150 },
-  { day: 'Tue', planned: 2200, actual: 2450 }, // over
-  { day: 'Wed', planned: 2200, actual: 1950 },
-  { day: 'Thu', planned: 2200, actual: 2100 },
-  { day: 'Fri', planned: 2200, actual: 2300 },
-  { day: 'Sat', planned: 2200, actual: 2200 },
-  { day: 'Sun', planned: 2200, actual: 2080 },
+const MOCK_WEIGHT_DATA = [
+  { day: 'Mon', weight: 75.5 },
+  { day: 'Tue', weight: 75.3 },
+  { day: 'Wed', weight: 75.0 },
+  { day: 'Thu', weight: 75.2 },
+  { day: 'Fri', weight: 74.8 },
+  { day: 'Sat', weight: 74.5 },
+  { day: 'Sun', weight: 74.4 },
 ];
 
-const ProgressPage = () => {
-  // Simple helpers for SVG generation
-  const getPoints = (data, width, height, min, max) => {
-    const range = max - min;
-    return data.map((val, idx) => {
-      const x = (idx / (data.length - 1)) * width;
-      const y = height - ((val - min) / range) * height;
-      return `${x},${y}`;
-    }).join(' ');
-  };
+import { useAuth } from '../context/AuthContext';
 
-  const weightPoints = getPoints(MOCK_WEIGHT_DATA, 300, 100, 163, 169);
-  const bodyFatPoints = getPoints(MOCK_BODY_FAT_DATA, 300, 100, 17.5, 18.8);
-  const bodyFatArea = `${bodyFatPoints} 300,100 0,100`;
+const ProgressPage = () => {
+  const { user } = useAuth();
+  
+  const currentWeight = user?.metrics?.weight || 74.4;
+  const targetWeight = user?.metrics?.targetWeight || 70.0;
+  // Assume start weight is 2kg more if no history, or fetch from history
+  const startWeight = user?.metrics?.startWeight || currentWeight + 2;
+  
+  const progressPct = startWeight !== targetWeight 
+    ? Math.max(0, Math.min(100, ((startWeight - currentWeight) / (startWeight - targetWeight)) * 100))
+    : 100;
 
   return (
-    <div className="progress-container">
+    <div className="progress-container fade-in">
       <div className="progress-header">
-        <div>
-          <h2>Progress</h2>
-          <p>Review your historical data and trends over time.</p>
-        </div>
-        <div className="progress-actions">
-          <select className="form-input filter-dropdown">
-            <option>Last 30 Days</option>
-            <option>Last 3 Months</option>
-            <option>Last Year</option>
-          </select>
-          <button className="btn-outline">Export</button>
-        </div>
+        <h2>Your Progress</h2>
+        <p>Track your transformation journey and adherence.</p>
       </div>
 
-      <div className="charts-top-row">
-        {/* Weight Trend */}
-        <div className="chart-card card">
-          <div className="chart-header">
-            <h3>Weight Trend</h3>
-          </div>
-          <div className="chart-stats">
-            <span className="current-stat">164.2 lbs</span>
-            <span className="trend-badge down">-2.4%</span>
-          </div>
-          <div className="svg-container">
-            <svg viewBox="0 0 300 100" preserveAspectRatio="none" className="line-chart weight">
-              <polyline points={weightPoints} fill="none" stroke="var(--color-primary-dark)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div className="x-axis">
-              <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>Today</span>
-            </div>
+      {/* Top Metrics Cards */}
+      <div className="metrics-grid">
+        <div className="metric-card glass-panel">
+          <span className="material-symbols-outlined metric-icon text-teal">monitor_weight</span>
+          <div className="metric-info">
+            <span className="metric-label">Current Weight</span>
+            <span className="metric-value">{currentWeight} kg</span>
+            <span className="metric-sub positive">↓ 1.6kg from start</span>
           </div>
         </div>
 
-        {/* Body Fat % */}
-        <div className="chart-card card">
-          <div className="chart-header">
-            <h3>Body Fat %</h3>
+        <div className="metric-card glass-panel">
+          <span className="material-symbols-outlined metric-icon text-purple">fitness_center</span>
+          <div className="metric-info">
+            <span className="metric-label">Muscle Mass Target</span>
+            <span className="metric-value">42.5 kg</span>
+            <span className="metric-sub">On track</span>
           </div>
-          <div className="chart-stats">
-            <span className="current-stat">18.5%</span>
-            <span className="trend-badge up">+0.8%</span>
-          </div>
-          <div className="svg-container">
-            <svg viewBox="0 0 300 100" preserveAspectRatio="none" className="line-chart body-fat">
-              <polygon points={bodyFatArea} fill="rgba(139, 123, 200, 0.2)" />
-              <polyline points={bodyFatPoints} fill="none" stroke="var(--color-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div className="x-axis">
-              <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>Today</span>
-            </div>
+        </div>
+
+        <div className="metric-card glass-panel">
+          <span className="material-symbols-outlined metric-icon text-accent">local_fire_department</span>
+          <div className="metric-info">
+            <span className="metric-label">Adherence Streak</span>
+            <span className="metric-value">4 Days</span>
+            <span className="metric-sub">Keep it up!</span>
           </div>
         </div>
       </div>
 
-      {/* Calorie Intake */}
-      <div className="chart-card card full-width">
-        <div className="chart-header">
-          <h3>Calorie Intake: Planned vs Actual</h3>
-          <div className="chart-legend">
-            <div className="legend-item"><div className="legend-box planned"></div><span>PLANNED</span></div>
-            <div className="legend-item"><div className="legend-box actual"></div><span>ACTUAL</span></div>
-          </div>
-        </div>
+      {/* Main Charts Area */}
+      <div className="charts-grid">
         
-        <div className="bar-chart-container">
-          {MOCK_CALORIE_DATA.map((data, idx) => {
-            const maxVal = 3000; // arbitrary max for scale
-            const plannedHeight = (data.planned / maxVal) * 100;
-            const actualHeight = (data.actual / maxVal) * 100;
-            const isOver = data.actual > data.planned;
-
-            return (
-              <div key={idx} className="bar-group">
-                <div className="bars">
-                  <div className="bar planned" style={{ height: `${plannedHeight}%` }}></div>
-                  <div className={`bar actual ${isOver ? 'over' : ''}`} style={{ height: `${actualHeight}%` }}></div>
+        {/* Weight Trend (CSS Bar Chart) */}
+        <div className="chart-card glass-panel">
+          <h3 className="chart-title">Weekly Weight Trend</h3>
+          <div className="css-bar-chart">
+            {MOCK_WEIGHT_DATA.map((d, i) => {
+              // Calculate height relative to the min/max of the week for visual variance
+              const heightPct = Math.max(10, ((d.weight - 74) / (76 - 74)) * 100);
+              return (
+                <div key={i} className="bar-column">
+                  <div className="bar-val">{d.weight}</div>
+                  <div className="bar-track">
+                    <div className="bar-fill" style={{ height: `${heightPct}%` }}></div>
+                  </div>
+                  <div className="bar-lbl">{d.day}</div>
                 </div>
-                <span className="bar-label">{data.day}</span>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Goal Progress (Ring) */}
+        <div className="chart-card glass-panel goal-progress-card">
+          <h3 className="chart-title">Goal Completion</h3>
+          
+          <div className="goal-ring-wrap">
+            <div 
+              className="goal-ring"
+              style={{ background: `conic-gradient(var(--color-teal) 0% ${progressPct}%, var(--color-border) ${progressPct}% 100%)` }}
+            >
+              <div className="goal-ring-inner">
+                <span className="goal-ring-val">{Math.round(progressPct)}%</span>
+                <span className="goal-ring-lbl">Completed</span>
               </div>
-            );
-          })}
+            </div>
+          </div>
+
+          <div className="goal-details">
+            <div className="goal-detail-row">
+              <span>Start</span>
+              <strong>{startWeight} kg</strong>
+            </div>
+            <div className="goal-detail-row">
+              <span>Current</span>
+              <strong>{currentWeight} kg</strong>
+            </div>
+            <div className="goal-detail-row">
+              <span>Target</span>
+              <strong>{targetWeight} kg</strong>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   );
 };

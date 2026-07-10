@@ -2,7 +2,10 @@
 .weekly-plan-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 100px);
+  padding: 24px 32px;
+  background: var(--color-bg);
+  box-sizing: border-box;
 }
 
 .weekly-plan-header {
@@ -12,24 +15,31 @@
   margin-bottom: 24px;
 }
 
-.weekly-plan-header h2 {
-  font-size: 28px;
-  font-weight: 800;
+.header-text h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
   color: var(--color-text);
+  margin-bottom: 4px;
+}
+.header-text p {
+  color: var(--color-text-secondary);
+  font-size: 15px;
 }
 
 .week-nav {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: var(--color-surface);
-  padding: 8px 16px;
+  background: white;
+  padding: 6px 16px;
   border-radius: 999px;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .week-date-range {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-text);
 }
@@ -37,149 +47,277 @@
 .icon-btn {
   background: none;
   border: none;
-  font-size: 16px;
+  color: var(--color-text-muted);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px;
   border-radius: 50%;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
-
 .icon-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
-.weekly-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+
+/* --- Accordion Layout --- */
+.accordion-container {
+  display: flex;
   gap: 16px;
   flex: 1;
-  overflow-y: auto;
-  padding-bottom: 24px;
+  min-height: 0;
+  width: 100%;
 }
 
-@media (min-width: 768px) {
-  .weekly-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.accordion-panel {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: flex 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s;
+  background: white;
+  border: 1px solid var(--color-border);
+  display: flex;
 }
 
-@media (min-width: 1024px) {
-  .weekly-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.accordion-panel.collapsed {
+  flex: 1;
+  cursor: pointer;
 }
 
-@media (min-width: 1440px) {
-  .weekly-grid {
-    grid-template-columns: repeat(7, 1fr);
-  }
+.accordion-panel.collapsed:hover {
+  background: var(--color-bg);
 }
 
-.day-card {
+.accordion-panel.expanded {
+  flex: 10;
+  cursor: default;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+/* Today Special Styles */
+.accordion-panel.is-today {
+  border-color: var(--color-accent);
+}
+.accordion-panel.is-today.collapsed {
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.05) 0%, white 100%);
+}
+.accordion-panel.is-today.expanded {
+  box-shadow: 0 12px 32px rgba(201, 168, 76, 0.15);
+  border-width: 2px;
+}
+
+
+/* --- Collapsed Content --- */
+.panel-collapsed-content {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 400px;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.2s;
+  padding: 24px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.day-card.featured {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.15);
+.accordion-panel.expanded .panel-collapsed-content {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.day-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
+.today-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  margin-bottom: 24px;
+  box-shadow: 0 0 12px var(--color-accent);
 }
 
-.day-name {
+.collapsed-day-name {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 20px;
+  font-weight: 800;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 4px;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  transform: rotate(180deg);
+}
+
+.accordion-panel.is-today .collapsed-day-name {
+  color: var(--color-accent);
+}
+
+.collapsed-date {
   font-size: 16px;
   font-weight: 700;
   color: var(--color-text);
 }
 
-.day-date {
-  font-size: 12px;
-  color: var(--color-text-muted);
-}
 
-.day-kcal-badge {
-  background: #FFF8E1;
-  color: var(--color-primary-dark);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-
-.day-meals-list {
+/* --- Expanded Content --- */
+.panel-expanded-content {
+  width: 100%;
+  height: 100%;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s; /* Delay fade in */
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.accordion-panel.expanded .panel-expanded-content {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expanded-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 16px;
+}
+
+.eh-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.eh-title-wrap h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.today-badge {
+  background: var(--color-accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+}
+
+.eh-kcal {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  padding: 8px 16px;
+  border-radius: 12px;
+}
+
+.expanded-body {
   flex: 1;
   overflow-y: auto;
-  margin-bottom: 16px;
+  padding-right: 12px;
 }
 
-.mini-meal-row {
+.meals-timeline {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px;
-  background: #FAF8F3;
-  border-radius: 12px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-meal-card {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
+  padding: 16px 20px;
+  border-radius: 16px;
+  transition: transform 0.2s;
 }
 
-.mini-meal-slot {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  background: var(--color-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
+.timeline-meal-card:hover {
+  transform: translateX(4px);
+  border-color: var(--color-accent);
 }
 
-.mini-meal-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.mini-meal-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.mini-meal-kcal {
-  font-size: 11px;
-  color: var(--color-text-muted);
-}
-
-.empty-day-state {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: var(--color-text-muted);
-  text-align: center;
-  padding: 24px;
-  border: 1px dashed var(--color-border);
+.tmc-icon {
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.mt-auto {
-  margin-top: auto;
+.tmc-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tmc-slot {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tmc-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.tmc-cal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+
+/* Empty State */
+.expanded-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-muted);
+}
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.expanded-footer {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+.expanded-footer button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
 }
