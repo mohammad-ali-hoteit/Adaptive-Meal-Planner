@@ -28,7 +28,6 @@ const ProgressPage = () => {
   return (
     <div className="progress-container fade-in">
       <div className="progress-header">
-        <h2>Your Progress</h2>
         <p>Track your transformation journey and adherence.</p>
       </div>
 

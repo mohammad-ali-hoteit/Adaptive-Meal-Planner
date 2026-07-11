@@ -31,7 +31,6 @@ function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AppShell />}>
           <Route path="/dashboard"        element={<DashboardPage />} />
-          <Route path="/todays-meals"     element={<MealDiscoveryPage />} />
           <Route path="/custom-meals"     element={<CustomMealsPage />} />
           <Route path="/weekly-plan"      element={<WeeklyPlanPage />} />
           <Route path="/progress"         element={<ProgressPage />} />

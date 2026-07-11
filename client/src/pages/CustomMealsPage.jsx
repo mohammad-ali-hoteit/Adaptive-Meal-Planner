@@ -245,7 +245,6 @@ const CustomMealsPage = () => {
         <>
           <div className="discovery-header-section">
             <div className="discovery-header-text">
-              <h2>Custom Meals</h2>
               <p>Your personal collection of crafted meals.</p>
             </div>
 

@@ -77,7 +77,7 @@
   height: 60px;
   border-radius: 16px;
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-bottom:  12px;
 }
 
 .auth-info-title {
@@ -164,7 +164,7 @@
 
 /* ---- Form header ---- */
 .auth-form-header {
-  margin-bottom: 20px;
+  margin-bottom:  12px;
 }
 
 .auth-form-title {

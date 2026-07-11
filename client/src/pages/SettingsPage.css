@@ -101,7 +101,7 @@
 .settings-section-desc {
   font-size: 14px;
   color: var(--color-text-secondary);
-  margin-bottom: 32px;
+  margin-bottom:  12px;
 }
 
 .settings-form {
@@ -111,7 +111,7 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom:  12px;
 }
 
 .form-row {

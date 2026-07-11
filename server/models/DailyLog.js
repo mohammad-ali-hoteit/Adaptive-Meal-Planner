@@ -43,6 +43,14 @@ const dailyLogSchema = new mongoose.Schema({
   waterGlasses: {
     type: Number,
     default: 0
+  },
+  scheduleOverride: {
+    wakeTime: String,
+    sleepTime: String,
+    busyPeriods: [{
+      start: String,
+      end: String
+    }]
   }
 }, { timestamps: true });
 

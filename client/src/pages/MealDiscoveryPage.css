@@ -11,12 +11,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 24px;
+  margin-bottom:  12px;
 }
 
 .discovery-header-text h2 {
   font-family: 'Syne', sans-serif;
-  font-size: 32px;
+  font-size:  24px;
   color: var(--color-text);
   margin-bottom: 4px;
 }
@@ -106,7 +106,7 @@
 }
 
 .gallery-header-small {
-  margin-bottom: 20px;
+  margin-bottom:  12px;
 }
 
 .results-count {

@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom:  12px;
 }
 
 .foods-search-wrap {
@@ -50,7 +50,7 @@
 .foods-tabs {
   display: flex;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom:  12px;
   flex-wrap: wrap;
 }
 

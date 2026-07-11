@@ -15,7 +15,7 @@ const HistoryPage = () => {
         if (res.data.success) {
           const formatted = res.data.history.map(log => {
             const d = new Date(log.date);
-            const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+            const dateStr = d.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'long', month: 'short', day: 'numeric' });
             
             // Calculate total kcal from assigned/completed meals
             // Assuming if completed, we add its kcal
@@ -65,7 +65,6 @@ const HistoryPage = () => {
   return (
     <div className="history-container fade-in">
       <div className="history-header">
-        <h2>Your Journey Log</h2>
         <p>Review your past daily scores and meal logs.</p>
       </div>
 

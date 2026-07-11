@@ -4,9 +4,8 @@ import './Sidebar.css';
 
 const navItems = [
   { path: '/dashboard',       label: 'Dashboard',       icon: 'dashboard' },
-  { path: '/todays-meals',    label: 'Meal Discovery',  icon: 'restaurant' },
-  { path: '/custom-meals',    label: 'Custom Meals',    icon: 'add_circle' },
   { path: '/pantry',          label: 'Pantry Gen',      icon: 'kitchen' },
+  { path: '/custom-meals',    label: 'Custom Meals',    icon: 'add_circle' },
   { path: '/weekly-plan',     label: 'Weekly Plan',     icon: 'calendar_month' },
   { path: '/progress',        label: 'Progress',        icon: 'monitoring' },
   { path: '/history',         label: 'History',         icon: 'history' },

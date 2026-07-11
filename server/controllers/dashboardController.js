@@ -3,22 +3,34 @@ const CustomMeal = require('../models/CustomMeal');
 
 const getTodayStart = () => {
   const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d;
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return new Date(`${year}-${month}-${day}T00:00:00Z`);
 };
 
-// @desc Get daily log for today
+// Helper to parse date string or fallback to today start
+const getTargetDate = (dateStr) => {
+  if (dateStr) {
+    // If dateStr contains T, it's ISO, if not, it's YYYY-MM-DD
+    const dateOnly = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+    return new Date(`${dateOnly}T00:00:00Z`);
+  }
+  return getTodayStart();
+};
+
+// @desc Get daily log for a specific date or today
 const getDailyMeals = async (req, res) => {
   try {
-    const today = getTodayStart();
-    let log = await DailyLog.findOne({ userId: req.user._id, date: today })
+    const targetDate = getTargetDate(req.query.date);
+    let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate })
       .populate('mealsAssigned.customMealId')
       .populate('mealsAssigned.foodId');
 
     if (!log) {
       log = await DailyLog.create({
         userId: req.user._id,
-        date: today,
+        date: targetDate,
         mealsAssigned: [
           { mealType: 'breakfast' },
           { mealType: 'lunch' },
@@ -37,6 +49,39 @@ const getDailyMeals = async (req, res) => {
   }
 };
 
+// @desc Override schedule for a specific daily log
+const overrideSchedule = async (req, res) => {
+  try {
+    const { date, scheduleOverride } = req.body;
+    const targetDate = getTargetDate(date);
+    let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
+    
+    if (!log) {
+      log = await DailyLog.create({
+        userId: req.user._id,
+        date: targetDate,
+        mealsAssigned: [
+          { mealType: 'breakfast' },
+          { mealType: 'lunch' },
+          { mealType: 'dinner' },
+          { mealType: 'snack' }
+        ],
+        mealsCompleted: [],
+        waterGlasses: 0,
+        scheduleOverride
+      });
+    } else {
+      log.scheduleOverride = scheduleOverride;
+      await log.save();
+    }
+    
+    res.json({ success: true, log });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};
+
 // @desc Update meal time (Actually this just sets schedule in UserSettings in UI, but if we need a specific daily override we can do it here. For now returning success)
 const updateMealTime = async (req, res) => {
   res.json({ success: true, message: 'Time updated' });
@@ -45,10 +90,24 @@ const updateMealTime = async (req, res) => {
 // @desc Assign custom meal or food to a slot
 const assignMealToSlot = async (req, res) => {
   try {
-    const { mealType, customMealId, foodId } = req.body;
-    const today = getTodayStart();
-    let log = await DailyLog.findOne({ userId: req.user._id, date: today });
-    if (!log) return res.status(404).json({ success: false, message: 'Log not found' });
+    const { mealType, customMealId, foodId, date } = req.body;
+    const targetDate = getTargetDate(date);
+    let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
+    
+    if (!log) {
+      log = await DailyLog.create({
+        userId: req.user._id,
+        date: targetDate,
+        mealsAssigned: [
+          { mealType: 'breakfast' },
+          { mealType: 'lunch' },
+          { mealType: 'dinner' },
+          { mealType: 'snack' }
+        ],
+        mealsCompleted: [],
+        waterGlasses: 0
+      });
+    }
 
     const slotIndex = log.mealsAssigned.findIndex(m => m.mealType === mealType);
     if (slotIndex >= 0) {
@@ -72,9 +131,9 @@ const assignMealToSlot = async (req, res) => {
 // @desc Complete a meal
 const completeMeal = async (req, res) => {
   try {
-    const { mealType } = req.body;
-    const today = getTodayStart();
-    let log = await DailyLog.findOne({ userId: req.user._id, date: today });
+    const { mealType, date } = req.body;
+    const targetDate = getTargetDate(date);
+    let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
     if (!log) return res.status(404).json({ success: false, message: 'Log not found' });
 
     if (!log.mealsCompleted.find(m => m.mealType === mealType)) {
@@ -95,9 +154,9 @@ const completeMeal = async (req, res) => {
 // @desc Remove meal from slot
 const removeMealFromSlot = async (req, res) => {
   try {
-    const { mealType } = req.body;
-    const today = getTodayStart();
-    let log = await DailyLog.findOne({ userId: req.user._id, date: today });
+    const { mealType, date } = req.body;
+    const targetDate = getTargetDate(date);
+    let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
     if (!log) return res.status(404).json({ success: false, message: 'Log not found' });
 
     const slotIndex = log.mealsAssigned.findIndex(m => m.mealType === mealType);
@@ -122,10 +181,10 @@ const removeMealFromSlot = async (req, res) => {
 
 const updateWater = async (req, res) => {
   try {
-    const { waterGlasses } = req.body;
-    const today = getTodayStart();
+    const { waterGlasses, date } = req.body;
+    const targetDate = getTargetDate(date);
     let log = await DailyLog.findOneAndUpdate(
-      { userId: req.user._id, date: today },
+      { userId: req.user._id, date: targetDate },
       { waterGlasses },
       { new: true, upsert: true }
     );
@@ -139,13 +198,17 @@ const updateWater = async (req, res) => {
 const getWeeklyLogs = async (req, res) => {
   try {
     const today = getTodayStart();
-    // Get logs from today to 6 days in future
+    
+    // Get logs from 7 days in the past to 7 days in the future
+    const start = new Date(today);
+    start.setDate(start.getDate() - 7);
+    
     const end = new Date(today);
     end.setDate(end.getDate() + 7);
 
     const logs = await DailyLog.find({
       userId: req.user._id,
-      date: { $gte: today, $lt: end }
+      date: { $gte: start, $lte: end }
     }).populate('mealsAssigned.customMealId').populate('mealsAssigned.foodId');
 
     res.json({ success: true, logs });
@@ -155,4 +218,4 @@ const getWeeklyLogs = async (req, res) => {
   }
 };
 
-module.exports = { getDailyMeals, getWeeklyLogs, updateMealTime, assignMealToSlot, completeMeal, removeMealFromSlot, updateWater };
+module.exports = { getDailyMeals, getWeeklyLogs, updateMealTime, assignMealToSlot, completeMeal, removeMealFromSlot, updateWater, overrideSchedule };

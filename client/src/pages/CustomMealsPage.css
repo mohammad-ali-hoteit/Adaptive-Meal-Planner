@@ -35,7 +35,7 @@
   box-shadow: 0 4px 12px rgba(201,168,76,0.3);
 }
 .create-new-icon span {
-  font-size: 32px;
+  font-size:  24px;
 }
 .create-new-card h3 {
   font-size: 18px;
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom:  12px;
 }
 
 .builder-header h2 {
@@ -223,7 +223,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom:  12px;
 }
 
 .empty-plate {
