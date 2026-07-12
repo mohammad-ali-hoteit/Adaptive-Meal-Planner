@@ -19,13 +19,18 @@ const customMealSchema = new mongoose.Schema({
     type: [{
       foodId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false, // Made optional for freeform typing
         ref: 'Food',
       },
+      customName: { type: String, trim: true },
+      kcal: { type: Number, default: 0 },
+      pro: { type: Number, default: 0 },
+      carb: { type: Number, default: 0 },
+      fat: { type: Number, default: 0 },
       grams: {
         type: Number,
-        required: true,
-        min: 0.1,
+        required: false,
+        min: 0,
       },
     }],
     default: []

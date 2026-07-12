@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Garde-Manger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#0a0a0f;
+  --ink2:#12121a;
+  --ink3:#1c1c28;
+  --ink4:#252535;
+  --paper:#f8f4ed;
+  --paper2:#f0ead8;
+  --amber:#d4832a;
+  --amber2:#e8a84a;
+  --amber3:#f5c870;
+  --amber-glow:rgba(212,131,42,0.18);
+  --amber-glow2:rgba(212,131,42,0.08);
+  --text:#f0ead8;
+  --text2:#b8b0a0;
+  --text3:#6e6660;
+  --green:#3a9c5f;
+  --green-dim:rgba(58,156,95,0.15);
+  --red:#c0392b;
+  --border:rgba(212,131,42,0.18);
+  --border2:rgba(240,234,216,0.08);
+  --r:18px;
+  --r2:28px;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--ink);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN TEXTURE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.03;
+  pointer-events:none;z-index:0;
+}
+
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%,rgba(212,131,42,0.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 90%,rgba(212,131,42,0.05) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,10,15,0.96);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  height:68px;
+  display:flex;align-items:center;
+  padding:0 48px;
+  gap:20px;
+}
+
+.logo{
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;
+}
+
+.logo-mark{
+  width:40px;height:40px;
+  background:linear-gradient(145deg,var(--amber),var(--amber3));
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;color:var(--ink);
+  box-shadow:0 4px 20px rgba(212,131,42,0.4);
+  flex-shrink:0;
+}
+
+.logo-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.45rem;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:0.3px;
+  line-height:1;
+}
+.logo-text em{color:var(--amber2);font-style:italic}
+
+.topbar-spacer{flex:1}
+
+.basket-btn{
+  display:flex;align-items:center;gap:10px;
+  background:var(--ink3);
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:9px 20px;
+  text-decoration:none;
+  color:var(--text2);
+  font-size:0.85rem;
+  font-weight:500;
+  transition:all 0.3s;
+  cursor:pointer;
+}
+.basket-btn:hover{border-color:var(--amber);color:var(--amber2);background:var(--amber-glow2)}
+
+.basket-count{
+  background:var(--amber);
+  color:var(--ink);
+  border-radius:50%;
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.72rem;font-weight:700;
+  transition:transform 0.3s;
+  flex-shrink:0;
+}
+
+.cta-btn{
+  display:flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,var(--amber),var(--amber3));
+  border:none;border-radius:50px;
+  padding:11px 26px;
+  color:var(--ink);
+  font-family:'Outfit',sans-serif;
+  font-size:0.9rem;font-weight:700;
+  cursor:pointer;
+  transition:all 0.3s;
+  letter-spacing:0.2px;
+  white-space:nowrap;
+}
+.cta-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(212,131,42,0.45);
+}
+.cta-btn svg{width:16px;height:16px;flex-shrink:0}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  padding:90px 48px 70px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+
+.hero-line{
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:100%;
+  background:linear-gradient(to bottom,transparent,var(--amber-glow),transparent);
+  pointer-events:none;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--amber-glow);
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:7px 20px;
+  font-size:0.75rem;font-weight:600;
+  color:var(--amber2);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:28px;
+}
+
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,5.5rem);
+  font-weight:700;
+  line-height:1.05;
+  color:var(--text);
+  margin-bottom:18px;
+}
+.hero h1 em{color:var(--amber2);font-style:italic}
+
+.hero p{
+  font-size:1rem;
+  color:var(--text3);
+  max-width:440px;
+  margin:0 auto;
+  line-height:1.8;
+  font-weight:300;
+}
+
+/* ── CONTROLS ── */
+.controls{
+  position:relative;z-index:1;
+  background:var(--ink2);
+  border-bottom:1px solid var(--border);
+  padding:22px 48px;
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+}
+
+.search-wrap{
+  position:relative;flex:1;min-width:240px;
+}
+.search-wrap svg{
+  position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;color:var(--text3);pointer-events:none;
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;
+}
+.search-wrap input{
+  width:100%;
+  background:var(--ink3);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:12px 18px 12px 44px;
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  font-size:0.92rem;
+  outline:none;
+  transition:all 0.3s;
+}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-wrap input:focus{
+  border-color:var(--amber);
+  background:var(--ink4);
+  box-shadow:0 0 0 3px var(--amber-glow2);
+}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+
+.tab{
+  background:var(--ink3);
+  border:1px solid var(--border2);
+  border-radius:10px;
+  padding:9px 16px;
+  color:var(--text3);
+  font-family:'Outfit',sans-serif;
+  font-size:0.82rem;font-weight:500;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.tab:hover{border-color:var(--amber);color:var(--amber2)}
+.tab.active{
+  background:var(--amber);
+  border-color:var(--amber);
+  color:var(--ink);
+  font-weight:700;
+}
+
+/* ── GRID SECTION ── */
+.grid-section{
+  position:relative;z-index:1;
+  padding:44px 48px;
+}
+
+.sec-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:32px;
+}
+.sec-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.7rem;font-weight:600;
+  color:var(--text);white-space:nowrap;
+}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-count{
+  font-size:0.78rem;color:var(--text3);
+  font-weight:500;white-space:nowrap;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:var(--ink2);
+  border:1px solid var(--border2);
+  border-radius:var(--r2);
+  overflow:hidden;
+  cursor:pointer;
+  transition:all 0.35s cubic-bezier(.23,1,.32,1);
+  position:relative;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(212,131,42,0.5);
+  box-shadow:0 24px 50px rgba(0,0,0,0.6),0 0 0 1px rgba(212,131,42,0.3);
+}
+.card.selected{
+  border-color:var(--amber);
+  box-shadow:0 0 0 1px var(--amber),0 14px 40px rgba(0,0,0,0.4);
+}
+
+.card-img{
+  position:relative;height:170px;overflow:hidden;
+  background:var(--ink3);
+}
+.card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s cubic-bezier(.23,1,.32,1);
+  display:block;
+}
+.card:hover .card-img img{transform:scale(1.1)}
+.card-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 55%);
+  pointer-events:none;
+}
+
+.card-check{
+  position:absolute;top:12px;left:12px;
+  width:28px;height:28px;
+  background:var(--amber);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);
+  opacity:0;transform:scale(0.4);
+  transition:all 0.3s cubic-bezier(.175,.885,.32,1.275);
+  z-index:10;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5);
+}
+.card.selected .card-check{opacity:1;transform:scale(1)}
+
+.card-add{
+  position:absolute;top:10px;right:10px;
+  width:32px;height:32px;
+  border-radius:50%;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.12);
+  color:white;
+  font-size:1rem;font-weight:300;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+  z-index:10;
+  opacity:0;transform:scale(0.7);
+  line-height:1;
+}
+.card:hover .card-add{opacity:1;transform:scale(1)}
+.card-add:hover{background:var(--amber);border-color:var(--amber);color:var(--ink);transform:scale(1.1) rotate(90deg)!important}
+.card.selected .card-add{opacity:1}
+
+.card-body{padding:14px 16px 16px}
+.card-body h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:600;
+  color:var(--text);
+  margin-bottom:6px;line-height:1.3;
+}
+.card-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:0.68rem;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  color:var(--amber);
+  background:var(--amber-glow);
+  border-radius:6px;padding:3px 9px;
+}
+
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;padding:80px 20px;color:var(--text3);
+}
+.empty-state span{font-size:3rem;display:block;margin-bottom:16px;opacity:0.4}
+.empty-state p{font-family:'Cormorant Garamond',serif;font-size:1.15rem}
+
+/* ── SELECTED SECTION ── */
+.selected-section{
+  position:relative;z-index:1;
+  background:var(--ink2);
+  border-top:1px solid var(--border);
+  padding:44px 48px;
+}
+
+.cat-block{margin-bottom:40px;animation:fadeUp 0.4s ease both}
+
+.cat-block-title{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:18px;
+}
+.cat-block-title h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;color:var(--amber2);
+  text-transform:capitalize;
+}
+.cat-block-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.chips-wrap{display:flex;flex-wrap:wrap;gap:12px}
+
+.chip{
+  display:flex;align-items:center;gap:10px;
+  background:var(--ink3);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:7px 12px 7px 7px;
+  transition:all 0.25s;
+  animation:chipIn 0.35s cubic-bezier(.175,.885,.32,1.275) both;
+}
+.chip:hover{border-color:rgba(192,57,43,0.5);background:rgba(192,57,43,0.08)}
+
+.chip img{
+  width:38px;height:38px;border-radius:8px;
+  object-fit:cover;background:var(--ink4);flex-shrink:0;
+}
+.chip-name{font-size:0.88rem;font-weight:500;color:var(--text);white-space:nowrap}
+.chip-rm{
+  width:20px;height:20px;border-radius:50%;
+  background:transparent;border:1px solid var(--border2);
+  color:var(--text3);font-size:0.7rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;margin-left:4px;flex-shrink:0;
+}
+.chip-rm:hover{background:var(--red);border-color:var(--red);color:white;transform:rotate(90deg)}
+
+.empty-basket{
+  text-align:center;padding:60px 20px;
+  border:2px dashed var(--border);
+  border-radius:var(--r2);color:var(--text3);
+}
+.empty-basket span{font-size:2.5rem;display:block;margin-bottom:14px;opacity:0.35}
+.empty-basket p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;margin-bottom:6px}
+.empty-basket small{font-size:0.82rem;opacity:0.6}
+
+/* ── MEALS OVERLAY ── */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(5,5,8,0.92);
+  backdrop-filter:blur(16px);
+  z-index:500;
+  display:flex;
+  align-items:flex-start;justify-content:center;
+  padding:24px 16px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s ease;
+  overflow-y:auto;
+}
+.overlay.open{opacity:1;pointer-events:all}
+
+.modal{
+  background:var(--ink2);
+  border:1px solid var(--border);
+  border-radius:32px;
+  width:100%;max-width:1200px;
+  overflow:hidden;
+  transform:translateY(50px) scale(0.96);
+  transition:transform 0.45s cubic-bezier(.23,1,.32,1);
+  position:relative;
+  box-shadow:0 40px 120px rgba(0,0,0,0.8);
+}
+.overlay.open .modal{transform:translateY(0) scale(1)}
+
+/* ── MODAL HEADER ── */
+.modal-head{
+  position:relative;
+  background:linear-gradient(135deg,var(--ink3),var(--ink4));
+  border-bottom:1px solid var(--border);
+  padding:36px 48px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  overflow:hidden;
+}
+.modal-head::before{
+  content:'';
+  position:absolute;top:-60px;right:-40px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(212,131,42,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.modal-head-left h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;font-weight:700;
+  color:var(--text);line-height:1.1;
+  margin-bottom:8px;
+}
+.modal-head-left h2 em{color:var(--amber2);font-style:italic}
+.modal-head-left p{color:var(--text3);font-size:0.88rem;font-weight:300}
+
+.modal-close{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--ink4);border:1px solid var(--border);
+  color:var(--text3);font-size:1.1rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;flex-shrink:0;
+  margin-top:4px;
+}
+.modal-close:hover{background:var(--red);border-color:var(--red);color:white;transform:rotate(90deg)}
+
+/* ── MODAL CAT FILTERS ── */
+.modal-filters{
+  display:flex;gap:10px;flex-wrap:wrap;
+  padding:20px 48px;
+  border-bottom:1px solid var(--border);
+  background:var(--ink);
+}
+.mf-btn{
+  display:flex;align-items:center;gap:7px;
+  background:var(--ink3);border:1px solid var(--border2);
+  border-radius:50px;padding:8px 18px;
+  color:var(--text3);
+  font-family:'Outfit',sans-serif;
+  font-size:0.8rem;font-weight:500;
+  cursor:pointer;transition:all 0.25s;white-space:nowrap;
+}
+.mf-btn:hover{border-color:var(--amber);color:var(--amber2)}
+.mf-btn.active{
+  background:var(--amber);border-color:var(--amber);
+  color:var(--ink);font-weight:700;
+}
+
+/* ── MEALS CONTENT ── */
+.meals-body{padding:40px 48px 56px}
+
+/* ── MEAL CARD — SPECTACULAR ── */
+.meal-card{
+  position:relative;
+  border-radius:28px;
+  overflow:hidden;
+  margin-bottom:32px;
+  border:1px solid rgba(212,131,42,0.25);
+  background:var(--ink);
+  transition:box-shadow 0.4s, transform 0.4s;
+  animation:fadeUp 0.4s ease both;
+}
+.meal-card:hover{
+  box-shadow:0 30px 70px rgba(0,0,0,0.7),0 0 0 1px rgba(212,131,42,0.4);
+  transform:translateY(-2px);
+}
+
+/* ── HERO BANNER ── */
+.meal-hero{
+  position:relative;height:280px;overflow:hidden;
+}
+.meal-hero img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  transition:transform 0.6s cubic-bezier(.23,1,.32,1);
+}
+.meal-card:hover .meal-hero img{transform:scale(1.04)}
+
+.meal-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    transparent 20%,
+    rgba(10,10,15,0.4) 55%,
+    rgba(10,10,15,0.95) 100%
+  );
+}
+
+.meal-hero-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 36px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+}
+
+.meal-cat-pill{
+  position:absolute;top:20px;left:20px;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(10,10,15,0.75);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:50px;
+  padding:6px 14px;
+  font-size:0.72rem;font-weight:600;
+  color:var(--amber2);letter-spacing:0.8px;text-transform:uppercase;
+}
+
+.meal-ready-pill{
+  position:absolute;top:20px;right:20px;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(39,156,95,0.9);
+  border-radius:50px;
+  padding:6px 14px;
+  font-size:0.72rem;font-weight:700;color:white;
+  letter-spacing:0.5px;
+}
+
+.meal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:700;
+  color:white;line-height:1.1;
+}
+
+.meal-ing-row{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-top:8px;
+}
+.ing-chip{
+  font-size:0.7rem;font-weight:600;
+  border-radius:6px;padding:3px 10px;
+  background:rgba(58,156,95,0.2);
+  border:1px solid rgba(58,156,95,0.4);
+  color:#6de09a;
+  letter-spacing:0.3px;
+}
+
+/* ── SIDES SECTION ── */
+.sides-wrap{
+  background:var(--ink2);
+  border-top:1px solid rgba(212,131,42,0.15);
+  padding:24px 36px 28px;
+}
+
+.sides-label{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px;
+  flex-wrap:wrap;gap:10px;
+}
+
+.sides-label-left{
+  display:flex;align-items:center;gap:10px;
+  font-size:0.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--amber);
+}
+.sides-label-left span{
+  width:6px;height:6px;background:var(--amber);border-radius:50%;flex-shrink:0;
+}
+
+.sides-hint{
+  font-size:0.75rem;color:var(--text3);font-style:italic;
+}
+
+.sides-row{
+  display:flex;flex-wrap:wrap;gap:12px;
+}
+
+/* ── SIDE ITEM — New beautiful cards ── */
+.side-item{
+  position:relative;
+  width:130px;
+  cursor:pointer;
+  border-radius:16px;
+  overflow:hidden;
+  border:2px solid var(--border2);
+  background:var(--ink3);
+  transition:all 0.3s cubic-bezier(.23,1,.32,1);
+  flex-shrink:0;
+}
+.side-item:hover{
+  border-color:rgba(212,131,42,0.5);
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(0,0,0,0.5);
+}
+.side-item.side-on{
+  border-color:var(--amber);
+  background:rgba(212,131,42,0.07);
+  box-shadow:0 0 0 1px var(--amber),0 10px 25px rgba(0,0,0,0.4);
+}
+.side-item.side-off{opacity:0.4;cursor:default;pointer-events:none}
+
+.side-item img{
+  width:100%;height:80px;
+  object-fit:cover;display:block;
+}
+
+.side-item-body{padding:8px 10px 10px}
+.side-item-name{
+  font-size:0.78rem;font-weight:600;
+  color:var(--text);line-height:1.3;
+}
+.side-item-status{
+  font-size:0.66rem;margin-top:3px;font-weight:500;
+}
+.side-item-status.avail{color:#5dca82}
+.side-item-status.navail{color:var(--text3)}
+
+.side-tick{
+  position:absolute;top:6px;right:6px;
+  width:20px;height:20px;
+  background:var(--amber);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-size:0.55rem;
+  opacity:0;transform:scale(0.3);
+  transition:all 0.3s cubic-bezier(.175,.885,.32,1.275);
+}
+.side-item.side-on .side-tick{opacity:1;transform:scale(1)}
+
+/* ── MEAL SUMMARY BAR ── */
+.meal-summary{
+  background:rgba(212,131,42,0.07);
+  border-top:1px solid var(--border);
+  padding:16px 36px;
+  display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;
+  min-height:56px;
+}
+.ms-hint{
+  color:var(--text3);font-size:0.82rem;
+  font-style:italic;display:flex;align-items:center;gap:8px;
+}
+.ms-hint svg{width:14px;height:14px;fill:var(--amber);flex-shrink:0}
+.ms-parts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ms-main{
+  font-size:0.85rem;font-weight:600;
+  color:var(--text);
+  display:flex;align-items:center;gap:7px;
+}
+.ms-plus{color:var(--border);font-size:0.8rem}
+.ms-side{
+  font-size:0.85rem;font-weight:600;
+  color:var(--amber2);
+  display:flex;align-items:center;gap:5px;
+}
+
+/* ── NO MEALS STATE ── */
+.no-meals{
+  text-align:center;padding:80px 20px;
+}
+.no-meals span{font-size:4rem;display:block;margin-bottom:20px;opacity:0.25}
+.no-meals h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;color:var(--text3);margin-bottom:8px;
+}
+.no-meals p{font-size:0.88rem;color:var(--text3);opacity:0.7;max-width:300px;margin:0 auto;line-height:1.7}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:0 48px}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes chipIn{
+  from{opacity:0;transform:scale(0.75)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--amber)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .topbar{padding:0 20px}
+  .hero{padding:60px 20px 48px}
+  .controls{padding:18px 20px}
+  .grid-section,.selected-section{padding:28px 20px}
+  .divider{margin:0 20px}
+  .modal-head{padding:24px 24px}
+  .modal-filters{padding:16px 24px}
+  .meals-body{padding:28px 20px 40px}
+  .meal-hero{height:220px}
+  .meal-hero-content{padding:20px 24px}
+  .meal-title{font-size:1.6rem}
+  .sides-wrap,.meal-summary{padding:18px 20px}
+  .cta-btn span{display:none}
+}
+
+/* ── STAGGER CARDS ── */
+.card:nth-child(1){animation:fadeUp 0.3s 0ms both}
+.card:nth-child(2){animation:fadeUp 0.3s 30ms both}
+.card:nth-child(3){animation:fadeUp 0.3s 60ms both}
+.card:nth-child(4){animation:fadeUp 0.3s 90ms both}
+.card:nth-child(5){animation:fadeUp 0.3s 120ms both}
+.card:nth-child(6){animation:fadeUp 0.3s 150ms both}
+.card:nth-child(7){animation:fadeUp 0.3s 180ms both}
+.card:nth-child(8){animation:fadeUp 0.3s 210ms both}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <a class="logo" href="#">
+    <div class="logo-mark">🌿</div>
+    <span class="logo-text">Garde <em>Manger</em></span>
+  </a>
+  <div class="topbar-spacer"></div>
+  <a class="basket-btn" href="#selected">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Mon Garde-Manger</span>
+    <span class="basket-count" id="counter-badge">0</span>
+  </a>
+  <button class="cta-btn" onclick="openMeals()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 2.69a.5.5 0 01.78-.41L12 8l8.22-5.72a.5.5 0 01.78.41V19a2 2 0 01-2 2H5a2 2 0 01-2-2V2.69z"/></svg>
+    <span>Voir mes Repas</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-line"></div>
+  <div class="hero-badge">✦ Organisez vos Ingrédients</div>
+  <h1>Vos <em>Ingrédients</em><br>disponibles</h1>
+  <p>Sélectionnez ce que vous avez à la maison pour découvrir les repas que vous pouvez préparer dès maintenant.</p>
+</section>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="search" id="search" placeholder="Rechercher un aliment...">
+  </div>
+  <div class="tabs" id="filter-tabs">
+    <button class="tab active" data-cat="all">Tout</button>
+    <button class="tab" data-cat="fruits">🍎 Fruits</button>
+    <button class="tab" data-cat="legumes">🥬 Légumes</button>
+    <button class="tab" data-cat="laitier">🥛 Laitiers</button>
+    <button class="tab" data-cat="noix">🥜 Noix</button>
+    <button class="tab" data-cat="aliments">🥩 Aliments</button>
+    <button class="tab" data-cat="viennoiseries">🥐 Viennoiseries</button>
+    <button class="tab" data-cat="nourriture en conserve">🥫 Conserves</button>
+  </div>
+</div>
+
+<!-- GRID -->
+<section class="grid-section">
+  <div class="sec-header">
+    <h2>Aliments disponibles</h2>
+    <div class="sec-line"></div>
+    <span class="sec-count" id="count-label">— aliments</span>
+  </div>
+  <div id="grid" class="grid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SELECTED -->
+<section class="selected-section" id="selected">
+  <div class="sec-header">
+    <h2>Mon Garde-Manger</h2>
+    <div class="sec-line"></div>
+    <span class="sec-count" id="sel-count-label">0 sélectionné(s)</span>
+  </div>
+  <div id="selected-container"></div>
+</section>
+
+<!-- OVERLAY MODAL -->
+<div class="overlay" id="overlay" onclick="handleOvClick(event)">
+  <div class="modal" id="modal">
+
+    <div class="modal-head">
+      <div class="modal-head-left">
+        <h2>Repas <em>disponibles</em></h2>
+        <p id="modal-subtitle">Basé sur vos ingrédients sélectionnés</p>
+      </div>
+      <button class="modal-close" onclick="closeMeals()">✕</button>
+    </div>
+
+    <div class="modal-filters" id="modal-filters"></div>
+    <div class="meals-body" id="meals-body"></div>
+
+  </div>
+</div>
+
+<script>
+/* ========== DATA ========== */
+const foods=[
+  {id:1,name:"Pomme",type:"fruits",image:"/ingredients/fruit/pomme.jpg"},
+  {id:2,name:"Banane",type:"fruits",image:"/ingredients/fruit/banane.jpg"},
+  {id:3,name:"Abricot",type:"fruits",image:"/ingredients/fruit/abricot.jpg"},
+  {id:4,name:"Ananas",type:"fruits",image:"/ingredients/fruit/ananas.jpg"},
+  {id:5,name:"Avocat",type:"fruits",image:"/ingredients/fruit/avocat.jpg"},
+  {id:6,name:"Cerise",type:"fruits",image:"/ingredients/fruit/cerise.jpg"},
+  {id:7,name:"Fraise",type:"fruits",image:"/ingredients/fruit/fraise.jpg"},
+  {id:8,name:"Framboise",type:"fruits",image:"/ingredients/fruit/framboise.jpg"},
+  {id:9,name:"Grenade",type:"fruits",image:"/ingredients/fruit/grenade.jpg"},
+  {id:10,name:"Guava",type:"fruits",image:"/ingredients/fruit/guava.jpg"},
+  {id:11,name:"Kiwi",type:"fruits",image:"/ingredients/fruit/kiwi.jpg"},
+  {id:12,name:"Mangue",type:"fruits",image:"/ingredients/fruit/mangue.jpg"},
+  {id:13,name:"Melon",type:"fruits",image:"/ingredients/fruit/melon.jpg"},
+  {id:14,name:"Mûre",type:"fruits",image:"/ingredients/fruit/mure.jpg"},
+  {id:15,name:"Orange",type:"fruits",image:"/ingredients/fruit/orange.jpg"},
+  {id:16,name:"Pastèque",type:"fruits",image:"/ingredients/fruit/pasteque.jpg"},
+  {id:17,name:"Pêche",type:"fruits",image:"/ingredients/fruit/peche.jpg"},
+  {id:18,name:"Poire",type:"fruits",image:"/ingredients/fruit/poire.jpg"},
+  {id:19,name:"Prune",type:"fruits",image:"/ingredients/fruit/prune.jpg"},
+  {id:20,name:"Raisin Rouge",type:"fruits",image:"/ingredients/fruit/raisinr.jpg"},
+  {id:21,name:"Raisin Vert",type:"fruits",image:"/ingredients/fruit/raisinv.jpg"},
+  {id:22,name:"Ail",type:"legumes",image:"/ingredients/legumes/ail.jpg"},
+  {id:23,name:"Aubergine",type:"legumes",image:"/ingredients/legumes/aubergine.jpg"},
+  {id:24,name:"Basilic",type:"legumes",image:"/ingredients/legumes/basilic.jpg"},
+  {id:25,name:"Blé",type:"legumes",image:"/ingredients/legumes/ble.jpg"},
+  {id:26,name:"Boulgour",type:"legumes",image:"/ingredients/legumes/boulgour.jpg"},
+  {id:27,name:"Carotte",type:"legumes",image:"/ingredients/legumes/carotte.jpg"},
+  {id:28,name:"Champignon",type:"legumes",image:"/ingredients/legumes/champignon.jpg"},
+  {id:29,name:"Chou-fleur",type:"legumes",image:"/ingredients/legumes/chouf.jpg"},
+  {id:30,name:"Chou Rouge",type:"legumes",image:"/ingredients/legumes/chour.jpg"},
+  {id:31,name:"Chou",type:"legumes",image:"/ingredients/legumes/chou.jpg"},
+  {id:32,name:"Citron",type:"legumes",image:"/ingredients/legumes/citron.jpg"},
+  {id:33,name:"Concombre",type:"legumes",image:"/ingredients/legumes/concombre.jpg"},
+  {id:34,name:"Corète Potagère",type:"legumes",image:"/ingredients/legumes/corete_potagere.jpg"},
+  {id:35,name:"Coriandre",type:"legumes",image:"/ingredients/legumes/coriandre.jpg"},
+  {id:36,name:"Courgette",type:"legumes",image:"/ingredients/legumes/courgette.jpg"},
+  {id:37,name:"Épinard",type:"legumes",image:"/ingredients/legumes/epinard.jpg"},
+  {id:38,name:"Feuille de Vignes",type:"legumes",image:"/ingredients/legumes/feuille_de_vignes.jpg"},
+  {id:39,name:"Fève",type:"legumes",image:"/ingredients/legumes/feve.jpg"},
+  {id:40,name:"Gombo",type:"legumes",image:"/ingredients/legumes/gombo.jpg"},
+  {id:41,name:"Haricot Blanc",type:"legumes",image:"/ingredients/legumes/haricot_blanc.jpg"},
+  {id:42,name:"Haricot Vert",type:"legumes",image:"/ingredients/legumes/haricot_vert.jpg"},
+  {id:43,name:"Laitue",type:"legumes",image:"/ingredients/legumes/laitue.jpg"},
+  {id:44,name:"Lentilles Orange",type:"legumes",image:"/ingredients/legumes/lentilles_orange.jpg"},
+  {id:45,name:"Lentilles",type:"legumes",image:"/ingredients/legumes/lentilles.jpg"},
+  {id:46,name:"Maïs",type:"legumes",image:"/ingredients/legumes/mais.jpg"},
+  {id:47,name:"Menthe",type:"legumes",image:"/ingredients/legumes/menthe.jpg"},
+  {id:48,name:"Avoine",type:"legumes",image:"/ingredients/legumes/oats.jpg"},
+  {id:49,name:"Oignon",type:"legumes",image:"/ingredients/legumes/oignon.jpg"},
+  {id:50,name:"Olives",type:"legumes",image:"/ingredients/legumes/olives.jpg"},
+  {id:51,name:"Patate Douce",type:"legumes",image:"/ingredients/legumes/patate_douce.jpg"},
+  {id:52,name:"Persil",type:"legumes",image:"/ingredients/legumes/persil.jpg"},
+  {id:53,name:"Piment",type:"legumes",image:"/ingredients/legumes/piment.jpg"},
+  {id:54,name:"Pois Chiches",type:"legumes",image:"/ingredients/legumes/pois_chiches.jpg"},
+  {id:55,name:"Pois",type:"legumes",image:"/ingredients/legumes/pois.jpg"},
+  {id:56,name:"Poivron",type:"legumes",image:"/ingredients/legumes/poivron.jpg"},
+  {id:57,name:"Pomme de Terre",type:"legumes",image:"/ingredients/legumes/pomme_de_terre.jpg"},
+  {id:58,name:"Potiron",type:"legumes",image:"/ingredients/legumes/potiron.jpg"},
+  {id:59,name:"Radis",type:"legumes",image:"/ingredients/legumes/radis.jpg"},
+  {id:60,name:"Riz",type:"legumes",image:"/ingredients/legumes/riz.jpg"},
+  {id:61,name:"Tomate",type:"legumes",image:"/ingredients/legumes/tomate.jpg"},
+  {id:62,name:"Agneau",type:"aliments",image:"/ingredients/aliment/agneau.jpg"},
+  {id:63,name:"Bœuf",type:"aliments",image:"/ingredients/aliment/boeuf.jpg"},
+  {id:64,name:"Crevette",type:"aliments",image:"/ingredients/aliment/crevette.jpg"},
+  {id:65,name:"Filet de Poisson",type:"aliments",image:"/ingredients/aliment/filet_de_poisson.jpg"},
+  {id:66,name:"Œufs",type:"aliments",image:"/ingredients/aliment/oeuf.jpg"},
+  {id:67,name:"Poisson",type:"aliments",image:"/ingredients/aliment/poisson.jpg"},
+  {id:68,name:"Poulet",type:"aliments",image:"/ingredients/aliment/poulet.jpg"},
+  {id:69,name:"Sardine",type:"aliments",image:"/ingredients/aliment/sardine.jpg"},
+  {id:70,name:"Akkawi",type:"laitier",image:"/ingredients/laitier/Akkawi.jpg"},
+  {id:71,name:"Crème",type:"laitier",image:"/ingredients/laitier/creme.jpg"},
+  {id:72,name:"Halloumi",type:"laitier",image:"/ingredients/laitier/halloumi.jpg"},
+  {id:73,name:"Laban",type:"laitier",image:"/ingredients/laitier/laban.jpg"},
+  {id:74,name:"Labneh",type:"laitier",image:"/ingredients/laitier/labneh.jpg"},
+  {id:75,name:"Lait",type:"laitier",image:"/ingredients/laitier/lait.jpg"},
+  {id:76,name:"Mozzarella",type:"laitier",image:"/ingredients/laitier/mozzarella.jpg"},
+  {id:77,name:"Amendes",type:"noix",image:"/ingredients/noix/amendes.jpg"},
+  {id:78,name:"Cajou",type:"noix",image:"/ingredients/noix/cajou.jpg"},
+  {id:79,name:"Noix",type:"noix",image:"/ingredients/noix/noix.jpg"},
+  {id:80,name:"Pin",type:"noix",image:"/ingredients/noix/pin.jpg"},
+  {id:81,name:"Pistache",type:"noix",image:"/ingredients/noix/pistache.jpg"},
+  {id:82,name:"Confiture Abricot",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_confiture_abricot.jpg"},
+  {id:83,name:"Confiture Fraise",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_confiture_fraise.jpg"},
+  {id:84,name:"Confiture Mûre",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_confiture_mure.jpg"},
+  {id:85,name:"Fèves en Conserve",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_de_feve_conserve.jpg"},
+  {id:86,name:"Pois Chiches en Conserve",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_de_pois_chiches.jpg"},
+  {id:87,name:"Pois en Conserve",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_de_pois.jpg"},
+  {id:88,name:"Thon en Conserve",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_de_tuna_conserve.jpg"},
+  {id:89,name:"Sardines en Conserve",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_en_sardine.jpg"},
+  {id:90,name:"Miel",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/boite_miel.jpg"},
+  {id:91,name:"Pâte de Sésame",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/pate_de_sesame.jpg"},
+  {id:92,name:"Sauce Tomate",type:"nourriture en conserve",image:"/ingredients/nourriture_en_conserve/sauce_de_tomate.jpg"},
+  {id:93,name:"Baguette",type:"viennoiseries",image:"/ingredients/Viennoiseries/baguette.jpg"},
+  {id:94,name:"Pain Libanais",type:"viennoiseries",image:"/ingredients/Viennoiseries/pain_libanais.jpg"},
+  {id:95,name:"Pasta",type:"viennoiseries",image:"/ingredients/Viennoiseries/pasta.jpg"},
+  {id:96,name:"Toste",type:"viennoiseries",image:"/ingredients/Viennoiseries/toste.jpg"},
+];
+
+const sideMeals=[
+  {key:"riz",name:"Riz Bouilli",image:"/launch/riz_bouilli.jpg",emoji:"🍚",ingredients:["riz"]},
+  {key:"pain",name:"Pain Libanais",image:"/launch/pain_libanais.jpg",emoji:"🫓",ingredients:["pain libanais"]},
+  {key:"pomme de terre",name:"Pommes de Terre",image:"/launch/pomme_de_terre_frite.jpg",emoji:"🥔",ingredients:["pomme de terre"]},
+  {key:"laban",name:"Bol de Laban",image:"/launch/bol_de_laban.jpg",emoji:"🥛",ingredients:["laban"]},
+  {key:"salade",name:"Salade Verte",image:"/launch/salade_verte.jpg",emoji:"🥗",ingredients:["laitue"]},
+  {key:"fatouch",name:"Fatouch",image:"/launch/fatouch.jpg",emoji:"🥗",ingredients:["laitue","tomate","concombre","citron","radis"]},
+  {key:"tabouleh",name:"Tabouleh",image:"/launch/tabouleh.jpg",emoji:"🥗",ingredients:["persil","tomate","boulgour","citron","menthe","oignon"]},
+  {key:"soupe de lentilles",name:"Soupe de Lentilles",image:"/launch/soupe_de_lentilles.jpg",emoji:"🍵",ingredients:["lentilles orange","oignon"]},
+  {key:"houmous",name:"Houmous",image:"/launch/mtabal_houmous.jpg",emoji:"🍵",ingredients:["pois chiches","citron","pate de sesame"]},
+  {key:"baba ghanouj",name:"Baba ghanouj",image:"/launch/baba_ghanouj.jpg",emoji:"🍵",ingredients:["aubergine","citron","pate de sesame"]},
+];
+
+const principalMeals=[
+  {id:1,name:"Laban Emo",category:"saucy_meal",image:"/launch/laban_emo.jpg",emoji:"🍲",preferredBase:["riz","pain"],importantIngredients:["laban","viande"]},
+  {id:2,name:"Kousa bel Laban",category:"saucy_meal",image:"/launch/kousa_bel_laban.jpg",emoji:"🫕",preferredBase:["riz","pain"],importantIngredients:["laban","viande","courgette"]},
+  {id:3,name:"Pizza Margherita",category:"dough_meal",image:"/launch/pizza_margherita.jpg",emoji:"🍕",preferredBase:[],importantIngredients:["mozzarella","sauce tomate"]},
+  {id:4,name:"Greek Salad",category:"salade",image:"/launch/greek_salad.jpg",emoji:"🥗",preferredBase:[],importantIngredients:["halloumi","concombre","tomate","oignon","olives"]},
+  {id:5,name:"Molokhia",category:"saucy_meal",image:"/launch/mloukiya.jpg",emoji:"🥬",preferredBase:["riz","pain"],importantIngredients:["corete potagere","poulet"]},
+  {id:6,name:"Gombo avec de la viande",category:"saucy_meal",image:"/launch/gombo_avec_de_la_viande.jpg",emoji:"🫘",preferredBase:["riz","pain"],importantIngredients:["gombo","viande","sauce tomate"]},
+  {id:7,name:"Haricot avec de la viande",category:"saucy_meal",image:"/launch/haricot_avec_de_la_viande.jpg",emoji:"🫘",preferredBase:["riz","pain"],importantIngredients:["haricot","viande","sauce tomate"]},
+  {id:8,name:"Épinard avec viande",category:"saucy_meal",image:"/launch/epinard_avec_viande.jpg",emoji:"🥬",preferredBase:["riz","pain"],importantIngredients:["epinard","viande"]},
+  {id:9,name:"Pois avec de la viande",category:"saucy_meal",image:"/launch/pois_avec_de_la_viande.jpg",emoji:"🫛",preferredBase:["riz","pain"],importantIngredients:["pois","viande","sauce tomate"]},
+  {id:10,name:"Chou-fleur avec de la viande",category:"saucy_meal",image:"/launch/chou_fleur_avec_de_la_viande.jpg",emoji:"🥦",preferredBase:["riz","pain"],importantIngredients:["chou fleur","viande","sauce tomate"]},
+  {id:11,name:"Chekh Mehche",category:"saucy_meal",image:"/launch/chekh_me7che.jpg",emoji:"🍆",preferredBase:["riz","pain"],importantIngredients:["aubergine","viande","sauce tomate"]},
+  {id:12,name:"Poulet grillé",category:"protein_meal",image:"/launch/poulet_grille.jpg",emoji:"🍗",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["poulet"]},
+  {id:13,name:"Viande grillée",category:"protein_meal",image:"/launch/viande.jpg",emoji:"🥩",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["viande"]},
+  {id:14,name:"Poisson grillé",category:"protein_meal",image:"/launch/poisson.jpg",emoji:"🐟",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["poisson"]},
+  {id:15,name:"Filet de poisson grillé",category:"protein_meal",image:"/launch/poisson_filet_grille.jpg",emoji:"🐠",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["filet de poisson"]},
+  {id:16,name:"Kebbe",category:"protein_meal",image:"/launch/kebe.jpg",emoji:"🫓",preferredBase:["laban","salade","soupe de lentilles"],importantIngredients:["viande"]},
+  {id:17,name:"Sardine",category:"protein_meal",image:"/launch/sardines.jpg",emoji:"🐟",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["sardine"]},
+  {id:18,name:"Crevette",category:"protein_meal",image:"/launch/crevette.jpg",emoji:"🦐",preferredBase:["riz","pain","pomme de terre"],importantIngredients:["crevette"]},
+  {id:19,name:"Tuna Sandwich",category:"protein_meal",image:"/launch/tuna_sandwich.jpg",emoji:"🥪",preferredBase:["fatouch","tabouleh"],importantIngredients:["thon","toste"]},
+  {id:20,name:"Pasta au thon",category:"protein_meal",image:"/launch/pasta_With_tuna.jpg",emoji:"🍝",preferredBase:[],importantIngredients:["pasta","thon"]},
+  {id:21,name:"Pizza au thon",category:"protein_meal",image:"/launch/tuna_pizza.jpg",emoji:"🍕",preferredBase:[],importantIngredients:["thon","mozzarella","sauce tomate"]},
+  {id:22,name:"Salade thon-avocat",category:"protein_meal",image:"/launch/avocado_and_tunna_salad.jpg",emoji:"🥗",preferredBase:[],importantIngredients:["thon","avocat","laitue","tomate"]},
+  {id:23,name:"Salade Niçoise",category:"protein_meal",image:"/launch/salade_nicoise.jpg",emoji:"🥗",preferredBase:[],importantIngredients:["pomme de terre","oeuf","tomate","laitue","thon"]},
+  {id:24,name:"Frikkeh",category:"carbs_meal",image:"/launch/frikkeh.jpg",emoji:"🌾",preferredBase:["salade","laban"],importantIngredients:["ble","poulet"]},
+  {id:25,name:"Moujadara",category:"carbs_meal",image:"/launch/moujadara.jpg",emoji:"🍚",preferredBase:["salade","laban"],importantIngredients:["lentilles","riz","oignon"]},
+  {id:26,name:"Riz et fèves",category:"carbs_meal",image:"/launch/riz_et_feves.jpg",emoji:"🍚",preferredBase:["salade","laban"],importantIngredients:["riz","feve"]},
+  {id:27,name:"Riz et pois avec viande",category:"carbs_meal",image:"/launch/riz_poi_viande.jpg",emoji:"🍚",preferredBase:["salade","laban"],importantIngredients:["riz","pois","viande"]},
+  {id:28,name:"Boulgour et tomate",category:"carbs_meal",image:"/launch/boulgoure_et_tomate.jpg",emoji:"🌾",preferredBase:["salade","laban"],importantIngredients:["boulgour","tomate"]},
+  {id:29,name:"Falafel",category:"carbs_meal",image:"/launch/falafel.jpg",emoji:"🧆",preferredBase:["salade"],importantIngredients:["pois chiches","feve","persil","oignon"]},
+  {id:30,name:"Courgette farcie",category:"farcie_meal",image:"/launch/courgette_farcie.jpg",emoji:"🫑",preferredBase:["laban"],importantIngredients:["courgette","riz","viande","sauce tomate"]},
+  {id:31,name:"Chou-fleur farci",category:"farcie_meal",image:"/launch/chou_farcie_de_riz_et_de_la_viande.jpg",emoji:"🥦",preferredBase:["laban"],importantIngredients:["chou fleur","riz","viande","sauce tomate"]},
+  {id:32,name:"Feuilles de vignes farcies",category:"farcie_meal",image:"/launch/feuilles_de_vignes_farice.jpg",emoji:"🍃",preferredBase:[],importantIngredients:["feuilles de vignes","riz","viande"]},
+  {id:33,name:"Sfi7a",category:"dough_meal",image:"/launch/sfi7a.jpg",emoji:"🥙",preferredBase:["laban","salade"],importantIngredients:["viande","tomate","oignon"]},
+  {id:34,name:"Fatayer épinard",category:"dough_meal",image:"/launch/fatayer_epinards.jpg",emoji:"🥬",preferredBase:["salade"],importantIngredients:["epinard"]},
+  {id:35,name:"Tabouleh",category:"salade",image:"/launch/tabouleh.jpg",emoji:"🥗",preferredBase:[],importantIngredients:["persil","tomate","boulgour","citron","menthe","oignon"]},
+  {id:36,name:"Fatouch",category:"salade",image:"/launch/fatouch.jpg",emoji:"🥗",preferredBase:[],importantIngredients:["laitue","tomate","concombre","citron","radis"]},
+  {id:37,name:"Soupe de lentilles",category:"side_meal",image:"/launch/soupe_de_lentilles.jpg",emoji:"🍵",preferredBase:[],importantIngredients:["lentilles orange","oignon"]},
+];
+
+const mealCatCfg={
+  all:{label:"Tous",emoji:"✨"},
+  saucy_meal:{label:"En sauce",emoji:"🍲"},
+  protein_meal:{label:"Protéines",emoji:"🥩"},
+  carbs_meal:{label:"Féculents",emoji:"🌾"},
+  farcie_meal:{label:"Farcis",emoji:"🫑"},
+  dough_meal:{label:"Pâte",emoji:"🫓"},
+  salade:{label:"Salades",emoji:"🥗"},
+  side_meal:{label:"Accompagnements",emoji:"🍵"},
+};
+
+/* ========== HELPERS ========== */
+function norm(s){
+  return s.toLowerCase()
+    .normalize("NFD").replace(/\p{Diacritic}/gu,"")
+    .replace(/œ/g,"oe").replace(/æ/g,"ae").trim();
+}
+
+const ALIAS={
+  "viande":["boeuf","agneau"],
+  "laban":["laban"],
+  "poulet":["poulet"],
+  "poisson":["poisson"],
+  "filet de poisson":["filet de poisson"],
+  "sardine":["sardine","sardines en conserve"],
+  "crevette":["crevette"],
+  "thon":["thon en conserve"],
+  "pois":["pois","pois en conserve"],
+  "pois chiches":["pois chiches","pois chiches en conserve"],
+  "feve":["feve","feves en conserve"],
+  "lentilles":["lentilles"],
+  "lentilles orange":["lentilles orange"],
+  "aubergine":["aubergine"],
+  "courgette":["courgette"],
+  "epinard":["epinard"],
+  "gombo":["gombo"],
+  "haricot":["haricot blanc","haricot vert"],
+  "chou fleur":["chou-fleur"],
+  "corete potagere":["corete potagere"],
+  "oignon":["oignon"],
+  "tomate":["tomate"],
+  "citron":["citron"],
+  "laitue":["laitue"],
+  "concombre":["concombre"],
+  "radis":["radis"],
+  "persil":["persil"],
+  "menthe":["menthe"],
+  "ail":["ail"],
+  "carotte":["carotte"],
+  "champignon":["champignon"],
+  "mais":["mais"],
+  "piment":["piment"],
+  "poivron":["poivron"],
+  "pomme de terre":["pomme de terre"],
+  "patate douce":["patate douce"],
+  "potiron":["potiron"],
+  "riz":["riz"],
+  "boulgour":["boulgour"],
+  "ble":["ble"],
+  "avoine":["avoine"],
+  "pasta":["pasta"],
+  "mozzarella":["mozzarella"],
+  "halloumi":["halloumi"],
+  "labneh":["labneh"],
+  "lait":["lait"],
+  "creme":["creme"],
+  "akkawi":["akkawi"],
+  "oeuf":["oeuf","oeufs"],
+  "amendes":["amendes"],
+  "noix":["noix"],
+  "pistache":["pistache"],
+  "cajou":["cajou"],
+  "pin":["pin"],
+  "pain libanais":["pain libanais","baguette"],
+  "toste":["toste"],
+  "sauce tomate":["sauce tomate"],
+  "pate de sesame":["pate de sesame"],
+  "miel":["miel"],
+  "olives":["olives"],
+  "feuilles de vignes":["feuille de vignes"],
+  "avocat":["avocat"],
+};
+
+function getAliases(ing){const k=norm(ing);return ALIAS[k]||[k]}
+function hasIng(avail,ing){return getAliases(ing).some(a=>avail.includes(norm(a)))}
+function mealAvail(meal,avail){return meal.importantIngredients.every(i=>hasIng(avail,i))}
+function sideAvail(key,avail){
+  const s=sideMeals.find(x=>x.key===key);
+  if(!s)return false;
+  return s.ingredients.every(i=>hasIng(avail,i));
+}
+
+function getAvailNames(){
+  return [...selected].map(id=>{
+    const f=foods.find(x=>x.id===id);
+    return f?norm(f.name):null;
+  }).filter(Boolean);
+}
+
+/* ========== STATE ========== */
+let selected=new Set(JSON.parse(localStorage.getItem("gm_foods")||"[]"));
+let filterCat="all";
+let searchQ="";
+let mealCat="all";
+const chosenSides={};
+
+const catIco={
+  fruits:"🍎",legumes:"🥬",laitier:"🥛",
+  noix:"🥜",aliments:"🥩",viennoiseries:"🥐",
+  "nourriture en conserve":"🥫"
+};
+
+function save(){localStorage.setItem("gm_foods",JSON.stringify([...selected]))}
+
+/* ========== TOGGLE ========== */
+function toggle(id,e){
+  if(e)e.stopPropagation();
+  selected.has(id)?selected.delete(id):selected.add(id);
+  save();
+  renderGrid();
+  renderSelected();
+  updateCounter();
+}
+
+function updateCounter(){
+  const n=selected.size;
+  const b=document.getElementById("counter-badge");
+  b.textContent=n;
+  b.style.transform="scale(1.35)";
+  setTimeout(()=>b.style.transform="scale(1)",220);
+  document.getElementById("sel-count-label").textContent=n+" sélectionné"+(n!==1?"s":"");
+}
+
+/* ========== RENDER GRID ========== */
+function renderGrid(){
+  const filtered=foods.filter(f=>
+    (filterCat==="all"||f.type===filterCat)&&
+    norm(f.name).includes(norm(searchQ))
+  );
+  document.getElementById("count-label").textContent=filtered.length+" aliment"+(filtered.length!==1?"s":"");
+  const g=document.getElementById("grid");
+  if(!filtered.length){
+    g.innerHTML=`<div class="empty-state"><span>🔍</span><p>Aucun aliment trouvé</p></div>`;
+    return;
+  }
+  g.innerHTML=filtered.map(f=>{
+    const sel=selected.has(f.id);
+    return`<div class="card ${sel?"selected":""}" data-id="${f.id}">
+      <div class="card-img">
+        <img src="${f.image}" alt="${f.name}" loading="lazy" onerror="this.style.display='none'">
+        <div class="card-check">✓</div>
+        <button class="card-add" onclick="toggle(${f.id},event)">${sel?"−":"+"}</button>
+      </div>
+      <div class="card-body">
+        <h3>${f.name}</h3>
+        <span class="card-tag">${catIco[f.type]||""} ${f.type}</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ========== RENDER SELECTED ========== */
+function renderSelected(){
+  const sc=document.getElementById("selected-container");
+  if(!selected.size){
+    sc.innerHTML=`<div class="empty-basket"><span>🧺</span><p>Votre garde-manger est vide</p><small>Cliquez sur + pour ajouter des ingrédients</small></div>`;
+    return;
+  }
+  const groups={};
+  selected.forEach(id=>{
+    const f=foods.find(x=>x.id===id);if(!f)return;
+    if(!groups[f.type])groups[f.type]=[];
+    groups[f.type].push(f);
+  });
+  sc.innerHTML=Object.entries(groups).map(([type,items])=>`
+    <div class="cat-block">
+      <div class="cat-block-title"><h3>${catIco[type]||""} ${type.charAt(0).toUpperCase()+type.slice(1)}</h3></div>
+      <div class="chips-wrap">
+        ${items.map(f=>`<div class="chip">
+          <img src="${f.image}" alt="${f.name}" onerror="this.style.background='var(--ink4)'">
+          <span class="chip-name">${f.name}</span>
+          <button class="chip-rm" onclick="toggle(${f.id},event)">✕</button>
+        </div>`).join("")}
+      </div>
+    </div>`).join("");
+}
+
+/* ========== SIDES TOGGLE ========== */
+function toggleSide(mealId,sideKey){
+  if(!chosenSides[mealId])chosenSides[mealId]=new Set();
+  const ss=chosenSides[mealId];
+  ss.has(sideKey)?ss.delete(sideKey):ss.add(sideKey);
+  const card=document.querySelector(`.side-item[data-m="${mealId}"][data-s="${sideKey}"]`);
+  if(card)card.classList.toggle("side-on",ss.has(sideKey));
+  refreshSummary(mealId);
+}
+
+function refreshSummary(mealId){
+  const el=document.getElementById(`ms-${mealId}`);if(!el)return;
+  const meal=principalMeals.find(m=>m.id===mealId);if(!meal)return;
+  const sides=chosenSides[mealId]?[...chosenSides[mealId]]:[];
+  el.innerHTML=buildSummary(meal,sides);
+}
+
+function buildSummary(meal,sides){
+  if(!sides.length)return`<span class="ms-hint">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 11l3 3L22 4"/></svg>
+    Sélectionnez vos accompagnements ci-dessus
+  </span>`;
+  let h=`<div class="ms-parts"><span class="ms-main">🍽 ${meal.name}</span>`;
+  sides.forEach(key=>{
+    const s=sideMeals.find(x=>x.key===key);
+    if(s)h+=`<span class="ms-plus">+</span><span class="ms-side">${s.emoji} ${s.name}</span>`;
+  });
+  return h+`</div>`;
+}
+
+/* ========== OPEN / CLOSE MODAL ========== */
+function openMeals(){
+  if(!selected.size){alert("Sélectionnez d'abord des ingrédients !");return}
+  mealCat="all";
+  renderMealFilters();
+  renderMeals();
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeMeals(){
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow="";
+}
+function handleOvClick(e){if(e.target===document.getElementById("overlay"))closeMeals()}
+
+/* ========== RENDER MEAL FILTERS ========== */
+function renderMealFilters(){
+  document.getElementById("modal-filters").innerHTML=
+    Object.keys(mealCatCfg).map(c=>`
+      <button class="mf-btn ${c===mealCat?"active":""}" onclick="filterMeals('${c}')">
+        ${mealCatCfg[c].emoji} ${mealCatCfg[c].label}
+      </button>`).join("");
+}
+
+function filterMeals(c){mealCat=c;renderMealFilters();renderMeals()}
+
+/* ========== RENDER MEALS ========== */
+function renderMeals(){
+  const avail=getAvailNames();
+  const all=principalMeals.filter(m=>mealAvail(m,avail));
+  const filtered=all.filter(m=>mealCat==="all"||m.category===mealCat);
+
+  document.getElementById("modal-subtitle").textContent=
+    `${filtered.length} repas disponible${filtered.length!==1?"s":""} avec vos ingrédients`;
+
+  const body=document.getElementById("meals-body");
+
+  if(!filtered.length){
+    body.innerHTML=`<div class="no-meals"><span>🍽</span><h3>Aucun repas disponible</h3><p>Ajoutez plus d'ingrédients pour découvrir des recettes dans cette catégorie.</p></div>`;
+    return;
+  }
+
+  body.innerHTML=filtered.map((meal,idx)=>{
+    const cfg=mealCatCfg[meal.category]||{emoji:"🍽",label:meal.category};
+
+    /* ingredient pills */
+    const pills=meal.importantIngredients.map(i=>`<span class="ing-chip">✓ ${i}</span>`).join("");
+
+    /* sides */
+    let sidesHtml="";
+    if(meal.preferredBase&&meal.preferredBase.length){
+      const cards=meal.preferredBase.map(key=>{
+        const side=sideMeals.find(s=>s.key===key);if(!side)return"";
+        const isAvail=sideAvail(key,avail);
+        const isSel=chosenSides[meal.id]&&chosenSides[meal.id].has(key);
+        const cls=["side-item",isSel?"side-on":"",!isAvail?"side-off":""].filter(Boolean).join(" ");
+        return`<div class="${cls}" data-m="${meal.id}" data-s="${key}"
+             onclick="${isAvail?`toggleSide(${meal.id},'${key}')`:""}" >
+          <img src="${side.image}" alt="${side.name}" onerror="this.style.background='var(--ink4)'">
+          <div class="side-item-body">
+            <div class="side-item-name">${side.name}</div>
+            <div class="side-item-status ${isAvail?"avail":"navail"}">${isAvail?"✓ Disponible":"✗ Manquant"}</div>
+          </div>
+          <div class="side-tick">✓</div>
+        </div>`;
+      }).filter(Boolean).join("");
+
+      sidesHtml=`<div class="sides-wrap">
+        <div class="sides-label">
+          <div class="sides-label-left"><span></span> Accompagnements suggérés</div>
+          <span class="sides-hint">Personnalisez votre assiette</span>
+        </div>
+        <div class="sides-row">${cards}</div>
+      </div>`;
+    }
+
+    const initSides=chosenSides[meal.id]?[...chosenSides[meal.id]]:[];
+    const summaryHtml=meal.preferredBase&&meal.preferredBase.length?`
+      <div class="meal-summary" id="ms-${meal.id}">${buildSummary(meal,initSides)}</div>`:""
+
+    return`<div class="meal-card" style="animation-delay:${idx*55}ms">
+      <div class="meal-hero">
+        <img src="${meal.image}" alt="${meal.name}"
+          onerror="this.parentNode.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:5rem;background:var(--ink3)\\'>${meal.emoji}</div>'">
+        <div class="meal-hero-overlay"></div>
+        <div class="meal-cat-pill">${cfg.emoji} ${cfg.label}</div>
+        <div class="meal-ready-pill">✓ Prêt à cuisiner</div>
+        <div class="meal-hero-content">
+          <div>
+            <div class="meal-title">${meal.name}</div>
+            ${pills?`<div class="meal-ing-row">${pills}</div>`:""}
+          </div>
+        </div>
+      </div>
+      ${sidesHtml}
+      ${summaryHtml}
+    </div>`;
+  }).join("");
+}
+
+/* ========== EVENTS ========== */
+document.getElementById("grid").addEventListener("click",e=>{
+  const c=e.target.closest(".card");
+  if(c&&!e.target.closest(".card-add"))toggle(parseInt(c.dataset.id),e);
+});
+document.getElementById("search").addEventListener("input",e=>{searchQ=e.target.value;renderGrid()});
+document.getElementById("filter-tabs").addEventListener("click",e=>{
+  const t=e.target.closest(".tab");if(!t)return;
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");filterCat=t.dataset.cat;renderGrid();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMeals()});
+
+/* ========== INIT ========== */
+renderGrid();renderSelected();updateCounter();
+</script>
+</body>
+</html>

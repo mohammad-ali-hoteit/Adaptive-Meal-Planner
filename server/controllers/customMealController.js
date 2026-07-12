@@ -6,17 +6,25 @@ const calculateMacros = async (ingredients) => {
   let kcal = 0, pro = 0, carb = 0, fat = 0;
   
   for (const item of ingredients) {
-    const food = await Food.findById(item.foodId);
-    if (!food) throw new Error(`Food with ID ${item.foodId} not found`);
-    
-    // If food.size_g is 0 or missing, assume nutrition is per 100g as a fallback, but db should have size_g.
-    const baseSize = food.size_g || 100;
-    const ratio = item.grams / baseSize;
-    
-    kcal += food.nutrition.calories * ratio;
-    pro += food.nutrition.protein_g * ratio;
-    carb += food.nutrition.carbs_g * ratio;
-    fat += food.nutrition.fat_g * ratio;
+    if (item.foodId) {
+      const food = await Food.findById(item.foodId);
+      if (!food) throw new Error(`Food with ID ${item.foodId} not found`);
+      
+      // If food.size_g is 0 or missing, assume nutrition is per 100g as a fallback, but db should have size_g.
+      const baseSize = food.size_g || 100;
+      const ratio = (item.grams || 0) / baseSize;
+      
+      kcal += food.nutrition.calories * ratio;
+      pro += food.nutrition.protein_g * ratio;
+      carb += food.nutrition.carbs_g * ratio;
+      fat += food.nutrition.fat_g * ratio;
+    } else {
+      // Freeform ingredient
+      kcal += item.kcal || 0;
+      pro += item.pro || 0;
+      carb += item.carb || 0;
+      fat += item.fat || 0;
+    }
   }
   
   return {

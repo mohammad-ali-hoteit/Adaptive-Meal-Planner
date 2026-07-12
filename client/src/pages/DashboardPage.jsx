@@ -163,7 +163,11 @@ const DashboardPage = () => {
     let protein = Math.round(meal.calories * 0.25 / 4);
     let name = '';
     
-    if (assigned && assigned.customMealId) {
+    if (assigned && assigned.snapshotMacros) {
+      name = assigned.customMealId?.name || assigned.foodId?.name?.en || 'Logged Meal';
+      kcal = assigned.snapshotMacros.kcal || 0;
+      protein = assigned.snapshotMacros.pro || 0;
+    } else if (assigned && assigned.customMealId) {
       name = assigned.customMealId.name;
       kcal = assigned.customMealId.kcal;
       protein = assigned.customMealId.pro;

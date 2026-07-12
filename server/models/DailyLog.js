@@ -28,6 +28,12 @@ const dailyLogSchema = new mongoose.Schema({
       ref: 'CustomMeal',
       default: null,
     },
+    snapshotMacros: {
+      kcal: { type: Number },
+      pro: { type: Number },
+      carb: { type: Number },
+      fat: { type: Number }
+    }
   }],
   mealsCompleted: [{
     mealType: {
@@ -39,6 +45,12 @@ const dailyLogSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
     },
+    snapshotMacros: {
+      kcal: { type: Number },
+      pro: { type: Number },
+      carb: { type: Number },
+      fat: { type: Number }
+    }
   }],
   waterGlasses: {
     type: Number,

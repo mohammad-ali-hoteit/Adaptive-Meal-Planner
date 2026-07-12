@@ -1,0 +1,3597 @@
+{
+  "ingredients_breakfast_dinner": [
+    {
+      "name": "Tea",
+      "image": "breakfast_dinner_ingredients/drinks/tea.jpg",
+      "category": "infusion_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 1,
+        "protein_g": 0,
+        "carbs_g": 0.3,
+        "fat_g": 0
+      }
+    },
+    {
+      "name": "Matte",
+      "image": "breakfast_dinner_ingredients/drinks/matte.jpg",
+      "category": "infusion_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 2,
+        "protein_g": 0,
+        "carbs_g": 0.5,
+        "fat_g": 0
+      }
+    },
+    {
+      "name": "Ayran",
+      "image": "breakfast_dinner_ingredients/drinks/laban_3iran.jpg",
+      "category": "plain_yogurt_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 35,
+        "protein_g": 1.5,
+        "carbs_g": 3,
+        "fat_g": 1.5
+      }
+    },
+    {
+      "name": "Milk",
+      "image": "breakfast_dinner_ingredients/side/milk.jpg",
+      "category": "milk_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 61,
+        "protein_g": 3.2,
+        "carbs_g": 4.8,
+        "fat_g": 3.3
+      }
+    },
+    {
+      "name": "Black Coffee",
+      "image": "breakfast_dinner_ingredients/drinks/coffe.jpg",
+      "category": "coffee_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 2,
+        "protein_g": 0.1,
+        "carbs_g": 0,
+        "fat_g": 0
+      }
+    },
+    {
+      "name": "Nescafe",
+      "image": "breakfast_dinner_ingredients/drinks/nescafe.jpg",
+      "category": "coffee_drinks",
+      "per": "100ml",
+      "nutrition": {
+        "calories": 2,
+        "protein_g": 0.1,
+        "carbs_g": 0.4,
+        "fat_g": 0
+      }
+    },
+    {
+      "name": "Makdous",
+      "image": "breakfast_dinner_ingredients/principaux/makdousse.jpg",
+      "category": "makdous",
+      "per": "piece(~30g)",
+      "nutrition": {
+        "calories": 140,
+        "protein_g": 2.5,
+        "carbs_g": 4,
+        "fat_g": 13
+      }
+    },
+    {
+      "name": "Egg",
+      "image": "breakfast_dinner_ingredients/principaux/egg.jpg",
+      "category": "protein",
+      "per": "100g",
+      "nutrition": {
+        "calories": 155,
+        "protein_g": 13,
+        "carbs_g": 1.1,
+        "fat_g": 11
+      }
+    },
+    {
+      "name": "Fava Beans",
+      "image": "breakfast_dinner_ingredients/principaux/canned_fava_bean.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 110,
+        "protein_g": 7.6,
+        "carbs_g": 19.7,
+        "fat_g": 0.4
+      }
+    },
+    {
+      "name": "Chickpeas",
+      "image": "breakfast_dinner_ingredients/principaux/canned_chickpeas.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 164,
+        "protein_g": 8.9,
+        "carbs_g": 27.4,
+        "fat_g": 2.6
+      }
+    },
+    {
+      "name": "Baguette",
+      "image": "breakfast_dinner_ingredients/pain/baguette.jpg",
+      "category": "bakery",
+      "per": "100g",
+      "nutrition": {
+        "calories": 274,
+        "protein_g": 10,
+        "carbs_g": 57,
+        "fat_g": 1
+      }
+    },
+    {
+      "name": "Lebanese Bread",
+      "image": "breakfast_dinner_ingredients/pain/pita_bread.jpg",
+      "category": "bakery",
+      "per": "100g",
+      "nutrition": {
+        "calories": 275,
+        "protein_g": 9,
+        "carbs_g": 55,
+        "fat_g": 1.5
+      }
+    },
+    {
+      "name": "Toast",
+      "image": "breakfast_dinner_ingredients/pain/toast.jpg",
+      "category": "bakery",
+      "per": "100g",
+      "nutrition": {
+        "calories": 265,
+        "protein_g": 9,
+        "carbs_g": 49,
+        "fat_g": 3.5
+      }
+    },
+    {
+      "name": "Apple",
+      "image": "breakfast_dinner_ingredients/side/apple.jpg",
+      "category": "fruit",
+      "per": "100g",
+      "nutrition": {
+        "calories": 52,
+        "protein_g": 0.3,
+        "carbs_g": 14,
+        "fat_g": 0.2
+      }
+    },
+    {
+      "name": "Banana",
+      "image": "breakfast_dinner_ingredients/side/banana.jpg",
+      "category": "fruit",
+      "per": "100g",
+      "nutrition": {
+        "calories": 89,
+        "protein_g": 1.1,
+        "carbs_g": 23,
+        "fat_g": 0.3
+      }
+    },
+    {
+      "name": "Green Grape",
+      "image": "breakfast_dinner_ingredients/side/grape_green.jpg",
+      "category": "fruit",
+      "per": "100g",
+      "nutrition": {
+        "calories": 69,
+        "protein_g": 0.7,
+        "carbs_g": 18,
+        "fat_g": 0.2
+      }
+    },
+    {
+      "name": "Halloumi",
+      "image": "breakfast_dinner_ingredients/principaux/halloumi.jpg",
+      "category": "dairy",
+      "per": "100g",
+      "nutrition": {
+        "calories": 322,
+        "protein_g": 21,
+        "carbs_g": 2,
+        "fat_g": 26
+      }
+    },
+    {
+      "name": "Akkawi",
+      "image": "breakfast_dinner_ingredients/principaux/akkawi.jpg",
+      "category": "dairy",
+      "per": "100g",
+      "nutrition": {
+        "calories": 289,
+        "protein_g": 21,
+        "carbs_g": 2,
+        "fat_g": 22
+      }
+    },
+    {
+      "name": "Labneh",
+      "image": "breakfast_dinner_ingredients/principaux/strained_yogurt.jpg",
+      "category": "dairy",
+      "per": "100g",
+      "nutrition": {
+        "calories": 134,
+        "protein_g": 8,
+        "carbs_g": 4,
+        "fat_g": 10
+      }
+    },
+    {
+      "name": "Cucumber",
+      "image": "breakfast_dinner_ingredients/side/cucumber.jpg",
+      "category": "vegetables",
+      "per": "100g",
+      "nutrition": {
+        "calories": 15,
+        "protein_g": 0.7,
+        "carbs_g": 3.6,
+        "fat_g": 0.1
+      }
+    },
+    {
+      "name": "Tomato",
+      "image": "breakfast_dinner_ingredients/side/tomato.jpg",
+      "category": "vegetables",
+      "per": "100g",
+      "nutrition": {
+        "calories": 18,
+        "protein_g": 0.9,
+        "carbs_g": 3.9,
+        "fat_g": 0.2
+      }
+    },
+    {
+      "name": "Olives",
+      "image": "breakfast_dinner_ingredients/side/olives_plate.jpg",
+      "category": "vegetables",
+      "per": "100g",
+      "nutrition": {
+        "calories": 115,
+        "protein_g": 1,
+        "carbs_g": 6,
+        "fat_g": 11
+      }
+    },
+    {
+      "name": "Honey",
+      "image": "breakfast_dinner_ingredients/side/canned_honey.jpg",
+      "category": "sweet_spreads",
+      "per": "100g",
+      "nutrition": {
+        "calories": 304,
+        "protein_g": 0.3,
+        "carbs_g": 82,
+        "fat_g": 0
+      }
+    },
+    {
+      "name": "Strawberry Jam",
+      "image": "breakfast_dinner_ingredients/principaux/strawberry_jam.jpg",
+      "category": "sweet_spreads",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 0.3,
+        "carbs_g": 62,
+        "fat_g": 0.1
+      }
+    },
+    {
+      "name": "Apricot Jam",
+      "image": "breakfast_dinner_ingredients/principaux/apricot_jam.jpg",
+      "category": "sweet_spreads",
+      "per": "100g",
+      "nutrition": {
+        "calories": 243,
+        "protein_g": 0.5,
+        "carbs_g": 64,
+        "fat_g": 0.1
+      }
+    },
+    {
+      "name": "Blackberry Jam",
+      "image": "breakfast_dinner_ingredients/principaux/blackberry_jam.jpg",
+      "category": "sweet_spreads",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 0.3,
+        "carbs_g": 65,
+        "fat_g": 0.1
+      }
+    },
+    {
+      "name": "Oats",
+      "image": "breakfast_dinner_ingredients/principaux/oats.jpg",
+      "category": "oats",
+      "per": "100g",
+      "nutrition": {
+        "calories": 389,
+        "protein_g": 17,
+        "carbs_g": 66,
+        "fat_g": 7
+      }
+    },
+    {
+      "name": "Walnuts",
+      "image": "breakfast_dinner_ingredients/side/walnut.jpg",
+      "category": "healthy_fats",
+      "per": "100g",
+      "nutrition": {
+        "calories": 654,
+        "protein_g": 15,
+        "carbs_g": 14,
+        "fat_g": 65
+      }
+    },
+    {
+      "name": "Almonds",
+      "image": "breakfast_dinner_ingredients/side/almonds.jpg",
+      "category": "healthy_fats",
+      "per": "100g",
+      "nutrition": {
+        "calories": 579,
+        "protein_g": 21,
+        "carbs_g": 22,
+        "fat_g": 50
+      }
+    },
+    {
+      "name": "Cashew",
+      "image": "breakfast_dinner_ingredients/side/cashew.jpg",
+      "category": "healthy_fats",
+      "per": "100g",
+      "nutrition": {
+        "calories": 553,
+        "protein_g": 18,
+        "carbs_g": 30,
+        "fat_g": 44
+      }
+    },
+    {
+      "name": "Chocolate Croissant",
+      "image": "breakfast_dinner_ingredients/principaux/chocolate_croissant.jpg",
+      "category": "sweet_pastries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 406,
+        "protein_g": 7,
+        "carbs_g": 45,
+        "fat_g": 21
+      }
+    },
+    {
+      "name": "Kunafa",
+      "image": "breakfast_dinner_ingredients/principaux/knefeh_sandwish.jpg",
+      "category": "sweet_pastries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 330,
+        "protein_g": 8,
+        "carbs_g": 40,
+        "fat_g": 15
+      }
+    },
+    {
+      "name": "Cheese Croissant",
+      "image": "breakfast_dinner_ingredients/principaux/cheese_croissant.jpg",
+      "category": "savory_pastries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 380,
+        "protein_g": 9,
+        "carbs_g": 40,
+        "fat_g": 19
+      }
+    },
+    {
+      "name": "Manoushe Cheese",
+      "image": "breakfast_dinner_ingredients/principaux/man2ouchet_jebnet.jpg",
+      "category": "savory_pastries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 290,
+        "protein_g": 12,
+        "carbs_g": 30,
+        "fat_g": 13
+      }
+    },
+    {
+      "name": "Manoushe Kechek",
+      "image": "breakfast_dinner_ingredients/principaux/manakich_kechek.jpg",
+      "category": "savory_pastries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 270,
+        "protein_g": 10,
+        "carbs_g": 35,
+        "fat_g": 10
+      }
+    },
+    {
+      "name": "Manoushe Zaatar",
+      "image": "breakfast_dinner_ingredients/principaux/images.jpg",
+      "category": "savory_pastries_2",
+      "per": "100g",
+      "nutrition": {
+        "calories": 310,
+        "protein_g": 7,
+        "carbs_g": 45,
+        "fat_g": 11
+      }
+    },
+    {
+      "name": "Manoushe Lahem Baajin",
+      "image": "breakfast_dinner_ingredients/principaux/la7mi_b3ajin.jpg",
+      "category": "savory_pastries_3",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 12,
+        "carbs_g": 25,
+        "fat_g": 11
+      }
+    },
+    {
+      "name": "Avocado",
+      "image": "breakfast_dinner_ingredients/side/avocado.jpg",
+      "category": "avocado",
+      "per": "100g",
+      "nutrition": {
+        "calories": 160,
+        "protein_g": 2,
+        "carbs_g": 8.5,
+        "fat_g": 14.7
+      }
+    }
+  ],
+  "meals_breakfast_dinner": [
+    {
+      "name": "Akkawi",
+      "image": "breakfast_dinner/akkawi.jpg",
+      "category": "dairy",
+      "nutrition_ref": "Akkawi",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Almonds",
+      "image": "breakfast_dinner/almonds.jpg",
+      "category": "healthy fat",
+      "nutrition_ref": "Almonds",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Apple slices",
+      "image": "breakfast_dinner/apple_slices.jpg",
+      "category": "fruit",
+      "nutrition_ref": "Apple",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Apricot jam",
+      "image": "breakfast_dinner/apricot_jam.jpg",
+      "category": "sweet spread",
+      "nutrition_ref": "Apricot Jam",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Avocado",
+      "image": "breakfast_dinner/avocado.jpg",
+      "category": "avocado",
+      "nutrition_ref": "Avocado",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Baguette",
+      "image": "breakfast_dinner/baguette.jpg",
+      "category": "bakery",
+      "nutrition_ref": "Baguette",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Banana slices",
+      "image": "breakfast_dinner/banana_slices.jpg",
+      "category": "fruit",
+      "nutrition_ref": "Banana",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Black berry jam",
+      "image": "breakfast_dinner/blackberry_jam.jpg",
+      "category": "sweet spread",
+      "nutrition_ref": "Blackberry Jam",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Boiled eggs",
+      "image": "breakfast_dinner/boiled_eggs.jpg",
+      "category": "protein",
+      "nutrition_ref": "Egg",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Boiled oats",
+      "image": "breakfast_dinner/boiled_oats.jpg",
+      "category": "oats",
+      "nutrition_ref": "Oats",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Cashew",
+      "image": "breakfast_dinner/cashew.jpg",
+      "category": "healthy fat",
+      "nutrition_ref": "Cashew",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Cheese croissant",
+      "image": "breakfast_dinner/cheese_croissant.jpg",
+      "category": "savory pastries",
+      "nutrition_ref": "Cheese Croissant",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Chocolate croissant",
+      "image": "breakfast_dinner/chocolate_croissant.jpg",
+      "category": "sweet pastries",
+      "nutrition_ref": "Chocolate Croissant",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Cucumber slices",
+      "image": "breakfast_dinner/cucumber_slices.jpg",
+      "category": "vegetables",
+      "nutrition_ref": "Cucumber",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Feves",
+      "image": "breakfast_dinner/foul.jpg",
+      "category": "legumes",
+      "nutrition_ref": "Fava Beans",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Glass of milk",
+      "image": "breakfast_dinner/glass_of_milk.jpg",
+      "category": "milk drinks",
+      "nutrition_ref": "Milk",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Grapes plate",
+      "image": "breakfast_dinner/grapes_plate.jpg",
+      "category": "fruit",
+      "nutrition_ref": "Green Grape",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Halloumi",
+      "image": "breakfast_dinner/halloumi.jpg",
+      "category": "dairy",
+      "nutrition_ref": "Halloumi",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Honey",
+      "image": "breakfast_dinner/honey.jpg",
+      "category": "sweet spread",
+      "nutrition_ref": "Honey",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Manoushe Zaatar",
+      "image": "breakfast_dinner/images.jpg",
+      "category": "savory pastries 2",
+      "nutrition_ref": "Manoushe Zaatar",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Knefeh",
+      "image": "breakfast_dinner/knefeh_sandwish.jpg",
+      "category": "sweet pastries",
+      "nutrition_ref": "Kunafa",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Lahem bi Aajin",
+      "image": "breakfast_dinner/la7mi_b3ajin.jpg",
+      "category": "savory pastries 3",
+      "nutrition_ref": "Manoushe Lahem Baajin",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Labneh",
+      "image": "breakfast_dinner/labneh.jpg",
+      "category": "dairy",
+      "nutrition_ref": "Labneh",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Makdous",
+      "image": "breakfast_dinner/makdousse.jpg",
+      "category": "makdousse",
+      "nutrition_ref": "Makdous",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Manoushe Jebne",
+      "image": "breakfast_dinner/man2ouchet_jebnet.jpg",
+      "category": "savory pastries",
+      "nutrition_ref": "Manoushe Cheese",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Manoushe Kechek",
+      "image": "breakfast_dinner/manakich_kechek.jpg",
+      "category": "savory pastries",
+      "nutrition_ref": "Manoushe Kechek",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Msabbaha",
+      "image": "breakfast_dinner/msaba7a.jpg",
+      "category": "legumes",
+      "nutrition_ref": "Chickpeas",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Olives plate",
+      "image": "breakfast_dinner/olives_plate.jpg",
+      "category": "vegetables",
+      "nutrition_ref": "Olives",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Pain Libanais",
+      "image": "breakfast_dinner/pita_bread.jpg",
+      "category": "bakery",
+      "nutrition_ref": "Lebanese Bread",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Strawberry jam",
+      "image": "breakfast_dinner/strawberry_jam.jpg",
+      "category": "sweet spread",
+      "nutrition_ref": "Strawberry Jam",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Tomato slices",
+      "image": "breakfast_dinner/tomato_slices.jpg",
+      "category": "vegetables",
+      "nutrition_ref": "Tomato",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Toste",
+      "image": "breakfast_dinner/toste.jpg",
+      "category": "bakery",
+      "nutrition_ref": "Toast",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Walnut",
+      "image": "breakfast_dinner/walnut.jpg",
+      "category": "healthy fat",
+      "nutrition_ref": "Walnuts",
+      "note": "same nutrition as the referenced ingredient (per 100g), just plated"
+    },
+    {
+      "name": "Lebanese Breakfast Plate",
+      "image": "breakfast_dinner/lebanese_breakfast_plate.jpg",
+      "category": "combo_meal",
+      "size_g": 350,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 655,
+        "protein_g": 32.1,
+        "carbs_g": 67.5,
+        "fat_g": 29.3
+      },
+      "ingredients": [
+        "Akkawi",
+        "Olives",
+        "Lebanese Bread",
+        "Tomato",
+        "Cucumber"
+      ]
+    },
+    {
+      "name": "Sweet Breakfast",
+      "image": "breakfast_dinner/sweet_breakfast.jpg",
+      "category": "combo_meal",
+      "size_g": 350,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 553,
+        "protein_g": 17.2,
+        "carbs_g": 96,
+        "fat_g": 11.8
+      },
+      "ingredients": [
+        "Toast",
+        "Strawberry Jam",
+        "Honey",
+        "Milk"
+      ]
+    },
+    {
+      "name": "Makdous Plate",
+      "image": "breakfast_dinner/makdous_plate.jpg",
+      "category": "combo_meal",
+      "size_g": 350,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 747,
+        "protein_g": 22.5,
+        "carbs_g": 70,
+        "fat_g": 43
+      },
+      "ingredients": [
+        "Makdous",
+        "Lebanese Bread",
+        "Labneh",
+        "Olives"
+      ]
+    },
+    {
+      "name": "Simple Egg Plate",
+      "image": "breakfast_dinner/simple_egg_plate.jpg",
+      "category": "combo_meal",
+      "size_g": 350,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 453,
+        "protein_g": 23.6,
+        "carbs_g": 57.6,
+        "fat_g": 14.8
+      },
+      "ingredients": [
+        "Egg",
+        "Toast",
+        "Tomato",
+        "Cucumber"
+      ]
+    }
+  ],
+  "optimizer_breakfast_dinner": {
+    "roles": [
+      "Main Protein",
+      "Carb Source",
+      "Healthy Fat",
+      "Vegetable/Fiber",
+      "Dairy",
+      "Fruit",
+      "Side",
+      "Drink",
+      "Sweet Component"
+    ],
+    "food_database": [
+      {
+        "name": "Boiled Egg",
+        "category": "protein",
+        "role": "Main Protein",
+        "unit": "piece",
+        "unitLabel": "Egg(s)",
+        "calories": 70,
+        "protein": 6,
+        "carbs": 0.5,
+        "fat": 5,
+        "minQuantity": 1,
+        "maxQuantity": 4,
+        "step": 1,
+        "priority": 9,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Toast Bread",
+        "category": "bakery",
+        "role": "Carb Source",
+        "unit": "slice",
+        "unitLabel": "Slice(s)",
+        "calories": 75,
+        "protein": 2.7,
+        "carbs": 13.5,
+        "fat": 1,
+        "minQuantity": 1,
+        "maxQuantity": 6,
+        "step": 1,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Lebanese Bread",
+        "category": "bakery",
+        "role": "Carb Source",
+        "unit": "loaf",
+        "unitLabel": "Loaf/Loaves",
+        "calories": 165,
+        "protein": 5.5,
+        "carbs": 33,
+        "fat": 1,
+        "minQuantity": 0.5,
+        "maxQuantity": 2,
+        "step": 0.5,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Labneh",
+        "category": "dairy",
+        "role": "Dairy",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.8,
+        "protein": 0.09,
+        "carbs": 0.05,
+        "fat": 0.12,
+        "minQuantity": 20,
+        "maxQuantity": 150,
+        "step": 10,
+        "priority": 7,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Akkawi Cheese",
+        "category": "dairy",
+        "role": "Dairy",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 2.6,
+        "protein": 0.2,
+        "carbs": 0.01,
+        "fat": 0.2,
+        "minQuantity": 20,
+        "maxQuantity": 100,
+        "step": 10,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Halloumi Cheese",
+        "category": "dairy",
+        "role": "Dairy",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 3.21,
+        "protein": 0.22,
+        "carbs": 0.02,
+        "fat": 0.26,
+        "minQuantity": 20,
+        "maxQuantity": 100,
+        "step": 10,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Boiled Fava Beans",
+        "category": "legumes",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.1,
+        "protein": 0.076,
+        "carbs": 0.197,
+        "fat": 0.004,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 7,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Boiled Chickpeas",
+        "category": "legumes",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.64,
+        "protein": 0.089,
+        "carbs": 0.274,
+        "fat": 0.026,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 7,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Apricot Jam",
+        "category": "sweet_spreads",
+        "role": "Sweet Component",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 2.43,
+        "protein": 0.005,
+        "carbs": 0.64,
+        "fat": 0.001,
+        "minQuantity": 10,
+        "maxQuantity": 40,
+        "step": 10,
+        "priority": 3,
+        "tasteProfile": "sweet"
+      },
+      {
+        "name": "Makdous",
+        "category": "side",
+        "role": "Side",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 140,
+        "protein": 2.5,
+        "carbs": 4,
+        "fat": 13,
+        "minQuantity": 1,
+        "maxQuantity": 4,
+        "step": 1,
+        "priority": 6,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Cucumber",
+        "category": "vegetables",
+        "role": "Vegetable/Fiber",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 15,
+        "protein": 0.7,
+        "carbs": 3.6,
+        "fat": 0.1,
+        "minQuantity": 0.5,
+        "maxQuantity": 3,
+        "step": 0.5,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Tomato",
+        "category": "vegetables",
+        "role": "Vegetable/Fiber",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 22,
+        "protein": 1.1,
+        "carbs": 4.8,
+        "fat": 0.2,
+        "minQuantity": 0.5,
+        "maxQuantity": 3,
+        "step": 0.5,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Olives",
+        "category": "healthy_fats",
+        "role": "Healthy Fat",
+        "unit": "piece",
+        "unitLabel": "Olive(s)",
+        "calories": 5,
+        "protein": 0.03,
+        "carbs": 0.27,
+        "fat": 0.48,
+        "minQuantity": 5,
+        "maxQuantity": 20,
+        "step": 5,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Almonds",
+        "category": "healthy_fats",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 5.76,
+        "protein": 0.21,
+        "carbs": 0.21,
+        "fat": 0.49,
+        "minQuantity": 10,
+        "maxQuantity": 40,
+        "step": 5,
+        "priority": 7,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Walnuts",
+        "category": "healthy_fats",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 6.54,
+        "protein": 0.15,
+        "carbs": 0.13,
+        "fat": 0.65,
+        "minQuantity": 10,
+        "maxQuantity": 40,
+        "step": 5,
+        "priority": 7,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Banana",
+        "category": "fruit",
+        "role": "Fruit",
+        "unit": "piece",
+        "unitLabel": "Banana(s)",
+        "calories": 105,
+        "protein": 1.3,
+        "carbs": 27,
+        "fat": 0.3,
+        "minQuantity": 0.5,
+        "maxQuantity": 2,
+        "step": 0.5,
+        "priority": 6,
+        "tasteProfile": "sweet"
+      },
+      {
+        "name": "Avocado",
+        "category": "healthy_fats",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.6,
+        "protein": 0.02,
+        "carbs": 0.085,
+        "fat": 0.147,
+        "minQuantity": 30,
+        "maxQuantity": 150,
+        "step": 10,
+        "priority": 8,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Milk",
+        "category": "milk_drinks",
+        "role": "Drink",
+        "unit": "ml",
+        "unitLabel": "ml",
+        "calories": 0.61,
+        "protein": 0.032,
+        "carbs": 0.048,
+        "fat": 0.033,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 50,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Oats",
+        "category": "oats",
+        "role": "Carb Source",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 3.89,
+        "protein": 0.169,
+        "carbs": 0.66,
+        "fat": 0.069,
+        "minQuantity": 30,
+        "maxQuantity": 100,
+        "step": 10,
+        "priority": 8,
+        "tasteProfile": "neutral"
+      }
+    ],
+    "notes": "Ported as-is from the existing breakfast/dinner engine: role-slot templates + hill-climbing quantity optimizer + weighted scoring (Macro 40% / Protein 20% / Compatibility 20% / Realism 20%). Already implemented in JS, no changes needed."
+  },
+  "ingredients_lunch": [
+    {
+      "name": "Pomme",
+      "image": "ingredients/fruit/pomme.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 52,
+        "protein_g": 0.3,
+        "carbs_g": 14,
+        "fat_g": 0.2
+      },
+      "_id": 1
+    },
+    {
+      "name": "Banane",
+      "image": "ingredients/fruit/banane.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 89,
+        "protein_g": 1.1,
+        "carbs_g": 23,
+        "fat_g": 0.3
+      },
+      "_id": 2
+    },
+    {
+      "name": "Abricot",
+      "image": "ingredients/fruit/abricot.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 48,
+        "protein_g": 1.4,
+        "carbs_g": 11,
+        "fat_g": 0.4
+      },
+      "_id": 3
+    },
+    {
+      "name": "Ananas",
+      "image": "ingredients/fruit/ananas.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 50,
+        "protein_g": 0.5,
+        "carbs_g": 13,
+        "fat_g": 0.1
+      },
+      "_id": 4
+    },
+    {
+      "name": "Avocat",
+      "image": "ingredients/fruit/avocat.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 160,
+        "protein_g": 2,
+        "carbs_g": 8.5,
+        "fat_g": 14.7
+      },
+      "_id": 5
+    },
+    {
+      "name": "Cerise",
+      "image": "ingredients/fruit/cerise.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 63,
+        "protein_g": 1.1,
+        "carbs_g": 16,
+        "fat_g": 0.2
+      },
+      "_id": 6
+    },
+    {
+      "name": "Fraise",
+      "image": "ingredients/fruit/fraise.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 32,
+        "protein_g": 0.7,
+        "carbs_g": 7.7,
+        "fat_g": 0.3
+      },
+      "_id": 7
+    },
+    {
+      "name": "Framboise",
+      "image": "ingredients/fruit/framboise.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 52,
+        "protein_g": 1.2,
+        "carbs_g": 12,
+        "fat_g": 0.7
+      },
+      "_id": 8
+    },
+    {
+      "name": "Grenade",
+      "image": "ingredients/fruit/grenade.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 83,
+        "protein_g": 1.7,
+        "carbs_g": 19,
+        "fat_g": 1.2
+      },
+      "_id": 9
+    },
+    {
+      "name": "Guava",
+      "image": "ingredients/fruit/guava.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 68,
+        "protein_g": 2.6,
+        "carbs_g": 14,
+        "fat_g": 1
+      },
+      "_id": 10
+    },
+    {
+      "name": "Kiwi",
+      "image": "ingredients/fruit/kiwi.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 61,
+        "protein_g": 1.1,
+        "carbs_g": 15,
+        "fat_g": 0.5
+      },
+      "_id": 11
+    },
+    {
+      "name": "Mangue",
+      "image": "ingredients/fruit/mangue.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 60,
+        "protein_g": 0.8,
+        "carbs_g": 15,
+        "fat_g": 0.4
+      },
+      "_id": 12
+    },
+    {
+      "name": "Melon",
+      "image": "ingredients/fruit/melon.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 34,
+        "protein_g": 0.8,
+        "carbs_g": 8,
+        "fat_g": 0.2
+      },
+      "_id": 13
+    },
+    {
+      "name": "Mûre",
+      "image": "ingredients/fruit/mure.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 43,
+        "protein_g": 1.4,
+        "carbs_g": 10,
+        "fat_g": 0.5
+      },
+      "_id": 14
+    },
+    {
+      "name": "Orange",
+      "image": "ingredients/fruit/orange.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 47,
+        "protein_g": 0.9,
+        "carbs_g": 12,
+        "fat_g": 0.1
+      },
+      "_id": 15
+    },
+    {
+      "name": "Pastèque",
+      "image": "ingredients/fruit/pasteque.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 30,
+        "protein_g": 0.6,
+        "carbs_g": 8,
+        "fat_g": 0.2
+      },
+      "_id": 16
+    },
+    {
+      "name": "Pêche",
+      "image": "ingredients/fruit/peche.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 39,
+        "protein_g": 0.9,
+        "carbs_g": 10,
+        "fat_g": 0.3
+      },
+      "_id": 17
+    },
+    {
+      "name": "Poire",
+      "image": "ingredients/fruit/poire.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 57,
+        "protein_g": 0.4,
+        "carbs_g": 15,
+        "fat_g": 0.1
+      },
+      "_id": 18
+    },
+    {
+      "name": "Prune",
+      "image": "ingredients/fruit/prune.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 46,
+        "protein_g": 0.7,
+        "carbs_g": 11,
+        "fat_g": 0.3
+      },
+      "_id": 19
+    },
+    {
+      "name": "Raisin Rouge",
+      "image": "ingredients/fruit/raisinr.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 69,
+        "protein_g": 0.7,
+        "carbs_g": 18,
+        "fat_g": 0.2
+      },
+      "_id": 20
+    },
+    {
+      "name": "Raisin Vert",
+      "image": "ingredients/fruit/raisinv.jpg",
+      "category": "fruits",
+      "per": "100g",
+      "nutrition": {
+        "calories": 69,
+        "protein_g": 0.7,
+        "carbs_g": 18,
+        "fat_g": 0.2
+      },
+      "_id": 21
+    },
+    {
+      "name": "Ail",
+      "image": "ingredients/legumes/ail.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 149,
+        "protein_g": 6.4,
+        "carbs_g": 33,
+        "fat_g": 0.5
+      },
+      "_id": 22
+    },
+    {
+      "name": "Aubergine",
+      "image": "ingredients/legumes/aubergine.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 25,
+        "protein_g": 1,
+        "carbs_g": 6,
+        "fat_g": 0.2
+      },
+      "_id": 23
+    },
+    {
+      "name": "Basilic",
+      "image": "ingredients/legumes/basilic.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 23,
+        "protein_g": 3.2,
+        "carbs_g": 2.7,
+        "fat_g": 0.6
+      },
+      "_id": 24
+    },
+    {
+      "name": "Blé",
+      "image": "ingredients/legumes/ble.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 340,
+        "protein_g": 13,
+        "carbs_g": 71,
+        "fat_g": 2.5
+      },
+      "_id": 25
+    },
+    {
+      "name": "Boulgour",
+      "image": "ingredients/legumes/boulgour.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 342,
+        "protein_g": 12.3,
+        "carbs_g": 76,
+        "fat_g": 1.3
+      },
+      "_id": 26
+    },
+    {
+      "name": "Carotte",
+      "image": "ingredients/legumes/carotte.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 41,
+        "protein_g": 0.9,
+        "carbs_g": 10,
+        "fat_g": 0.2
+      },
+      "_id": 27
+    },
+    {
+      "name": "Champignon",
+      "image": "ingredients/legumes/champignon.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 22,
+        "protein_g": 3.1,
+        "carbs_g": 3.3,
+        "fat_g": 0.3
+      },
+      "_id": 28
+    },
+    {
+      "name": "Chou-fleur",
+      "image": "ingredients/legumes/chouf.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 25,
+        "protein_g": 1.9,
+        "carbs_g": 5,
+        "fat_g": 0.3
+      },
+      "_id": 29
+    },
+    {
+      "name": "Chou Rouge",
+      "image": "ingredients/legumes/chour.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 31,
+        "protein_g": 1.4,
+        "carbs_g": 7.4,
+        "fat_g": 0.2
+      },
+      "_id": 30
+    },
+    {
+      "name": "Chou",
+      "image": "ingredients/legumes/chou.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 25,
+        "protein_g": 1.3,
+        "carbs_g": 6,
+        "fat_g": 0.1
+      },
+      "_id": 31
+    },
+    {
+      "name": "Citron",
+      "image": "ingredients/legumes/citron.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 29,
+        "protein_g": 1.1,
+        "carbs_g": 9.3,
+        "fat_g": 0.3
+      },
+      "_id": 32
+    },
+    {
+      "name": "Concombre",
+      "image": "ingredients/legumes/concombre.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 15,
+        "protein_g": 0.7,
+        "carbs_g": 3.6,
+        "fat_g": 0.1
+      },
+      "_id": 33
+    },
+    {
+      "name": "Corète Potagère",
+      "image": "ingredients/legumes/corete_potagere.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 40,
+        "protein_g": 4.5,
+        "carbs_g": 6,
+        "fat_g": 0.3
+      },
+      "_id": 34
+    },
+    {
+      "name": "Coriandre",
+      "image": "ingredients/legumes/coriandre.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 23,
+        "protein_g": 2.1,
+        "carbs_g": 3.7,
+        "fat_g": 0.5
+      },
+      "_id": 35
+    },
+    {
+      "name": "Courgette",
+      "image": "ingredients/legumes/courgette.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 17,
+        "protein_g": 1.2,
+        "carbs_g": 3.1,
+        "fat_g": 0.3
+      },
+      "_id": 36
+    },
+    {
+      "name": "Épinard",
+      "image": "ingredients/legumes/epinard.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 23,
+        "protein_g": 2.9,
+        "carbs_g": 3.6,
+        "fat_g": 0.4
+      },
+      "_id": 37
+    },
+    {
+      "name": "Feuille de Vignes",
+      "image": "ingredients/legumes/feuille_de_vignes.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 93,
+        "protein_g": 5.6,
+        "carbs_g": 17,
+        "fat_g": 2
+      },
+      "_id": 38
+    },
+    {
+      "name": "Fève",
+      "image": "ingredients/legumes/feve.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 88,
+        "protein_g": 7.6,
+        "carbs_g": 17.6,
+        "fat_g": 0.5
+      },
+      "_id": 39
+    },
+    {
+      "name": "Gombo",
+      "image": "ingredients/legumes/gombo.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 33,
+        "protein_g": 1.9,
+        "carbs_g": 7.5,
+        "fat_g": 0.2
+      },
+      "_id": 40
+    },
+    {
+      "name": "Haricot Blanc",
+      "image": "ingredients/legumes/haricot_blanc.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 127,
+        "protein_g": 8.7,
+        "carbs_g": 23,
+        "fat_g": 0.5
+      },
+      "_id": 41
+    },
+    {
+      "name": "Haricot Vert",
+      "image": "ingredients/legumes/haricot_vert.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 31,
+        "protein_g": 1.8,
+        "carbs_g": 7,
+        "fat_g": 0.1
+      },
+      "_id": 42
+    },
+    {
+      "name": "Laitue",
+      "image": "ingredients/legumes/laitue.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 15,
+        "protein_g": 1.4,
+        "carbs_g": 2.9,
+        "fat_g": 0.2
+      },
+      "_id": 43
+    },
+    {
+      "name": "Lentilles Orange",
+      "image": "ingredients/legumes/lentilles_orange.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 116,
+        "protein_g": 9,
+        "carbs_g": 20,
+        "fat_g": 0.4
+      },
+      "_id": 44
+    },
+    {
+      "name": "Lentilles",
+      "image": "ingredients/legumes/lentilles.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 116,
+        "protein_g": 9,
+        "carbs_g": 20,
+        "fat_g": 0.4
+      },
+      "_id": 45
+    },
+    {
+      "name": "Maïs",
+      "image": "ingredients/legumes/mais.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 86,
+        "protein_g": 3.3,
+        "carbs_g": 19,
+        "fat_g": 1.4
+      },
+      "_id": 46
+    },
+    {
+      "name": "Menthe",
+      "image": "ingredients/legumes/menthe.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 44,
+        "protein_g": 3.3,
+        "carbs_g": 8.4,
+        "fat_g": 0.7
+      },
+      "_id": 47
+    },
+    {
+      "name": "Avoine",
+      "image": "ingredients/legumes/oats.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 389,
+        "protein_g": 17,
+        "carbs_g": 66,
+        "fat_g": 7
+      },
+      "_id": 48
+    },
+    {
+      "name": "Oignon",
+      "image": "ingredients/legumes/oignon.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 40,
+        "protein_g": 1.1,
+        "carbs_g": 9.3,
+        "fat_g": 0.1
+      },
+      "_id": 49
+    },
+    {
+      "name": "Olives",
+      "image": "ingredients/legumes/olives.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 115,
+        "protein_g": 1,
+        "carbs_g": 6,
+        "fat_g": 11
+      },
+      "_id": 50
+    },
+    {
+      "name": "Patate Douce",
+      "image": "ingredients/legumes/patate_douce.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 86,
+        "protein_g": 1.6,
+        "carbs_g": 20,
+        "fat_g": 0.1
+      },
+      "_id": 51
+    },
+    {
+      "name": "Persil",
+      "image": "ingredients/legumes/persil.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 36,
+        "protein_g": 3,
+        "carbs_g": 6.3,
+        "fat_g": 0.8
+      },
+      "_id": 52
+    },
+    {
+      "name": "Piment",
+      "image": "ingredients/legumes/piment.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 40,
+        "protein_g": 1.9,
+        "carbs_g": 8.8,
+        "fat_g": 0.4
+      },
+      "_id": 53
+    },
+    {
+      "name": "Pois Chiches",
+      "image": "ingredients/legumes/pois_chiches.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 164,
+        "protein_g": 8.9,
+        "carbs_g": 27.4,
+        "fat_g": 2.6
+      },
+      "_id": 54
+    },
+    {
+      "name": "Pois",
+      "image": "ingredients/legumes/pois.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 81,
+        "protein_g": 5.4,
+        "carbs_g": 14,
+        "fat_g": 0.4
+      },
+      "_id": 55
+    },
+    {
+      "name": "Poivron",
+      "image": "ingredients/legumes/poivron.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 31,
+        "protein_g": 1,
+        "carbs_g": 6,
+        "fat_g": 0.3
+      },
+      "_id": 56
+    },
+    {
+      "name": "Pomme de Terre",
+      "image": "ingredients/legumes/pomme_de_terre.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 87,
+        "protein_g": 1.9,
+        "carbs_g": 20,
+        "fat_g": 0.1
+      },
+      "_id": 57
+    },
+    {
+      "name": "Potiron",
+      "image": "ingredients/legumes/potiron.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 26,
+        "protein_g": 1,
+        "carbs_g": 6.5,
+        "fat_g": 0.1
+      },
+      "_id": 58
+    },
+    {
+      "name": "Radis",
+      "image": "ingredients/legumes/radis.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 16,
+        "protein_g": 0.7,
+        "carbs_g": 3.4,
+        "fat_g": 0.1
+      },
+      "_id": 59
+    },
+    {
+      "name": "Riz",
+      "image": "ingredients/legumes/riz.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 130,
+        "protein_g": 2.7,
+        "carbs_g": 28,
+        "fat_g": 0.3
+      },
+      "_id": 60
+    },
+    {
+      "name": "Tomate",
+      "image": "ingredients/legumes/tomate.jpg",
+      "category": "legumes",
+      "per": "100g",
+      "nutrition": {
+        "calories": 18,
+        "protein_g": 0.9,
+        "carbs_g": 3.9,
+        "fat_g": 0.2
+      },
+      "_id": 61
+    },
+    {
+      "name": "Agneau",
+      "image": "ingredients/aliments/agneau.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 294,
+        "protein_g": 25,
+        "carbs_g": 0,
+        "fat_g": 21
+      },
+      "_id": 62
+    },
+    {
+      "name": "Bœuf",
+      "image": "ingredients/aliments/boeuf.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 26,
+        "carbs_g": 0,
+        "fat_g": 15
+      },
+      "_id": 63
+    },
+    {
+      "name": "Crevette",
+      "image": "ingredients/aliments/crevette.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 99,
+        "protein_g": 24,
+        "carbs_g": 0.2,
+        "fat_g": 0.3
+      },
+      "_id": 64
+    },
+    {
+      "name": "Filet de Poisson",
+      "image": "ingredients/aliments/filet_de_poisson.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 105,
+        "protein_g": 20,
+        "carbs_g": 0,
+        "fat_g": 2.5
+      },
+      "_id": 65
+    },
+    {
+      "name": "Œufs",
+      "image": "ingredients/aliments/oeuf.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 155,
+        "protein_g": 13,
+        "carbs_g": 1.1,
+        "fat_g": 11
+      },
+      "_id": 66
+    },
+    {
+      "name": "Poisson",
+      "image": "ingredients/aliments/poisson.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 105,
+        "protein_g": 20,
+        "carbs_g": 0,
+        "fat_g": 2.5
+      },
+      "_id": 67
+    },
+    {
+      "name": "Poulet",
+      "image": "ingredients/aliments/poulet.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 165,
+        "protein_g": 31,
+        "carbs_g": 0,
+        "fat_g": 3.6
+      },
+      "_id": 68
+    },
+    {
+      "name": "Sardine",
+      "image": "ingredients/aliments/sardine.jpg",
+      "category": "aliments",
+      "per": "100g",
+      "nutrition": {
+        "calories": 208,
+        "protein_g": 25,
+        "carbs_g": 0,
+        "fat_g": 12
+      },
+      "_id": 69
+    },
+    {
+      "name": "Akkawi",
+      "image": "ingredients/laitier/Akkawi.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 289,
+        "protein_g": 21,
+        "carbs_g": 2,
+        "fat_g": 22
+      },
+      "_id": 70
+    },
+    {
+      "name": "Crème",
+      "image": "ingredients/laitier/creme.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 340,
+        "protein_g": 2.1,
+        "carbs_g": 3,
+        "fat_g": 36
+      },
+      "_id": 71
+    },
+    {
+      "name": "Halloumi",
+      "image": "ingredients/laitier/halloumi.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 322,
+        "protein_g": 21,
+        "carbs_g": 2,
+        "fat_g": 26
+      },
+      "_id": 72
+    },
+    {
+      "name": "Laban",
+      "image": "ingredients/laitier/laban.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 61,
+        "protein_g": 3.5,
+        "carbs_g": 4.7,
+        "fat_g": 3.3
+      },
+      "_id": 73
+    },
+    {
+      "name": "Labneh",
+      "image": "ingredients/laitier/labneh.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 134,
+        "protein_g": 8,
+        "carbs_g": 4,
+        "fat_g": 10
+      },
+      "_id": 74
+    },
+    {
+      "name": "Lait",
+      "image": "ingredients/laitier/lait.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 61,
+        "protein_g": 3.2,
+        "carbs_g": 4.8,
+        "fat_g": 3.3
+      },
+      "_id": 75
+    },
+    {
+      "name": "Mozzarella",
+      "image": "ingredients/laitier/mozzarella.jpg",
+      "category": "laitier",
+      "per": "100g",
+      "nutrition": {
+        "calories": 280,
+        "protein_g": 22,
+        "carbs_g": 2.2,
+        "fat_g": 22
+      },
+      "_id": 76
+    },
+    {
+      "name": "Amendes",
+      "image": "ingredients/noix/amendes.jpg",
+      "category": "noix",
+      "per": "100g",
+      "nutrition": {
+        "calories": 579,
+        "protein_g": 21,
+        "carbs_g": 22,
+        "fat_g": 50
+      },
+      "_id": 77
+    },
+    {
+      "name": "Cajou",
+      "image": "ingredients/noix/cajou.jpg",
+      "category": "noix",
+      "per": "100g",
+      "nutrition": {
+        "calories": 553,
+        "protein_g": 18,
+        "carbs_g": 30,
+        "fat_g": 44
+      },
+      "_id": 78
+    },
+    {
+      "name": "Noix",
+      "image": "ingredients/noix/noix.jpg",
+      "category": "noix",
+      "per": "100g",
+      "nutrition": {
+        "calories": 654,
+        "protein_g": 15,
+        "carbs_g": 14,
+        "fat_g": 65
+      },
+      "_id": 79
+    },
+    {
+      "name": "Pin",
+      "image": "ingredients/noix/pin.jpg",
+      "category": "noix",
+      "per": "100g",
+      "nutrition": {
+        "calories": 673,
+        "protein_g": 14,
+        "carbs_g": 13,
+        "fat_g": 68
+      },
+      "_id": 80
+    },
+    {
+      "name": "Pistache",
+      "image": "ingredients/noix/pistache.jpg",
+      "category": "noix",
+      "per": "100g",
+      "nutrition": {
+        "calories": 560,
+        "protein_g": 20,
+        "carbs_g": 28,
+        "fat_g": 45
+      },
+      "_id": 81
+    },
+    {
+      "name": "Confiture Abricot",
+      "image": "ingredients/conserve/boite_confiture_abricot.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 243,
+        "protein_g": 0.5,
+        "carbs_g": 64,
+        "fat_g": 0.1
+      },
+      "_id": 82
+    },
+    {
+      "name": "Confiture Fraise",
+      "image": "ingredients/conserve/boite_confiture_fraise.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 0.3,
+        "carbs_g": 62,
+        "fat_g": 0.1
+      },
+      "_id": 83
+    },
+    {
+      "name": "Confiture Mûre",
+      "image": "ingredients/conserve/boite_confiture_mure.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 0.3,
+        "carbs_g": 65,
+        "fat_g": 0.1
+      },
+      "_id": 84
+    },
+    {
+      "name": "Fèves en Conserve",
+      "image": "ingredients/conserve/boite_de_feve_conserve.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 90,
+        "protein_g": 7.6,
+        "carbs_g": 15,
+        "fat_g": 0.5
+      },
+      "_id": 85
+    },
+    {
+      "name": "Pois Chiches en Conserve",
+      "image": "ingredients/conserve/boite_de_pois_chiches.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 139,
+        "protein_g": 7.3,
+        "carbs_g": 22.5,
+        "fat_g": 2.6
+      },
+      "_id": 86
+    },
+    {
+      "name": "Pois en Conserve",
+      "image": "ingredients/conserve/boite_de_pois.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 68,
+        "protein_g": 4.6,
+        "carbs_g": 12,
+        "fat_g": 0.3
+      },
+      "_id": 87
+    },
+    {
+      "name": "Thon en Conserve",
+      "image": "ingredients/conserve/boite_de_tuna_conserve.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 116,
+        "protein_g": 26,
+        "carbs_g": 0,
+        "fat_g": 1
+      },
+      "_id": 88
+    },
+    {
+      "name": "Sardines en Conserve",
+      "image": "ingredients/conserve/boite_en_sardine.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 208,
+        "protein_g": 25,
+        "carbs_g": 0,
+        "fat_g": 12
+      },
+      "_id": 89
+    },
+    {
+      "name": "Miel",
+      "image": "ingredients/conserve/boite_miel.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 304,
+        "protein_g": 0.3,
+        "carbs_g": 82,
+        "fat_g": 0
+      },
+      "_id": 90
+    },
+    {
+      "name": "Pâte de Sésame",
+      "image": "ingredients/conserve/pate_de_sesame.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 595,
+        "protein_g": 17,
+        "carbs_g": 21,
+        "fat_g": 54
+      },
+      "_id": 91
+    },
+    {
+      "name": "Sauce Tomate",
+      "image": "ingredients/conserve/sauce_de_tomate.jpg",
+      "category": "nourriture en conserve",
+      "per": "100g",
+      "nutrition": {
+        "calories": 29,
+        "protein_g": 1.6,
+        "carbs_g": 6,
+        "fat_g": 0.2
+      },
+      "_id": 92
+    },
+    {
+      "name": "Baguette",
+      "image": "ingredients/viennoiseries/baguette.jpg",
+      "category": "viennoiseries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 274,
+        "protein_g": 10,
+        "carbs_g": 57,
+        "fat_g": 1
+      },
+      "_id": 93
+    },
+    {
+      "name": "Pain Libanais",
+      "image": "ingredients/viennoiseries/pain_libanais.jpg",
+      "category": "viennoiseries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 275,
+        "protein_g": 9,
+        "carbs_g": 55,
+        "fat_g": 1.5
+      },
+      "_id": 94
+    },
+    {
+      "name": "Pasta",
+      "image": "ingredients/viennoiseries/pasta.jpg",
+      "category": "viennoiseries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 131,
+        "protein_g": 5,
+        "carbs_g": 25,
+        "fat_g": 1
+      },
+      "_id": 95
+    },
+    {
+      "name": "Toste",
+      "image": "ingredients/viennoiseries/toste.jpg",
+      "category": "viennoiseries",
+      "per": "100g",
+      "nutrition": {
+        "calories": 265,
+        "protein_g": 9,
+        "carbs_g": 49,
+        "fat_g": 3.5
+      },
+      "_id": 96
+    }
+  ],
+  "meals_lunch": [
+    {
+      "name": "Riz Bouilli",
+      "image": "meals/lunch/riz_bouilli.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 325,
+        "protein_g": 6.8,
+        "carbs_g": 71,
+        "fat_g": 0.8
+      },
+      "ingredients": [
+        "riz"
+      ]
+    },
+    {
+      "name": "Pommes de Terre",
+      "image": "meals/lunch/pomme_de_terre_frite.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 375,
+        "protein_g": 5,
+        "carbs_g": 50,
+        "fat_g": 17.5
+      },
+      "ingredients": [
+        "pomme de terre"
+      ]
+    },
+    {
+      "name": "Bol de Laban",
+      "image": "meals/lunch/bol_de_laban.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 153,
+        "protein_g": 8.8,
+        "carbs_g": 11.8,
+        "fat_g": 8.3
+      },
+      "ingredients": [
+        "laban"
+      ]
+    },
+    {
+      "name": "Salade Verte",
+      "image": "meals/lunch/salade_verte.jpg",
+      "category": "side",
+      "size_g": 200,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 50,
+        "protein_g": 2.5,
+        "carbs_g": 8,
+        "fat_g": 1
+      },
+      "ingredients": [
+        "laitue"
+      ]
+    },
+    {
+      "name": "Fatouch",
+      "image": "meals/lunch/fatouch.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 190,
+        "protein_g": 4,
+        "carbs_g": 20,
+        "fat_g": 10
+      },
+      "ingredients": [
+        "laitue",
+        "tomate",
+        "concombre",
+        "citron",
+        "radis"
+      ]
+    },
+    {
+      "name": "Tabouleh",
+      "image": "meals/lunch/tabouleh.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 230,
+        "protein_g": 5,
+        "carbs_g": 30,
+        "fat_g": 10
+      },
+      "ingredients": [
+        "persil",
+        "tomate",
+        "boulgour",
+        "citron",
+        "menthe",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Soupe de Lentilles",
+      "image": "meals/lunch/soupe_de_lentilles.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 230,
+        "protein_g": 13,
+        "carbs_g": 35,
+        "fat_g": 4
+      },
+      "ingredients": [
+        "lentilles orange",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Houmous",
+      "image": "meals/lunch/mtabal_houmous.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 450,
+        "protein_g": 15,
+        "carbs_g": 35,
+        "fat_g": 28
+      },
+      "ingredients": [
+        "pois chiches",
+        "citron",
+        "pate de sesame"
+      ]
+    },
+    {
+      "name": "Baba ghanouj",
+      "image": "meals/lunch/baba_ghanouj.jpg",
+      "category": "side",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 280,
+        "protein_g": 7,
+        "carbs_g": 18,
+        "fat_g": 20
+      },
+      "ingredients": [
+        "aubergine",
+        "citron",
+        "pate de sesame"
+      ]
+    },
+    {
+      "name": "Laban Emo",
+      "image": "meals/lunch/laban_emo.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 320,
+        "protein_g": 20,
+        "carbs_g": 10,
+        "fat_g": 20
+      },
+      "ingredients": [
+        "laban",
+        "bœuf",
+        "oignon",
+        "ail"
+      ]
+    },
+    {
+      "name": "Kousa bel Laban",
+      "image": "meals/lunch/kousa_bel_laban.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 280,
+        "protein_g": 15,
+        "carbs_g": 15,
+        "fat_g": 17
+      },
+      "ingredients": [
+        "courgette",
+        "bœuf",
+        "laban",
+        "ail"
+      ]
+    },
+    {
+      "name": "Pizza Margherita",
+      "image": "meals/lunch/pizza_margherita.jpg",
+      "category": "dough_meal",
+      "size_g": 100,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 250,
+        "protein_g": 11,
+        "carbs_g": 30,
+        "fat_g": 9
+      },
+      "ingredients": [
+        "sauce tomate",
+        "mozzarella"
+      ]
+    },
+    {
+      "name": "Greek Salad",
+      "image": "meals/lunch/greek_salad.jpg",
+      "category": "salade",
+      "size_g": 200,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 286,
+        "protein_g": 10,
+        "carbs_g": 12,
+        "fat_g": 22
+      },
+      "ingredients": [
+        "laitue",
+        "tomate",
+        "concombre",
+        "olives",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Molokhia",
+      "image": "meals/lunch/mloukiya.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 350,
+        "protein_g": 25,
+        "carbs_g": 17.5,
+        "fat_g": 20
+      },
+      "ingredients": [
+        "corète potagère",
+        "poulet",
+        "ail",
+        "coriandre"
+      ]
+    },
+    {
+      "name": "Gombo avec de la viande",
+      "image": "meals/lunch/gombo_avec_de_la_viande.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 320,
+        "protein_g": 22,
+        "carbs_g": 15,
+        "fat_g": 18
+      },
+      "ingredients": [
+        "gombo",
+        "bœuf",
+        "tomate",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Haricot avec de la viande",
+      "image": "meals/lunch/haricot_avec_de_la_viande.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 350,
+        "protein_g": 22,
+        "carbs_g": 25,
+        "fat_g": 18
+      },
+      "ingredients": [
+        "haricot vert",
+        "bœuf",
+        "tomate",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Épinard avec viande",
+      "image": "meals/lunch/epinard_avec_viande.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 300,
+        "protein_g": 22,
+        "carbs_g": 10,
+        "fat_g": 18
+      },
+      "ingredients": [
+        "épinard",
+        "bœuf",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Pois avec de la viande",
+      "image": "meals/lunch/pois_avec_de_la_viande.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 330,
+        "protein_g": 20,
+        "carbs_g": 25,
+        "fat_g": 16
+      },
+      "ingredients": [
+        "pois",
+        "bœuf",
+        "carotte"
+      ]
+    },
+    {
+      "name": "Chou-fleur avec de la viande",
+      "image": "meals/lunch/chou_fleur_avec_de_la_viande.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 300,
+        "protein_g": 20,
+        "carbs_g": 12,
+        "fat_g": 18
+      },
+      "ingredients": [
+        "chou-fleur",
+        "bœuf"
+      ]
+    },
+    {
+      "name": "Chekh Mehche",
+      "image": "meals/lunch/chekh_me7che.jpg",
+      "category": "saucy_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 400,
+        "protein_g": 20,
+        "carbs_g": 25,
+        "fat_g": 24
+      },
+      "ingredients": [
+        "aubergine",
+        "bœuf",
+        "oignon",
+        "tomate"
+      ]
+    },
+    {
+      "name": "Poulet grillé",
+      "image": "meals/lunch/poulet_grille.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 400,
+        "protein_g": 55,
+        "carbs_g": 0,
+        "fat_g": 18
+      },
+      "ingredients": [
+        "poulet"
+      ]
+    },
+    {
+      "name": "Viande grillée",
+      "image": "meals/lunch/viande.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 600,
+        "protein_g": 60,
+        "carbs_g": 0,
+        "fat_g": 35
+      },
+      "ingredients": [
+        "bœuf"
+      ]
+    },
+    {
+      "name": "Poisson grillé",
+      "image": "meals/lunch/poisson.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 270,
+        "protein_g": 50,
+        "carbs_g": 0,
+        "fat_g": 7
+      },
+      "ingredients": [
+        "poisson"
+      ]
+    },
+    {
+      "name": "Filet de poisson grillé",
+      "image": "meals/lunch/poisson_filet_grille.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 270,
+        "protein_g": 50,
+        "carbs_g": 0,
+        "fat_g": 7
+      },
+      "ingredients": [
+        "filet de poisson"
+      ]
+    },
+    {
+      "name": "Kebbe",
+      "image": "meals/lunch/kebe.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 450,
+        "protein_g": 20,
+        "carbs_g": 35,
+        "fat_g": 26
+      },
+      "ingredients": [
+        "bœuf",
+        "boulgour",
+        "oignon",
+        "pin"
+      ]
+    },
+    {
+      "name": "Tuna Sandwich",
+      "image": "meals/lunch/tuna_sandwich.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 400,
+        "protein_g": 25,
+        "carbs_g": 45,
+        "fat_g": 14
+      },
+      "ingredients": [
+        "baguette",
+        "thon en conserve",
+        "laitue"
+      ]
+    },
+    {
+      "name": "Pasta au thon",
+      "image": "meals/lunch/pasta_With_tuna.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 380,
+        "protein_g": 22,
+        "carbs_g": 50,
+        "fat_g": 10
+      },
+      "ingredients": [
+        "pasta",
+        "thon en conserve",
+        "maïs"
+      ]
+    },
+    {
+      "name": "Pizza au thon",
+      "image": "meals/lunch/tuna_pizza.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 500,
+        "protein_g": 25,
+        "carbs_g": 55,
+        "fat_g": 20
+      },
+      "ingredients": [
+        "sauce tomate",
+        "mozzarella",
+        "thon en conserve"
+      ]
+    },
+    {
+      "name": "Salade thon-avocat",
+      "image": "meals/lunch/avocado_and_tunna_salad.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 350,
+        "protein_g": 22,
+        "carbs_g": 12,
+        "fat_g": 24
+      },
+      "ingredients": [
+        "thon en conserve",
+        "avocat",
+        "laitue",
+        "citron"
+      ]
+    },
+    {
+      "name": "Salade Niçoise",
+      "image": "meals/lunch/salade_nicoise.jpg",
+      "category": "protein_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 320,
+        "protein_g": 20,
+        "carbs_g": 15,
+        "fat_g": 20
+      },
+      "ingredients": [
+        "laitue",
+        "tomate",
+        "œufs",
+        "thon en conserve",
+        "olives",
+        "pomme de terre"
+      ]
+    },
+    {
+      "name": "Frikkeh",
+      "image": "meals/lunch/frikkeh.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 300,
+        "protein_g": 10,
+        "carbs_g": 55,
+        "fat_g": 4
+      },
+      "ingredients": [
+        "blé",
+        "poulet",
+        "amendes"
+      ]
+    },
+    {
+      "name": "Moujadara",
+      "image": "meals/lunch/moujadara.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 350,
+        "protein_g": 12,
+        "carbs_g": 55,
+        "fat_g": 9
+      },
+      "ingredients": [
+        "lentilles",
+        "riz",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Riz et fèves",
+      "image": "meals/lunch/riz_et_feves.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 330,
+        "protein_g": 12,
+        "carbs_g": 55,
+        "fat_g": 7
+      },
+      "ingredients": [
+        "riz",
+        "fève"
+      ]
+    },
+    {
+      "name": "Riz et pois avec viande",
+      "image": "meals/lunch/riz_poi_viande.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 400,
+        "protein_g": 20,
+        "carbs_g": 45,
+        "fat_g": 15
+      },
+      "ingredients": [
+        "riz",
+        "pois",
+        "bœuf"
+      ]
+    },
+    {
+      "name": "Boulgour et tomate",
+      "image": "meals/lunch/boulgoure_et_tomate.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 280,
+        "protein_g": 8,
+        "carbs_g": 50,
+        "fat_g": 6
+      },
+      "ingredients": [
+        "boulgour",
+        "tomate",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Falafel",
+      "image": "meals/lunch/falafel.jpg",
+      "category": "carbs_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 450,
+        "protein_g": 15,
+        "carbs_g": 40,
+        "fat_g": 25
+      },
+      "ingredients": [
+        "pois chiches",
+        "fève",
+        "coriandre",
+        "ail"
+      ]
+    },
+    {
+      "name": "Courgette farcie",
+      "image": "meals/lunch/courgette_farcie.jpg",
+      "category": "farcie_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 350,
+        "protein_g": 15,
+        "carbs_g": 35,
+        "fat_g": 17
+      },
+      "ingredients": [
+        "courgette",
+        "riz",
+        "bœuf",
+        "tomate"
+      ]
+    },
+    {
+      "name": "Chou-fleur farci",
+      "image": "meals/lunch/chou_farcie_de_riz_et_de_la_viande.jpg",
+      "category": "farcie_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 330,
+        "protein_g": 15,
+        "carbs_g": 30,
+        "fat_g": 17
+      },
+      "ingredients": [
+        "chou-fleur",
+        "bœuf",
+        "oignon"
+      ]
+    },
+    {
+      "name": "Feuilles de vignes farcies",
+      "image": "meals/lunch/feuilles_de_vignes_farice.jpg",
+      "category": "farcie_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 380,
+        "protein_g": 10,
+        "carbs_g": 45,
+        "fat_g": 17
+      },
+      "ingredients": [
+        "feuille de vignes",
+        "riz",
+        "bœuf",
+        "citron"
+      ]
+    },
+    {
+      "name": "Sfi7a",
+      "image": "meals/lunch/sfi7a.jpg",
+      "category": "dough_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 500,
+        "protein_g": 22,
+        "carbs_g": 45,
+        "fat_g": 26
+      },
+      "ingredients": [
+        "bœuf",
+        "tomate",
+        "oignon",
+        "pin"
+      ]
+    },
+    {
+      "name": "Fatayer épinard",
+      "image": "meals/lunch/fatayer_epinards.jpg",
+      "category": "dough_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 420,
+        "protein_g": 10,
+        "carbs_g": 55,
+        "fat_g": 17
+      },
+      "ingredients": [
+        "épinard",
+        "oignon",
+        "citron"
+      ]
+    },
+    {
+      "name": "Soupe de lentilles",
+      "image": "meals/lunch/soupe_de_lentilles.jpg",
+      "category": "side_meal",
+      "size_g": 250,
+      "unit": "meal",
+      "nutrition": {
+        "calories": 230,
+        "protein_g": 13,
+        "carbs_g": 35,
+        "fat_g": 4
+      },
+      "ingredients": [
+        "lentilles orange",
+        "carotte",
+        "oignon"
+      ]
+    }
+  ],
+  "optimizer_lunch": {
+    "roles": [
+      "Main Protein",
+      "Carb Source",
+      "Healthy Fat",
+      "Vegetable/Fiber",
+      "Dairy",
+      "Fruit",
+      "Side",
+      "Drink",
+      "Sweet Component"
+    ],
+    "food_database": [
+      {
+        "name": "Poulet Grillé",
+        "category": "protein_meal",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.65,
+        "protein": 0.31,
+        "carbs": 0,
+        "fat": 0.09,
+        "minQuantity": 100,
+        "maxQuantity": 350,
+        "step": 25,
+        "priority": 9,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Viande Grillée",
+        "category": "protein_meal",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 2.5,
+        "protein": 0.26,
+        "carbs": 0,
+        "fat": 0.15,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 8,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Poisson Grillé",
+        "category": "protein_meal",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.05,
+        "protein": 0.2,
+        "carbs": 0,
+        "fat": 0.025,
+        "minQuantity": 100,
+        "maxQuantity": 350,
+        "step": 25,
+        "priority": 8,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Kebbe",
+        "category": "protein_meal",
+        "role": "Main Protein",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 150,
+        "protein": 6.5,
+        "carbs": 12,
+        "fat": 9,
+        "minQuantity": 1,
+        "maxQuantity": 4,
+        "step": 1,
+        "priority": 6,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Falafel",
+        "category": "carbs_meal",
+        "role": "Main Protein",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 47,
+        "protein": 1.6,
+        "carbs": 4.3,
+        "fat": 2.7,
+        "minQuantity": 3,
+        "maxQuantity": 9,
+        "step": 1,
+        "priority": 6,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Thon en Conserve",
+        "category": "nourriture en conserve",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.16,
+        "protein": 0.26,
+        "carbs": 0,
+        "fat": 0.01,
+        "minQuantity": 30,
+        "maxQuantity": 150,
+        "step": 10,
+        "priority": 7,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Boiled Chickpeas",
+        "category": "legumes",
+        "role": "Main Protein",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.64,
+        "protein": 0.089,
+        "carbs": 0.274,
+        "fat": 0.026,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 6,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Riz Bouilli",
+        "category": "side",
+        "role": "Carb Source",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.3,
+        "protein": 0.027,
+        "carbs": 0.28,
+        "fat": 0.003,
+        "minQuantity": 100,
+        "maxQuantity": 350,
+        "step": 25,
+        "priority": 7,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Boulgour",
+        "category": "legumes",
+        "role": "Carb Source",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.83,
+        "protein": 0.03,
+        "carbs": 0.186,
+        "fat": 0.002,
+        "minQuantity": 75,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Frikkeh",
+        "category": "carbs_meal",
+        "role": "Carb Source",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.2,
+        "protein": 0.04,
+        "carbs": 0.22,
+        "fat": 0.016,
+        "minQuantity": 75,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Pain Libanais",
+        "category": "viennoiseries",
+        "role": "Carb Source",
+        "unit": "loaf",
+        "unitLabel": "Loaf/Loaves",
+        "calories": 165,
+        "protein": 5.5,
+        "carbs": 33,
+        "fat": 1.5,
+        "minQuantity": 0.5,
+        "maxQuantity": 2,
+        "step": 0.5,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Pommes de Terre",
+        "category": "legumes",
+        "role": "Carb Source",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.87,
+        "protein": 0.019,
+        "carbs": 0.2,
+        "fat": 0.001,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Tabouleh",
+        "category": "side",
+        "role": "Vegetable/Fiber",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.92,
+        "protein": 0.02,
+        "carbs": 0.12,
+        "fat": 0.04,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Fatouch",
+        "category": "side",
+        "role": "Vegetable/Fiber",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.76,
+        "protein": 0.016,
+        "carbs": 0.08,
+        "fat": 0.04,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Salade Verte",
+        "category": "side",
+        "role": "Vegetable/Fiber",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.25,
+        "protein": 0.0125,
+        "carbs": 0.04,
+        "fat": 0.005,
+        "minQuantity": 50,
+        "maxQuantity": 250,
+        "step": 25,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Tomate",
+        "category": "legumes",
+        "role": "Vegetable/Fiber",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 18,
+        "protein": 0.9,
+        "carbs": 3.9,
+        "fat": 0.2,
+        "minQuantity": 0.5,
+        "maxQuantity": 3,
+        "step": 0.5,
+        "priority": 4,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Concombre",
+        "category": "legumes",
+        "role": "Vegetable/Fiber",
+        "unit": "piece",
+        "unitLabel": "Piece(s)",
+        "calories": 15,
+        "protein": 0.7,
+        "carbs": 3.6,
+        "fat": 0.1,
+        "minQuantity": 0.5,
+        "maxQuantity": 3,
+        "step": 0.5,
+        "priority": 4,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Houmous",
+        "category": "side",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.8,
+        "protein": 0.06,
+        "carbs": 0.14,
+        "fat": 0.112,
+        "minQuantity": 30,
+        "maxQuantity": 200,
+        "step": 20,
+        "priority": 6,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Baba Ghanouj",
+        "category": "side",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.12,
+        "protein": 0.028,
+        "carbs": 0.072,
+        "fat": 0.08,
+        "minQuantity": 30,
+        "maxQuantity": 200,
+        "step": 20,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Avocat",
+        "category": "fruits",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.6,
+        "protein": 0.02,
+        "carbs": 0.085,
+        "fat": 0.147,
+        "minQuantity": 30,
+        "maxQuantity": 150,
+        "step": 10,
+        "priority": 6,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Olives",
+        "category": "legumes",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.15,
+        "protein": 0.01,
+        "carbs": 0.06,
+        "fat": 0.11,
+        "minQuantity": 10,
+        "maxQuantity": 60,
+        "step": 10,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Amendes",
+        "category": "noix",
+        "role": "Healthy Fat",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 5.79,
+        "protein": 0.21,
+        "carbs": 0.22,
+        "fat": 0.5,
+        "minQuantity": 10,
+        "maxQuantity": 40,
+        "step": 5,
+        "priority": 5,
+        "tasteProfile": "neutral"
+      },
+      {
+        "name": "Laban",
+        "category": "laitier",
+        "role": "Dairy",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.61,
+        "protein": 0.035,
+        "carbs": 0.047,
+        "fat": 0.033,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Labneh",
+        "category": "laitier",
+        "role": "Dairy",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.34,
+        "protein": 0.08,
+        "carbs": 0.04,
+        "fat": 0.1,
+        "minQuantity": 20,
+        "maxQuantity": 150,
+        "step": 10,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Soupe de Lentilles",
+        "category": "side",
+        "role": "Side",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 0.92,
+        "protein": 0.052,
+        "carbs": 0.14,
+        "fat": 0.016,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 5,
+        "tasteProfile": "savory"
+      },
+      {
+        "name": "Moujadara",
+        "category": "carbs_meal",
+        "role": "Side",
+        "unit": "gram",
+        "unitLabel": "g",
+        "calories": 1.4,
+        "protein": 0.048,
+        "carbs": 0.22,
+        "fat": 0.036,
+        "minQuantity": 100,
+        "maxQuantity": 300,
+        "step": 25,
+        "priority": 5,
+        "tasteProfile": "savory"
+      }
+    ],
+    "templates": [
+      {
+        "name": "Lunch/Dinner Standard",
+        "slots": [
+          {
+            "role": "Main Protein",
+            "required": true
+          },
+          {
+            "role": "Carb Source",
+            "required": true
+          },
+          {
+            "role": "Vegetable/Fiber",
+            "required": false
+          },
+          {
+            "role": "Healthy Fat",
+            "required": false
+          },
+          {
+            "role": "Dairy",
+            "required": false
+          },
+          {
+            "role": "Side",
+            "required": false
+          }
+        ]
+      },
+      {
+        "name": "Light Lunch (Mezze)",
+        "slots": [
+          {
+            "role": "Vegetable/Fiber",
+            "required": true
+          },
+          {
+            "role": "Healthy Fat",
+            "required": false
+          },
+          {
+            "role": "Carb Source",
+            "required": false
+          },
+          {
+            "role": "Side",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "pair_overrides": {
+      "Poulet Grillé|Riz Bouilli": 92,
+      "Poulet Grillé|Tabouleh": 88,
+      "Viande Grillée|Riz Bouilli": 90,
+      "Kebbe|Laban": 90,
+      "Falafel|Houmous": 88,
+      "Falafel|Pain Libanais": 90,
+      "Houmous|Pain Libanais": 92,
+      "Baba Ghanouj|Pain Libanais": 90,
+      "Tabouleh|Fatouch": 80,
+      "Moujadara|Laban": 88,
+      "Poisson Grillé|Tabouleh": 85
+    },
+    "notes": "New — did not exist before. Mirrors the exact engine structure of optimizer_breakfast_dinner (roles, templates, compatibility overrides, hill-climbing discrete portion optimizer, same 40/20/20/20 scoring weights) so the existing JS engine can be reused unmodified, just pointed at this food_database + these templates/pair_overrides for the lunch flow. Nutrition values are per-gram/per-piece scientific estimates (USDA-style / standard Lebanese-cuisine composition) since exact lab data for these composite dishes isn't publicly standardized — recommend validating high-priority items (chicken, meat, fish, rice) against your own lab/nutrition-panel data if precision matters."
+  }
+}

@@ -92,13 +92,17 @@ const PantryGeneratorPage = () => {
   const displayMeals = applyCategory(fullMeals);
 
   // Instant Filtering Logic for Ingredients
+  const normalizeStr = (str) => {
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : '';
+  };
+
   const matchedMeals = selectedIngredients.length === 0 ? [] : fullMeals.filter(meal => {
     if (!meal.ingredients || meal.ingredients.length === 0) return false;
     return selectedIngredients.every(selected => {
-      const selectedName = selected.name?.en?.toLowerCase() || '';
+      const selectedName = normalizeStr(selected.name?.en);
       return meal.ingredients.some(ingName => 
-        ingName.toLowerCase() === selectedName ||
-        ingName.toLowerCase().includes(selectedName)
+        normalizeStr(ingName) === selectedName ||
+        normalizeStr(ingName).includes(selectedName)
       );
     });
   });
@@ -233,7 +237,7 @@ const PantryGeneratorPage = () => {
                   {matchedMeals.map(meal => (
                     <div key={meal._id} onClick={() => openMealSidebar(meal)} className="meal-card" style={{ border: '1px solid #EAEDF3', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer' }}>
                       <div style={{ height: '120px', background: '#f5f0e8' }}>
-                        {meal.image_url ? (
+                        {meal.image_url && meal.image_url.startsWith('http') ? (
                           <img src={meal.image_url} alt={meal.name?.en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
                           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span className="material-symbols-outlined">restaurant</span></div>
@@ -289,7 +293,7 @@ const PantryGeneratorPage = () => {
                         <span className="material-symbols-outlined" style={{ position: 'absolute', top: '4px', right: '4px', color: 'var(--color-accent)', background: 'white', borderRadius: '50%', zIndex: 10, fontSize: '18px' }}>check_circle</span>
                       )}
                       <div style={{ width: '100%', height: '80px', background: '#f5f0e8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        {food.image_url ? (
+                        {food.image_url && food.image_url.startsWith('http') ? (
                           <img src={food.image_url} alt={food.name?.en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
                           <span className="material-symbols-outlined" style={{ color: '#b5a898', fontSize: '24px' }}>kitchen</span>
@@ -320,7 +324,7 @@ const PantryGeneratorPage = () => {
               {displayMeals.map(meal => (
                 <div key={meal._id} onClick={() => openMealSidebar(meal)} className="meal-card glass-panel" style={{ cursor: 'pointer', background: 'white', borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ height: '160px', position: 'relative' }}>
-                    {meal.image_url ? (
+                    {meal.image_url && meal.image_url.startsWith('http') ? (
                       <img src={meal.image_url} alt={meal.name?.en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
                       <div style={{ width: '100%', height: '100%', background: '#f5f0e8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -361,7 +365,7 @@ const PantryGeneratorPage = () => {
             
             {/* Image Header */}
             <div style={{ position: 'relative', height: '140px', width: '100%', flexShrink: 0 }}>
-              {selectedMeal.image_url ? (
+              {selectedMeal.image_url && selectedMeal.image_url.startsWith('http') ? (
                 <img src={selectedMeal.image_url} alt={selectedMeal.name?.en} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', background: '#f5f0e8' }} />

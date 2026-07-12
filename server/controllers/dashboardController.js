@@ -121,15 +121,28 @@ const assignMealToSlot = async (req, res) => {
       }
     }
 
+    const Food = require('../models/Food');
+    const CustomMeal = require('../models/CustomMeal');
+
+    let snapshotMacros = null;
+    if (foodId) {
+      const food = await Food.findById(foodId);
+      if (food) snapshotMacros = { kcal: food.nutrition.calories, pro: food.nutrition.protein_g, carb: food.nutrition.carbs_g, fat: food.nutrition.fat_g };
+    } else if (customMealId) {
+      const customMeal = await CustomMeal.findById(customMealId);
+      if (customMeal) snapshotMacros = { kcal: customMeal.kcal, pro: customMeal.pro, carb: customMeal.carb, fat: customMeal.fat };
+    }
+
     if (slotIndex >= 0) {
       log.mealsAssigned[slotIndex].customMealId = customMealId || null;
       log.mealsAssigned[slotIndex].foodId = foodId || null;
+      log.mealsAssigned[slotIndex].snapshotMacros = snapshotMacros;
     } else {
       while (occurrences < parseInt(snackIndex, 10)) {
         log.mealsAssigned.push({ mealType });
         occurrences++;
       }
-      log.mealsAssigned.push({ mealType, customMealId, foodId });
+      log.mealsAssigned.push({ mealType, customMealId, foodId, snapshotMacros });
     }
 
     await log.save();

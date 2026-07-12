@@ -46,7 +46,7 @@ app.get('/api/health', (req, res) => {
 // ImageKit auth endpoint
 app.get('/api/imagekit/auth', (req, res) => {
   const result = imagekit.getAuthenticationParameters();
-  res.json(result);
+  res.json({ ...result, publicKey: process.env.IMAGEKIT_PUBLIC_KEY });
 });
 
 // Mount routes

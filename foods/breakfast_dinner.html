@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طاولة المزة — Smart Macro & Portion Optimizer</title>
+<style>
+  :root {
+    --bg: #1e1b18;
+    --bg-alt: #2a241e;
+    --card: #f7f0e3;
+    --card-border: #d8c8a3;
+    --ink: #2a2118;
+    --ink-muted: #6e6250;
+    --text-main: #f3ead9;
+    --text-muted: #b6a68c;
+    --gold: #c8971f;
+    --gold-soft: rgba(200, 151, 31, 0.2);
+    --rust: #b0492e;
+    --sage: #6b7d4f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(200,151,31,0.08), transparent), var(--bg);
+    color: var(--text-main);
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container { max-width: 1200px; width: 100%; }
+
+  header { text-align: center; margin-bottom: 2rem; }
+  header h1 { font-family: Georgia, serif; font-size: 2.2rem; color: var(--gold); margin: 0.3rem 0; }
+  header p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* Macro Inputs Panel */
+  .macro-panel {
+    background: var(--bg-alt);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .input-group label { font-size: 0.85rem; color: var(--gold); font-weight: 600; }
+  .input-group input {
+    background: var(--bg);
+    border: 1px solid var(--text-muted);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    color: var(--text-main);
+    font-size: 1rem;
+    outline: none;
+  }
+  .input-group input:focus { border-color: var(--gold); }
+
+  /* Food Selection Grid */
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(216, 200, 163, 0.2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .food-card {
+    background: var(--card);
+    color: var(--ink);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .food-card:hover { transform: translateY(-2px); }
+  .food-card.selected {
+    border-color: var(--gold);
+    background: #fffcf5;
+    box-shadow: 0 0 0 3px var(--gold-soft);
+  }
+
+  /* Ingredient image thumbnail inside the selection card */
+  .food-card .img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    background: #e9dfc9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .food-card .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .food-card .img-wrap .img-fallback {
+    font-size: 1.6rem;
+  }
+
+  .food-card .title { font-weight: bold; font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .food-card .unit-lbl { font-size: 0.72rem; color: var(--rust); font-weight: bold; }
+  .food-card .macros { font-size: 0.7rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  /* Button */
+  .btn-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-bottom: 2.5rem;
+  }
+  .btn-submit:hover { opacity: 0.9; }
+
+  /* Result Box */
+  .result-box {
+    background: var(--bg-alt);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 1.8rem;
+    display: none;
+  }
+  .result-box.active { display: block; }
+
+  .chips-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .chip {
+    background: rgba(243, 234, 217, 0.08);
+    border: 1px solid var(--card-border);
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chip-left {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .chip-thumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(200,151,31,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--card-border);
+  }
+  .chip-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .chip-thumb .img-fallback { font-size: 1.2rem; }
+  .chip-text { display: flex; flex-direction: column; }
+  .chip-role { opacity: 0.6; font-size: 0.72rem; }
+  .chip-qty {
+    color: var(--gold);
+    font-weight: bold;
+    background: rgba(200, 151, 31, 0.15);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    background: var(--bg);
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .stat-card { text-align: center; }
+  .stat-card .val { font-size: 1.2rem; font-weight: bold; color: var(--gold); }
+  .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* Score badges (new, additive, does not alter existing layout) */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    background: var(--bg);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+  .score-card { text-align: center; }
+  .score-card .val { font-size: 1.1rem; font-weight: bold; color: var(--sage); }
+  .score-card .lbl { font-size: 0.72rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>طاولة المزة — Precise Portion & Macro Optimizer</h1>
+    <p>حدد الماكروز والسعرات، اختر المواد المتوفرة، وسيقوم المحسّن بحساب الكميات الدقيقة (أعداد، غرامات، شرائح) لتغطية الأهداف بالكامل.</p>
+  </header>
+
+  <!-- Macro Inputs -->
+  <div class="macro-panel">
+    <div class="input-group">
+      <label>السعرات الحرارية (kcal)</label>
+      <input type="number" id="targetCal" value="650">
+    </div>
+    <div class="input-group">
+      <label>البروتين المطلوب (g)</label>
+      <input type="number" id="targetProtein" value="35">
+    </div>
+    <div class="input-group">
+      <label>الكاربوهيدرات (g)</label>
+      <input type="number" id="targetCarbs" value="60">
+    </div>
+    <div class="input-group">
+      <label>الدهون (g)</label>
+      <input type="number" id="targetFat" value="25">
+    </div>
+  </div>
+
+  <!-- Food Ingredients Selection -->
+  <div class="section-title">اختر الأطعمة المتوفرة عندك:</div>
+  <div class="ingredients-grid" id="foodGrid"></div>
+
+  <button class="btn-submit" onclick="findOptimalMeal()">توليد الوجبة والكميات الدقيقة ⚡</button>
+
+  <!-- Output Result -->
+  <div class="result-box" id="resultBox">
+    <h3 style="margin-top:0; color:var(--gold);">التركيبة المثالية مع الكميات المحسوبة (Optimal Portions)</h3>
+    <p style="font-size:0.85rem; color:var(--text-muted);">تم حساب المقادير والكميات بالضبط لتحقيق الهدف المطلوب دون تعفيس المكونات:</p>
+
+    <div class="chips-container" id="itemsChips"></div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="val" id="resCal">0 / 0</div>
+        <div class="lbl">السعرات (kcal)</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="resProtein">0g / 0g</div>
+        <div class="lbl">البروتين</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="resCarbs">0g / 0g</div>
+        <div class="lbl">الكارب</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="resFat">0g / 0g</div>
+        <div class="lbl">الدهون</div>
+      </div>
+    </div>
+
+    <!-- New: intelligence scores (additive, keeps original UI intact) -->
+    <div class="score-grid" id="scoreGrid">
+      <div class="score-card">
+        <div class="val" id="scoreMacro">0%</div>
+        <div class="lbl">دقة الماكروز</div>
+      </div>
+      <div class="score-card">
+        <div class="val" id="scoreProtein">0%</div>
+        <div class="lbl">دقة البروتين</div>
+      </div>
+      <div class="score-card">
+        <div class="val" id="scoreCompat">0%</div>
+        <div class="lbl">التوافق الغذائي</div>
+      </div>
+      <div class="score-card">
+        <div class="val" id="scoreRealism">0%</div>
+        <div class="lbl">واقعية الوجبة</div>
+      </div>
+      <div class="score-card">
+        <div class="val" id="scoreFinal">0%</div>
+        <div class="lbl">التقييم النهائي</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   INTELLIGENT MEAL COMPOSITION ENGINE
+   -------------------------------------------------------------------------
+   This script replaces the old boolean-compatibility / brute-force
+   combination generator with:
+     1. A food ROLE system (Main Protein, Carb Source, Healthy Fat, etc.)
+     2. A weighted compatibility scoring engine (0-100 instead of 0/1)
+     3. Realistic portion constraints (min / max / step) per food
+     4. A structured meal-template generator (role slots, not random combos)
+     5. A discrete hill-climbing quantity optimizer (fast, respects steps)
+     6. A multi-factor ranking system:
+          Macro Accuracy 40% | Protein Accuracy 20%
+          Compatibility  20% | Meal Realism    20%
+   The HTML/CSS above is completely unchanged.
+
+   IMAGE WIRING (new):
+   - Selection grid cards (foodGrid) show the INGREDIENT photo, sourced
+     from the INGREDIENTS array (breakfast_dinner_ingredients/...).
+   - Result chips (after generating the meal) show the MEAL photo,
+     sourced from the meals array (breakfast_dinner/...).
+   - Both are matched to FOOD_DATABASE items by an explicit name map
+     (INGREDIENT_IMAGE_MAP / MEAL_IMAGE_MAP) since the display names in
+     FOOD_DATABASE don't always match the raw array names 1:1.
+   ========================================================================= */
+
+  // ---------------------------------------------------------------------
+  // 1. ROLE DEFINITIONS
+  // ---------------------------------------------------------------------
+  const ROLES = {
+    MAIN_PROTEIN: "Main Protein",
+    CARB: "Carb Source",
+    FAT: "Healthy Fat",
+    VEG: "Vegetable/Fiber",
+    DAIRY: "Dairy",
+    FRUIT: "Fruit",
+    SIDE: "Side",
+    DRINK: "Drink",
+    SWEET: "Sweet Component"
+  };
+
+  // ---------------------------------------------------------------------
+  // 2. FOOD DATABASE (upgraded structure)
+  //    calories/protein/carbs/fat are expressed PER UNIT for piece/slice/
+  //    loaf items, and PER GRAM / PER ML for gram/ml items (same
+  //    convention as the original data, just renamed fields).
+  // ---------------------------------------------------------------------
+  const FOOD_DATABASE = [
+    { name: "Boiled Egg", category: "protein", role: ROLES.MAIN_PROTEIN, unit: "piece", unitLabel: "Egg(s)",
+      calories: 70, protein: 6.0, carbs: 0.5, fat: 5.0,
+      minQuantity: 1, maxQuantity: 4, step: 1, priority: 9, tasteProfile: "savory" },
+
+    { name: "Toast Bread", category: "bakery", role: ROLES.CARB, unit: "slice", unitLabel: "Slice(s)",
+      calories: 75, protein: 2.7, carbs: 13.5, fat: 1.0,
+      minQuantity: 1, maxQuantity: 6, step: 1, priority: 6, tasteProfile: "neutral" },
+
+    { name: "Lebanese Bread", category: "bakery", role: ROLES.CARB, unit: "loaf", unitLabel: "Loaf/Loaves",
+      calories: 165, protein: 5.5, carbs: 33.0, fat: 1.0,
+      minQuantity: 0.5, maxQuantity: 2, step: 0.5, priority: 6, tasteProfile: "neutral" },
+
+    { name: "Labneh", category: "dairy", role: ROLES.DAIRY, unit: "gram", unitLabel: "g",
+      calories: 1.8, protein: 0.09, carbs: 0.05, fat: 0.12,
+      minQuantity: 20, maxQuantity: 150, step: 10, priority: 7, tasteProfile: "savory" },
+
+    { name: "Akkawi Cheese", category: "dairy", role: ROLES.DAIRY, unit: "gram", unitLabel: "g",
+      calories: 2.6, protein: 0.20, carbs: 0.01, fat: 0.20,
+      minQuantity: 20, maxQuantity: 100, step: 10, priority: 5, tasteProfile: "savory" },
+
+    { name: "Halloumi Cheese", category: "dairy", role: ROLES.DAIRY, unit: "gram", unitLabel: "g",
+      calories: 3.21, protein: 0.22, carbs: 0.02, fat: 0.26,
+      minQuantity: 20, maxQuantity: 100, step: 10, priority: 5, tasteProfile: "savory" },
+
+    { name: "Boiled Fava Beans", category: "legumes", role: ROLES.MAIN_PROTEIN, unit: "gram", unitLabel: "g",
+      calories: 1.1, protein: 0.076, carbs: 0.197, fat: 0.004,
+      minQuantity: 50, maxQuantity: 250, step: 25, priority: 7, tasteProfile: "savory" },
+
+    { name: "Boiled Chickpeas", category: "legumes", role: ROLES.MAIN_PROTEIN, unit: "gram", unitLabel: "g",
+      calories: 1.64, protein: 0.089, carbs: 0.274, fat: 0.026,
+      minQuantity: 50, maxQuantity: 250, step: 25, priority: 7, tasteProfile: "savory" },
+
+    { name: "Apricot Jam", category: "sweet_spreads", role: ROLES.SWEET, unit: "gram", unitLabel: "g",
+      calories: 2.43, protein: 0.005, carbs: 0.64, fat: 0.001,
+      minQuantity: 10, maxQuantity: 40, step: 10, priority: 3, tasteProfile: "sweet" },
+
+    { name: "Makdous", category: "side", role: ROLES.SIDE, unit: "piece", unitLabel: "Piece(s)",
+      calories: 140, protein: 2.5, carbs: 4.0, fat: 13.0,
+      minQuantity: 1, maxQuantity: 4, step: 1, priority: 6, tasteProfile: "savory" },
+
+    { name: "Cucumber", category: "vegetables", role: ROLES.VEG, unit: "piece", unitLabel: "Piece(s)",
+      calories: 15, protein: 0.7, carbs: 3.6, fat: 0.1,
+      minQuantity: 0.5, maxQuantity: 3, step: 0.5, priority: 5, tasteProfile: "neutral" },
+
+    { name: "Tomato", category: "vegetables", role: ROLES.VEG, unit: "piece", unitLabel: "Piece(s)",
+      calories: 22, protein: 1.1, carbs: 4.8, fat: 0.2,
+      minQuantity: 0.5, maxQuantity: 3, step: 0.5, priority: 5, tasteProfile: "neutral" },
+
+    // Olives reclassified: nutritionally a healthy-fat food, not a vegetable
+    { name: "Olives", category: "healthy_fats", role: ROLES.FAT, unit: "piece", unitLabel: "Olive(s)",
+      calories: 5, protein: 0.03, carbs: 0.27, fat: 0.48,
+      minQuantity: 5, maxQuantity: 20, step: 5, priority: 5, tasteProfile: "savory" },
+
+    { name: "Almonds", category: "healthy_fats", role: ROLES.FAT, unit: "gram", unitLabel: "g",
+      calories: 5.76, protein: 0.21, carbs: 0.21, fat: 0.49,
+      minQuantity: 10, maxQuantity: 40, step: 5, priority: 7, tasteProfile: "neutral" },
+
+    { name: "Walnuts", category: "healthy_fats", role: ROLES.FAT, unit: "gram", unitLabel: "g",
+      calories: 6.54, protein: 0.15, carbs: 0.13, fat: 0.65,
+      minQuantity: 10, maxQuantity: 40, step: 5, priority: 7, tasteProfile: "neutral" },
+
+    { name: "Banana", category: "fruit", role: ROLES.FRUIT, unit: "piece", unitLabel: "Banana(s)",
+      calories: 105, protein: 1.3, carbs: 27.0, fat: 0.3,
+      minQuantity: 0.5, maxQuantity: 2, step: 0.5, priority: 6, tasteProfile: "sweet" },
+
+    // Avocado reclassified: healthy fat, not "avocado" as its own bucket
+    { name: "Avocado", category: "healthy_fats", role: ROLES.FAT, unit: "gram", unitLabel: "g",
+      calories: 1.6, protein: 0.02, carbs: 0.085, fat: 0.147,
+      minQuantity: 30, maxQuantity: 150, step: 10, priority: 8, tasteProfile: "neutral" },
+
+    { name: "Milk", category: "milk_drinks", role: ROLES.DRINK, unit: "ml", unitLabel: "ml",
+      calories: 0.61, protein: 0.032, carbs: 0.048, fat: 0.033,
+      minQuantity: 100, maxQuantity: 300, step: 50, priority: 5, tasteProfile: "neutral" },
+
+    { name: "Oats", category: "oats", role: ROLES.CARB, unit: "gram", unitLabel: "g",
+      calories: 3.89, protein: 0.169, carbs: 0.66, fat: 0.069,
+      minQuantity: 30, maxQuantity: 100, step: 10, priority: 8, tasteProfile: "neutral" }
+  ];
+
+  // ---------------------------------------------------------------------
+  // 2b. IMAGE MAPS
+  //     Maps each FOOD_DATABASE.name to the correct image path.
+  //     - INGREDIENT_IMAGE_MAP -> used in the selection grid (raw ingredient photo)
+  //     - MEAL_IMAGE_MAP       -> used in the result chips (prepared/served photo)
+  // ---------------------------------------------------------------------
+  const INGREDIENT_IMAGE_MAP = {
+    "Boiled Egg":        "breakfast_dinner_ingredients/principaux/egg.jpg",
+    "Toast Bread":       "breakfast_dinner_ingredients/pain/toast.jpg",
+    "Lebanese Bread":    "breakfast_dinner_ingredients/pain/pita_bread.jpg",
+    "Labneh":            "breakfast_dinner_ingredients/principaux/strained_yogurt.jpg",
+    "Akkawi Cheese":     "breakfast_dinner_ingredients/principaux/akkawi.jpg",
+    "Halloumi Cheese":   "breakfast_dinner_ingredients/principaux/halloumi.jpg",
+    "Boiled Fava Beans": "breakfast_dinner_ingredients/principaux/canned_fava_bean.jpg",
+    "Boiled Chickpeas":  "breakfast_dinner_ingredients/principaux/canned_chickpeas.jpg",
+    "Apricot Jam":       "breakfast_dinner_ingredients/principaux/apricot_jam.jpg",
+    "Makdous":           "breakfast_dinner_ingredients/principaux/makdousse.jpg",
+    "Cucumber":          "breakfast_dinner_ingredients/side/cucumber.jpg",
+    "Tomato":            "breakfast_dinner_ingredients/side/tomato.jpg",
+    "Olives":            "breakfast_dinner_ingredients/side/olives_plate.jpg",
+    "Almonds":           "breakfast_dinner_ingredients/side/almonds.jpg",
+    "Walnuts":           "breakfast_dinner_ingredients/side/walnut.jpg",
+    "Banana":            "breakfast_dinner_ingredients/side/banana.jpg",
+    "Avocado":           "breakfast_dinner_ingredients/side/avocado.jpg",
+    "Milk":              "breakfast_dinner_ingredients/side/milk.jpg",
+    "Oats":              "breakfast_dinner_ingredients/principaux/oats.jpg"
+  };
+
+  const MEAL_IMAGE_MAP = {
+    "Boiled Egg":        "breakfast_dinner/boiled_eggs.jpg",
+    "Toast Bread":       "breakfast_dinner/toste.jpg",
+    "Lebanese Bread":    "breakfast_dinner/pita_bread.jpg",
+    "Labneh":            "breakfast_dinner/labneh.jpg",
+    "Akkawi Cheese":     "breakfast_dinner/akkawi.jpg",
+    "Halloumi Cheese":   "breakfast_dinner/halloumi.jpg",
+    "Boiled Fava Beans": "breakfast_dinner/foul.jpg",
+    "Boiled Chickpeas":  "breakfast_dinner/msaba7a.jpg",
+    "Apricot Jam":       "breakfast_dinner/apricot_jam.jpg",
+    "Makdous":           "breakfast_dinner/makdousse.jpg",
+    "Cucumber":          "breakfast_dinner/cucumber_slices.jpg",
+    "Tomato":            "breakfast_dinner/tomato_slices.jpg",
+    "Olives":            "breakfast_dinner/olives_plate.jpg",
+    "Almonds":           "breakfast_dinner/almonds.jpg",
+    "Walnuts":           "breakfast_dinner/walnut.jpg",
+    "Banana":            "breakfast_dinner/banana_slices.jpg",
+    "Avocado":           "breakfast_dinner/avocado.jpg",
+    "Milk":              "breakfast_dinner/glass_of_milk.jpg",
+    "Oats":              "breakfast_dinner/boiled_oats.jpg"
+  };
+
+  // ---------------------------------------------------------------------
+  // 3. WEIGHTED COMPATIBILITY ENGINE
+  //    Category-level base scores (0-100, symmetric) + specific
+  //    food-pair overrides (e.g. Egg + Labneh = 95).
+  // ---------------------------------------------------------------------
+  const CATEGORY_COMPAT = {
+    "protein|protein": 70,   "protein|bakery": 90,        "protein|dairy": 95,
+    "protein|legumes": 60,   "protein|sweet_spreads": 20, "protein|side": 80,
+    "protein|vegetables": 85,"protein|healthy_fats": 75,  "protein|fruit": 30,
+    "protein|milk_drinks": 55,"protein|oats": 65,
+
+    "bakery|bakery": 50,     "bakery|dairy": 88,          "bakery|legumes": 70,
+    "bakery|sweet_spreads": 90,"bakery|side": 80,         "bakery|vegetables": 75,
+    "bakery|healthy_fats": 80,"bakery|fruit": 60,         "bakery|milk_drinks": 70,
+    "bakery|oats": 55,
+
+    "dairy|dairy": 60,       "dairy|legumes": 65,         "dairy|sweet_spreads": 55,
+    "dairy|side": 75,        "dairy|vegetables": 80,      "dairy|healthy_fats": 70,
+    "dairy|fruit": 75,       "dairy|milk_drinks": 60,     "dairy|oats": 85,
+
+    "legumes|legumes": 50,   "legumes|sweet_spreads": 15, "legumes|side": 75,
+    "legumes|vegetables": 85,"legumes|healthy_fats": 65,  "legumes|fruit": 20,
+    "legumes|milk_drinks": 30,"legumes|oats": 40,
+
+    "sweet_spreads|sweet_spreads": 50,"sweet_spreads|side": 20,
+    "sweet_spreads|vegetables": 15,"sweet_spreads|healthy_fats": 40,
+    "sweet_spreads|fruit": 80,"sweet_spreads|milk_drinks": 65,"sweet_spreads|oats": 85,
+
+    "side|side": 55,         "side|vegetables": 80,       "side|healthy_fats": 70,
+    "side|fruit": 25,        "side|milk_drinks": 40,      "side|oats": 35,
+
+    "vegetables|vegetables": 60,"vegetables|healthy_fats": 85,"vegetables|fruit": 30,
+    "vegetables|milk_drinks": 35,"vegetables|oats": 45,
+
+    "healthy_fats|healthy_fats": 55,"healthy_fats|fruit": 70,
+    "healthy_fats|milk_drinks": 60,"healthy_fats|oats": 80,
+
+    "fruit|fruit": 50,       "fruit|milk_drinks": 85,     "fruit|oats": 85,
+
+    "milk_drinks|milk_drinks": 40,"milk_drinks|oats": 90,
+
+    "oats|oats": 50
+  };
+
+  // Specific overrides for well-known pairings (mirrors real culinary logic)
+  const PAIR_OVERRIDES = {
+    "Boiled Egg|Labneh": 95,
+    "Boiled Egg|Toast Bread": 90,
+    "Boiled Egg|Lebanese Bread": 90,
+    "Boiled Egg|Apricot Jam": 20,
+    "Boiled Egg|Olives": 80,
+    "Labneh|Lebanese Bread": 92,
+    "Labneh|Cucumber": 85,
+    "Oats|Milk": 92,
+    "Oats|Banana": 88,
+    "Halloumi Cheese|Toast Bread": 88,
+    "Akkawi Cheese|Lebanese Bread": 88,
+    "Makdous|Lebanese Bread": 85,
+    "Avocado|Toast Bread": 87
+  };
+
+  function categoryScore(catA, catB) {
+    if (catA === catB) return CATEGORY_COMPAT[`${catA}|${catA}`] ?? 60;
+    const keyA = `${catA}|${catB}`;
+    const keyB = `${catB}|${catA}`;
+    return CATEGORY_COMPAT[keyA] ?? CATEGORY_COMPAT[keyB] ?? 50;
+  }
+
+  function getCompatibility(a, b) {
+    if (a === b) return 100;
+    const overrideKey1 = `${a.name}|${b.name}`;
+    const overrideKey2 = `${b.name}|${a.name}`;
+    if (PAIR_OVERRIDES[overrideKey1] !== undefined) return PAIR_OVERRIDES[overrideKey1];
+    if (PAIR_OVERRIDES[overrideKey2] !== undefined) return PAIR_OVERRIDES[overrideKey2];
+
+    let score = categoryScore(a.category, b.category);
+
+    // Taste-profile clash penalty (sweet vs savory), unless one of them
+    // is a bakery/dairy item acting as a natural "carrier" for sweetness.
+    const sweetInvolved = a.tasteProfile === "sweet" || b.tasteProfile === "sweet";
+    const savoryInvolved = a.tasteProfile === "savory" || b.tasteProfile === "savory";
+    const carrierInvolved = [a.category, b.category].some(c => c === "bakery" || c === "dairy" || c === "oats");
+    if (sweetInvolved && savoryInvolved && !carrierInvolved) {
+      score -= 20;
+    }
+
+    return Math.max(0, Math.min(100, score));
+  }
+
+  function compatibilityScoreForMeal(items) {
+    if (items.length <= 1) return 100;
+    let total = 0, pairs = 0;
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        total += getCompatibility(items[i], items[j]);
+        pairs++;
+      }
+    }
+    return pairs === 0 ? 100 : total / pairs;
+  }
+
+  // ---------------------------------------------------------------------
+  // 4. MEAL REALISM FILTER / SCORER
+  // ---------------------------------------------------------------------
+  function realismScoreForMeal(items) {
+    let score = 100;
+    const n = items.length;
+
+    if (n < 2) score -= 40;
+    if (n > 6) score -= (n - 6) * 12;
+
+    const hasMain = items.some(i => i.role === ROLES.MAIN_PROTEIN || i.role === ROLES.CARB);
+    if (!hasMain) score -= 40;
+
+    const sweetCount = items.filter(i => i.tasteProfile === "sweet").length;
+    const savoryCount = items.filter(i => i.tasteProfile === "savory").length;
+    // A single sweet touch (e.g. jam on bread) is fine; sweet clashing
+    // with multiple savory items (egg + honey + olives) is not realistic.
+    if (sweetCount > 0 && savoryCount > 1) score -= 25;
+
+    // Duplicate roles beyond 2 of the same role feels repetitive
+    const roleCounts = {};
+    items.forEach(i => { roleCounts[i.role] = (roleCounts[i.role] || 0) + 1; });
+    Object.values(roleCounts).forEach(c => { if (c > 2) score -= 10; });
+
+    return Math.max(0, Math.min(100, score));
+  }
+
+  // ---------------------------------------------------------------------
+  // 5. MEAL STRUCTURE TEMPLATES (role slots, not brute-force combos)
+  // ---------------------------------------------------------------------
+  const TEMPLATES = [
+    {
+      name: "Breakfast",
+      slots: [
+        { role: ROLES.MAIN_PROTEIN, required: true },
+        { role: ROLES.CARB, required: true },
+        { role: ROLES.DAIRY, required: false },
+        { role: ROLES.FAT, required: false },
+        { role: ROLES.VEG, required: false },
+        { role: ROLES.SIDE, required: false },
+        { role: ROLES.FRUIT, required: false },
+        { role: ROLES.DRINK, required: false }
+      ]
+    },
+    {
+      name: "Lunch/Dinner",
+      slots: [
+        { role: ROLES.MAIN_PROTEIN, required: true },
+        { role: ROLES.CARB, required: true },
+        { role: ROLES.VEG, required: false },
+        { role: ROLES.FAT, required: false },
+        { role: ROLES.DAIRY, required: false }
+      ]
+    },
+    {
+      name: "Light Snack",
+      slots: [
+        { role: ROLES.CARB, required: true },
+        { role: ROLES.FAT, required: false },
+        { role: ROLES.FRUIT, required: false },
+        { role: ROLES.DAIRY, required: false }
+      ]
+    }
+  ];
+
+  function groupByRole(items) {
+    const map = {};
+    items.forEach(i => {
+      (map[i.role] = map[i.role] || []).push(i);
+    });
+    return map;
+  }
+
+  // Build realistic candidate meals by filling role slots instead of
+  // generating every possible subset (major performance improvement).
+  function buildCandidateMeals(selectedItems) {
+    const byRole = groupByRole(selectedItems);
+    const candidates = [];
+    const seenKeys = new Set();
+
+    TEMPLATES.forEach(template => {
+      const requiredOk = template.slots
+        .filter(s => s.required)
+        .every(s => (byRole[s.role] || []).length > 0);
+      if (!requiredOk) return;
+
+      // Cap each role slot to its top 3 highest-priority available items
+      const slotOptions = template.slots.map(slot => {
+        const pool = (byRole[slot.role] || [])
+          .slice()
+          .sort((a, b) => b.priority - a.priority)
+          .slice(0, 3);
+        return slot.required ? pool : [null, ...pool];
+      });
+
+      // Cartesian product across slots, with a hard safety cap
+      let combos = [[]];
+      for (const options of slotOptions) {
+        const next = [];
+        for (const combo of combos) {
+          for (const opt of options) {
+            next.push([...combo, opt]);
+            if (next.length > 3000) break;
+          }
+          if (next.length > 3000) break;
+        }
+        combos = next;
+      }
+
+      combos.forEach(combo => {
+        const items = combo.filter(Boolean);
+        const unique = [...new Set(items)];
+        if (unique.length === 0 || unique.length !== items.length) return;
+
+        const key = unique.map(i => i.name).sort().join("|");
+        if (seenKeys.has(key)) return;
+        seenKeys.add(key);
+
+        candidates.push({ template: template.name, items: unique });
+      });
+    });
+
+    // ---------------------------------------------------------------
+    // GUARANTEED FALLBACK
+    // This is the core promise of the app: whatever the user has
+    // available, the engine ALWAYS builds a meal out of it — even if
+    // it doesn't match a "perfect" template (no protein, no carb,
+    // only one item, etc). It never refuses to produce a result.
+    // ---------------------------------------------------------------
+    const fallbackKey = selectedItems.map(i => i.name).sort().join("|");
+    if (!seenKeys.has(fallbackKey)) {
+      seenKeys.add(fallbackKey);
+      candidates.push({ template: "Available Ingredients", items: [...selectedItems] });
+    }
+
+    return candidates;
+  }
+
+  // ---------------------------------------------------------------------
+  // 6. DISCRETE PORTION OPTIMIZER (hill-climbing over allowed steps)
+  // ---------------------------------------------------------------------
+  function allowedQuantities(item) {
+    const vals = [];
+    for (let v = item.minQuantity; v <= item.maxQuantity + 1e-9; v += item.step) {
+      vals.push(Math.round(v * 1000) / 1000);
+    }
+    return vals.length ? vals : [item.minQuantity];
+  }
+
+  function computeTotals(items, quantities) {
+    let cal = 0, p = 0, c = 0, f = 0;
+    items.forEach((it, idx) => {
+      const q = quantities[idx];
+      cal += it.calories * q;
+      p += it.protein * q;
+      c += it.carbs * q;
+      f += it.fat * q;
+    });
+    return { cal, p, c, f };
+  }
+
+  function weightedMacroError(totals, targets) {
+    const calErr = Math.abs(totals.cal - targets.cal) / (targets.cal || 1);
+    const pErr = Math.abs(totals.p - targets.p) / (targets.p || 1);
+    const cErr = Math.abs(totals.c - targets.c) / (targets.c || 1);
+    const fErr = Math.abs(totals.f - targets.f) / (targets.f || 1);
+    return calErr * 0.35 + pErr * 0.30 + cErr * 0.20 + fErr * 0.15;
+  }
+
+  function optimizeQuantities(items, targets) {
+    const stepLists = items.map(allowedQuantities);
+    let quantities = stepLists.map(vals => vals[0]);
+    let currentErr = weightedMacroError(computeTotals(items, quantities), targets);
+
+    let improved = true;
+    let iterations = 0;
+    while (improved && iterations < 40) {
+      improved = false;
+      iterations++;
+      for (let idx = 0; idx < items.length; idx++) {
+        let bestVal = quantities[idx];
+        let bestErr = currentErr;
+        for (const val of stepLists[idx]) {
+          const trial = quantities.slice();
+          trial[idx] = val;
+          const err = weightedMacroError(computeTotals(items, trial), targets);
+          if (err < bestErr - 1e-9) {
+            bestErr = err;
+            bestVal = val;
+          }
+        }
+        if (bestVal !== quantities[idx]) {
+          quantities[idx] = bestVal;
+          currentErr = bestErr;
+          improved = true;
+        }
+      }
+    }
+
+    return { quantities, totals: computeTotals(items, quantities), weightedError: currentErr };
+  }
+
+  // ---------------------------------------------------------------------
+  // 6b. EXACT CALORIE CORRECTION
+  //     The discrete step-based optimizer gets macros *close* to target,
+  //     but calories must match EXACTLY — not more, not less. After the
+  //     hill-climb, this pass fine-tunes the most flexible item(s)
+  //     (gram/ml items first, then lowest-priority items) with
+  //     continuous adjustment (still clamped to min/max) until the
+  //     total calories equal the target exactly.
+  // ---------------------------------------------------------------------
+  function correctCaloriesExact(items, quantities, targets) {
+    const corrected = quantities.slice();
+    let totals = computeTotals(items, corrected);
+    let diff = targets.cal - totals.cal;
+
+    if (Math.abs(diff) < 0.01) return corrected;
+
+    // Order items by how "flexible" they are: gram/ml items can be
+    // fine-tuned smoothly; among those, adjust lower-priority items
+    // first so the highest quality protein/carb sources keep their
+    // intended, more "intentional" portion.
+    const order = items
+      .map((it, idx) => ({ it, idx }))
+      .sort((a, b) => {
+        const aFlex = (a.it.unit === "gram" || a.it.unit === "ml") ? 0 : 1;
+        const bFlex = (b.it.unit === "gram" || b.it.unit === "ml") ? 0 : 1;
+        if (aFlex !== bFlex) return aFlex - bFlex;
+        return a.it.priority - b.it.priority;
+      });
+
+    for (const { it, idx } of order) {
+      if (Math.abs(diff) < 0.01) break;
+      if (it.calories <= 0) continue;
+
+      const currentQty = corrected[idx];
+      const deltaQty = diff / it.calories;
+      let newQty = currentQty + deltaQty;
+      newQty = Math.max(it.minQuantity, Math.min(it.maxQuantity, newQty));
+
+      const appliedDeltaQty = newQty - currentQty;
+      const appliedCal = appliedDeltaQty * it.calories;
+
+      corrected[idx] = Math.round(newQty * 1000) / 1000;
+      diff -= appliedCal;
+    }
+
+    return corrected;
+  }
+
+  // ---------------------------------------------------------------------
+  // 7. FINAL RANKING
+  //    Macro Accuracy 40% | Protein Accuracy 20% | Compatibility 20% | Realism 20%
+  // ---------------------------------------------------------------------
+  function scoreFromError(err) {
+    return Math.max(0, Math.min(100, 100 * (1 - err)));
+  }
+
+  function evaluateMeal(items, targets) {
+    let { quantities } = optimizeQuantities(items, targets);
+    quantities = correctCaloriesExact(items, quantities, targets);
+    const totals = computeTotals(items, quantities);
+
+    const calErr = Math.abs(totals.cal - targets.cal) / (targets.cal || 1);
+    const pErr = Math.abs(totals.p - targets.p) / (targets.p || 1);
+    const cErr = Math.abs(totals.c - targets.c) / (targets.c || 1);
+    const fErr = Math.abs(totals.f - targets.f) / (targets.f || 1);
+
+    const macroAccuracy = scoreFromError((calErr + cErr + fErr) / 3);
+    const proteinAccuracy = scoreFromError(pErr);
+    const compatibility = compatibilityScoreForMeal(items);
+    const realism = realismScoreForMeal(items);
+
+    const finalScore =
+      macroAccuracy * 0.4 +
+      proteinAccuracy * 0.2 +
+      compatibility * 0.2 +
+      realism * 0.2;
+
+    return { items, quantities, totals, macroAccuracy, proteinAccuracy, compatibility, realism, finalScore };
+  }
+
+  // ---------------------------------------------------------------------
+  // 8. UI STATE + RENDERING
+  // ---------------------------------------------------------------------
+  let selectedItems = [];
+
+  // Small helper: builds the <img>/fallback markup for a given map+item.
+  function imageMarkup(path, altText, fallbackEmoji) {
+    if (!path) {
+      return `<span class="img-fallback">${fallbackEmoji}</span>`;
+    }
+    // onerror swaps the broken image for an emoji placeholder instead of
+    // showing a broken-image icon, in case a path doesn't exist yet.
+    return `<img src="${path}" alt="${altText}" loading="lazy"
+              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'img-fallback',textContent:'${fallbackEmoji}'}))">`;
+  }
+
+  function renderFoodGrid() {
+    const container = document.getElementById("foodGrid");
+    container.innerHTML = "";
+    FOOD_DATABASE.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "food-card";
+
+      let displayMacro = item.unit === "gram" || item.unit === "ml"
+        ? `Per 100${item.unitLabel}: ${(item.calories * 100).toFixed(0)}kcal`
+        : `Per 1 ${item.unitLabel}: ${item.calories}kcal`;
+
+      const imgPath = INGREDIENT_IMAGE_MAP[item.name];
+
+      card.innerHTML = `
+        <div class="img-wrap">${imageMarkup(imgPath, item.name, "🍽️")}</div>
+        <div class="title">${item.name}</div>
+        <div class="unit-lbl">(${item.unitLabel})</div>
+        <div class="macros">${displayMacro}</div>
+      `;
+      card.onclick = () => {
+        card.classList.toggle("selected");
+        if (selectedItems.includes(item)) {
+          selectedItems = selectedItems.filter(i => i !== item);
+        } else {
+          selectedItems.push(item);
+        }
+      };
+      container.appendChild(card);
+    });
+  }
+
+  function findOptimalMeal() {
+    if (selectedItems.length === 0) {
+      alert("الرجاء تحديد بعض المواد المتوفرة لديك أولاً!");
+      return;
+    }
+
+    const targets = {
+      cal: parseFloat(document.getElementById("targetCal").value) || 0,
+      p: parseFloat(document.getElementById("targetProtein").value) || 0,
+      c: parseFloat(document.getElementById("targetCarbs").value) || 0,
+      f: parseFloat(document.getElementById("targetFat").value) || 0
+    };
+
+    // 1. Build candidate meal structures. buildCandidateMeals() ALWAYS
+    //    returns at least one candidate (the "use everything selected"
+    //    fallback), so the engine never refuses to produce a meal —
+    //    whatever the user has available, it works with it.
+    const candidates = buildCandidateMeals(selectedItems);
+
+    // 2. Evaluate every candidate: optimize portions + score realism/compat/macros
+    let best = null;
+    candidates.forEach(cand => {
+      const evaluated = evaluateMeal(cand.items, targets);
+      if (!best || evaluated.finalScore > best.finalScore) {
+        best = evaluated;
+      }
+    });
+
+    // 3. Render chips — now with the MEAL image (served/prepared photo)
+    const chipsContainer = document.getElementById("itemsChips");
+    chipsContainer.innerHTML = "";
+
+    best.items.forEach((item, idx) => {
+      const rawQty = best.quantities[idx];
+      let formattedQty = "";
+
+      if (item.unit === "gram" || item.unit === "ml") {
+        formattedQty = `${Math.round(rawQty)} ${item.unitLabel}`;
+      } else {
+        formattedQty = `${(Math.round(rawQty * 10) / 10)} ${item.unitLabel}`;
+      }
+
+      const mealImgPath = MEAL_IMAGE_MAP[item.name];
+
+      chipsContainer.innerHTML += `
+        <div class="chip">
+          <span class="chip-left">
+            <span class="chip-thumb">${imageMarkup(mealImgPath, item.name, "🍽️")}</span>
+            <span class="chip-text">
+              <strong>${item.name}</strong>
+              <span class="chip-role">${item.role}</span>
+            </span>
+          </span>
+          <span class="chip-qty">${formattedQty}</span>
+        </div>
+      `;
+    });
+
+    // 4. Render macro stats (same IDs as before)
+    document.getElementById("resCal").innerText = `${Math.round(best.totals.cal)} / ${targets.cal}`;
+    document.getElementById("resProtein").innerText = `${best.totals.p.toFixed(1)}g / ${targets.p}g`;
+    document.getElementById("resCarbs").innerText = `${best.totals.c.toFixed(1)}g / ${targets.c}g`;
+    document.getElementById("resFat").innerText = `${best.totals.f.toFixed(1)}g / ${targets.f}g`;
+
+    // 5. Render intelligence scores
+    document.getElementById("scoreMacro").innerText = `${Math.round(best.macroAccuracy)}%`;
+    document.getElementById("scoreProtein").innerText = `${Math.round(best.proteinAccuracy)}%`;
+    document.getElementById("scoreCompat").innerText = `${Math.round(best.compatibility)}%`;
+    document.getElementById("scoreRealism").innerText = `${Math.round(best.realism)}%`;
+    document.getElementById("scoreFinal").innerText = `${Math.round(best.finalScore)}%`;
+
+    document.getElementById("resultBox").classList.add("active");
+  }
+
+  window.onload = renderFoodGrid;
+
+  // -----------------------------------------------------------------------
+  // Raw reference arrays (kept exactly as provided — used as the source of
+  // truth for the image maps above; not otherwise referenced by the engine).
+  // -----------------------------------------------------------------------
+  const INGREDIENTS = [
+    { name: "Tea", image: "breakfast_dinner_ingredients/drinks/tea.jpg", category: "infusion_drinks" },
+    { name: "Matte", image: "breakfast_dinner_ingredients/drinks/matte.jpg", category: "infusion_drinks" },
+    { name: "Ayran", image: "breakfast_dinner_ingredients/drinks/laban_3iran.jpg", category: "plain_yogurt_drinks" },
+    { name: "Milk", image: "breakfast_dinner_ingredients/side/milk.jpg", category: "milk_drinks" },
+    { name: "Black Coffee", image: "breakfast_dinner_ingredients/drinks/coffe.jpg", category: "coffee_drinks" },
+    { name: "Nescafe", image: "breakfast_dinner_ingredients/drinks/nescafe.jpg", category: "coffee_drinks" },
+    { name: "Makdous", image: "breakfast_dinner_ingredients/principaux/makdousse.jpg", category: "makdous" },
+    { name: "Egg", image: "breakfast_dinner_ingredients/principaux/egg.jpg", category: "protein" },
+    { name: "Fava Beans", image: "breakfast_dinner_ingredients/principaux/canned_fava_bean.jpg", category: "legumes" },
+    { name: "Chickpeas", image: "breakfast_dinner_ingredients/principaux/canned_chickpeas.jpg", category: "legumes" },
+    { name: "Baguette", image: "breakfast_dinner_ingredients/pain/baguette.jpg", category: "bakery" },
+    { name: "Lebanese Bread", image: "breakfast_dinner_ingredients/pain/pita_bread.jpg", category: "bakery" },
+    { name: "Toast", image: "breakfast_dinner_ingredients/pain/toast.jpg", category: "bakery" },
+    { name: "Apple", image: "breakfast_dinner_ingredients/side/apple.jpg", category: "fruit" },
+    { name: "Banana", image: "breakfast_dinner_ingredients/side/banana.jpg", category: "fruit" },
+    { name: "Green Grape", image: "breakfast_dinner_ingredients/side/grape_green.jpg", category: "fruit" },
+    { name: "Halloumi", image: "breakfast_dinner_ingredients/principaux/halloumi.jpg", category: "dairy" },
+    { name: "Akkawi", image: "breakfast_dinner_ingredients/principaux/akkawi.jpg", category: "dairy" },
+    { name: "Labneh", image: "breakfast_dinner_ingredients/principaux/strained_yogurt.jpg", category: "dairy" },
+    { name: "Cucumber", image: "breakfast_dinner_ingredients/side/cucumber.jpg", category: "vegetables" },
+    { name: "Tomato", image: "breakfast_dinner_ingredients/side/tomato.jpg", category: "vegetables" },
+    { name: "Olives", image: "breakfast_dinner_ingredients/side/olives_plate.jpg", category: "vegetables" },
+    { name: "Honey", image: "breakfast_dinner_ingredients/side/canned_honey.jpg", category: "sweet_spreads" },
+    { name: "Strawberry Jam", image: "breakfast_dinner_ingredients/principaux/strawberry_jam.jpg", category: "sweet_spreads" },
+    { name: "Apricot Jam", image: "breakfast_dinner_ingredients/principaux/apricot_jam.jpg", category: "sweet_spreads" },
+    { name: "Blackberry Jam", image: "breakfast_dinner_ingredients/principaux/blackberry_jam.jpg", category: "sweet_spreads" },
+    { name: "Oats", image: "breakfast_dinner_ingredients/principaux/oats.jpg", category: "oats" },
+    { name: "Walnuts", image: "breakfast_dinner_ingredients/side/walnut.jpg", category: "healthy_fats" },
+    { name: "Almonds", image: "breakfast_dinner_ingredients/side/almonds.jpg", category: "healthy_fats" },
+    { name: "Cashew", image: "breakfast_dinner_ingredients/side/cashew.jpg", category: "healthy_fats" },
+    { name: "Chocolate Croissant", image: "breakfast_dinner_ingredients/principaux/chocolate_croissant.jpg", category: "sweet_pastries" },
+    { name: "Kunafa", image: "breakfast_dinner_ingredients/principaux/knefeh_sandwish.jpg", category: "sweet_pastries" },
+    { name: "Cheese Croissant", image: "breakfast_dinner_ingredients/principaux/cheese_croissant.jpg", category: "savory_pastries" },
+    { name: "Manoushe Cheese", image: "breakfast_dinner_ingredients/principaux/man2ouchet_jebnet.jpg", category: "savory_pastries" },
+    { name: "Manoushe Kechek", image: "breakfast_dinner_ingredients/principaux/manakich_kechek.jpg", category: "savory_pastries" },
+    { name: "Manoushe Zaatar", image: "breakfast_dinner_ingredients/principaux/images.jpg", category: "savory_pastries_2" },
+    { name: "Manoushe Lahem Baajin", image: "breakfast_dinner_ingredients/principaux/la7mi_b3ajin.jpg", category: "savory_pastries_3" },
+    { name: "Avocado", image: "breakfast_dinner_ingredients/side/avocado.jpg", category: "avocado" }
+  ];
+
+  let selectedIngredients = [];   // ingredient objects the user tapped in step 1
+  let selectedComboIds = [];
+
+
+  const meals=[
+  { name: "Akkawi", image: "breakfast_dinner/akkawi.jpg", category: "dairy" },
+{ name: "Almonds", image: "breakfast_dinner/almonds.jpg", category: "healthy fat" },
+{ name: "apple slices", image: "breakfast_dinner/apple_slices.jpg", category: "fruit" },
+{ name: "Apricot jam", image: "breakfast_dinner/apricot_jam.jpg", category: "sweet spread" },
+ { name: "Avocado", image: "breakfast_dinner/avocado.jpg", category: "avocado" },
+  { name: "Baguette", image: "breakfast_dinner/baguette.jpg", category: "bakery" },
+   { name: "Banana slices", image: "breakfast_dinner/banana_slices.jpg", category: "fruit" },
+    { name: "Black berry jam", image: "breakfast_dinner/blackberry_jam.jpg", category: "sweet spread" },
+     { name: "Boiled eggs", image: "breakfast_dinner/boiled_eggs.jpg", category: "protein" },
+      { name: "Boiled oats", image: "breakfast_dinner/boiled_oats.jpg", category: "oats" },
+       { name: "Cashew", image: "breakfast_dinner/cashew.jpg", category: "healthy fat" },
+        { name: "Cheese croissant", image: "breakfast_dinner/cheese_croissant.jpg", category: "savory pastries" },
+         { name: "chocolate croissant", image: "breakfast_dinner/chocolate_croissant.jpg", category: "sweet pastries" },
+          { name: "Cucumber slices", image: "breakfast_dinner/cucumber_slices.jpg", category: "vegetables" },
+           { name: "Feves", image: "breakfast_dinner/foul.jpg", category: "legumes" },
+            { name: "glass of milk", image: "breakfast_dinner/glass_of_milk.jpg", category: "milk drinks" },
+             { name: "grapes plate", image: "breakfast_dinner/grapes_plate.jpg", category: "fruit" },
+              { name: "halloumi", image: "breakfast_dinner/halloumi.jpg", category: "dairy" },
+               { name: "Honey", image: "breakfast_dinner/honey.jpg", category: "sweet spread" },
+                { name: "Manouchet zaatar", image: "breakfast_dinner/images.jpg", category: "savory pastires 2" },
+                 { name: "knefeh", image: "breakfast_dinner/knefeh_sandwish.jpg", category: "sweet pastries" },
+                  { name: "la7em bi 3ajin", image: "breakfast_dinner/la7mi_b3ajin.jpg", category: "savory pastries 3" },
+                   { name: "Labneh", image: "breakfast_dinner/labneh.jpg", category: "dairy" },
+                    { name: "Makdouse", image: "breakfast_dinner/makdousse.jpg", category: "makdousse" },
+                    { name: "Manouchet jebne", image: "breakfast_dinner/man2ouchet_jebnet.jpg", category: "savory pastires " },
+                    { name: "Manouchet kechek", image: "breakfast_dinner/manakich_kechek.jpg", category: "savory pastires " },
+                    { name: "Msaba7a", image: "breakfast_dinner/msaba7a.jpg", category: "legumes" },
+                    { name: "olive plates", image: "breakfast_dinner/olives_plate.jpg", category: "vegetables" },
+                    { name: "pain libanais", image: "breakfast_dinner/pita_bread.jpg", category: "bakery" },
+                    { name: "strawberry jam", image: "breakfast_dinner/strawberry_jam.jpg", category: "sweet spread" },
+                    { name: "tomato slices", image: "breakfast_dinner/tomato_slices.jpg", category: "vegetables" },
+                    { name: "Toste", image: "breakfast_dinner/toste.jpg", category: "bakery" },
+                    { name: "walnut", image: "breakfast_dinner/walnut.jpg", category: "healthy fat" },
+                    
+  ]
+</script>
+</body>
+</html>
