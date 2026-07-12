@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ConfirmModal from '../components/ConfirmModal';
 import API from '../api/axios';
 import { generateMealSchedule, parseTimeStringToMinutes, parseBusyPeriods, toTimeStr } from '../utils/timeScheduleAlgorithm';
 import ScheduleModal from '../components/ScheduleModal';
@@ -23,6 +24,9 @@ const DashboardPage = () => {
   // Daily Log State
   const [dailyLog, setDailyLog] = useState(null);
   const [waterGlasses, setWaterGlasses] = useState(0);
+
+  // State for confirm modal
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, slot: null, idx: null });
 
   // Validation States
   const [busyError, setBusyError] = useState('');
@@ -87,17 +91,45 @@ const DashboardPage = () => {
     }
   };
 
-  const handleCompleteMeal = async (e, slot) => {
+  const handleCompleteMeal = async (e, slot, idx) => {
     e.stopPropagation();
     try {
-      const d = new Date();
-      const todayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-      const res = await API.post('/dashboard/complete-meal', { mealType: slot.toLowerCase(), date: todayStr });
+      const res = await API.post('/dashboard/complete-meal', { 
+        mealType: slot.toLowerCase(), 
+        date: dailyLog.date,
+        snackIndex: idx 
+      });
       if (res.data.success) {
         setDailyLog(res.data.log);
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleAddFood = (slot, idx) => {
+    navigate(`/pantry?slot=${slot}&date=${dailyLog.date}&snackIndex=${idx}`);
+  };
+
+  const handleRemoveMealClick = (e, slot, idx) => {
+    e.stopPropagation();
+    setConfirmModal({ isOpen: true, slot, idx });
+  };
+
+  const handleConfirmRemoveMeal = async () => {
+    const { slot, idx } = confirmModal;
+    if (!slot) return;
+    try {
+      const res = await API.delete('/dashboard/remove-meal', { 
+        data: { mealType: slot.toLowerCase(), date: dailyLog.date, snackIndex: idx } 
+      });
+      if (res.data.success) {
+        setDailyLog(res.data.log);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setConfirmModal({ isOpen: false, slot: null, idx: null });
     }
   };
 
@@ -112,9 +144,20 @@ const DashboardPage = () => {
   const scheduleData = generateMealSchedule(wakeMin, sleepMin, busyIntervals, totalCal);
   
   // Transform algorithm meals for UI
+  const snacksAssigned = dailyLog?.mealsAssigned?.filter(m => m.mealType.toLowerCase() === 'snack') || [];
+  const snacksCompleted = dailyLog?.mealsCompleted?.filter(m => m.mealType.toLowerCase() === 'snack') || [];
+  let snackIdxAssigned = 0;
+  let snackIdxCompleted = 0;
+
   const timelineMeals = scheduleData.meals.map((meal) => {
-    const assigned = dailyLog?.mealsAssigned?.find(m => m.mealType.toLowerCase() === meal.name.toLowerCase());
-    const isCompleted = dailyLog?.mealsCompleted?.find(m => m.mealType.toLowerCase() === meal.name.toLowerCase());
+    let assigned, isCompleted;
+    if (meal.name.toLowerCase() === 'snack') {
+      assigned = snacksAssigned[snackIdxAssigned++];
+      isCompleted = snacksCompleted[snackIdxCompleted++];
+    } else {
+      assigned = dailyLog?.mealsAssigned?.find(m => m.mealType.toLowerCase() === meal.name.toLowerCase());
+      isCompleted = dailyLog?.mealsCompleted?.find(m => m.mealType.toLowerCase() === meal.name.toLowerCase());
+    }
     
     let kcal = meal.calories;
     let protein = Math.round(meal.calories * 0.25 / 4);
@@ -138,7 +181,8 @@ const DashboardPage = () => {
       name,
       kcal,
       protein,
-      recommended: meal.calories
+      recommended: meal.calories,
+      snackIndex: meal.name.toLowerCase() === 'snack' ? (snackIdxAssigned - 1) : 0
     };
   });
 
@@ -207,8 +251,15 @@ const DashboardPage = () => {
                     {meal.logged ? (
                       <div className="meal-box logged prominent-box">
                         <div className="meal-box-header">
-                          <h4>{meal.slot}</h4>
-                          <span className="status-badge">Logged</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <h4>{meal.slot}</h4>
+                            <span className="status-badge logged">Logged</span>
+                          </div>
+                          <div className="meal-actions-container">
+                            <button className="btn-meal-action remove" onClick={(e) => handleRemoveMealClick(e, meal.slot, meal.snackIndex)} title="Remove Meal">
+                              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
+                            </button>
+                          </div>
                         </div>
                         <p className="meal-name">{meal.name}</p>
                         <div className="meal-macros">
@@ -217,24 +268,34 @@ const DashboardPage = () => {
                         </div>
                       </div>
                     ) : meal.assigned ? (
-                      <div className="meal-box planned prominent-box" style={{ borderLeft: '4px solid var(--color-secondary)' }}>
+                      <div className="meal-box planned prominent-box">
                         <div className="meal-box-header">
-                          <h4>{meal.slot}</h4>
-                          <span className="status-badge" style={{background: 'var(--color-secondary)', color: 'white'}}>Planned</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <h4>{meal.slot}</h4>
+                            <span className="status-badge planned">Planned</span>
+                          </div>
+                          <div className="meal-actions-container">
+                            <button className="btn-meal-action remove" onClick={(e) => handleRemoveMealClick(e, meal.slot, meal.snackIndex)} title="Remove Meal">
+                              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
+                            </button>
+                          </div>
                         </div>
                         <p className="meal-name">{meal.name}</p>
-                        <div className="meal-macros">
+                        <div className="meal-macros" style={{ marginBottom: '16px' }}>
                           <span className="macro-chip kcal">🔥 {meal.kcal} kcal</span>
                           <span className="macro-chip pro">💪 {meal.protein}g P</span>
                         </div>
-                        <button className="btn-add-mini" onClick={(e) => handleCompleteMeal(e, meal.slot)} style={{ background: 'var(--color-secondary)', color: 'white' }}>
+                        <button className="btn-add-mini" onClick={(e) => handleCompleteMeal(e, meal.slot)} style={{ background: 'var(--color-primary)', color: 'white', border: 'none' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>check</span> Mark Eaten
                         </button>
                       </div>
                     ) : (
                       <div className="meal-box upcoming hoverable prominent-box">
                         <div className="meal-box-header">
-                          <h4>{meal.slot}</h4>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <h4>{meal.slot}</h4>
+                            <span className="status-badge upcoming">To Plan</span>
+                          </div>
                         </div>
                         <p className="meal-name">Recommended ~{meal.recommended} kcal</p>
                         <button className="btn-add-mini">+ Add Food</button>
@@ -338,6 +399,14 @@ const DashboardPage = () => {
           title="Configure Today's Schedule"
         />
       )}
+      <ConfirmModal 
+        isOpen={confirmModal.isOpen}
+        onClose={() => setConfirmModal({ isOpen: false, slot: null, idx: null })}
+        onConfirm={handleConfirmRemoveMeal}
+        title="Remove Meal"
+        message={`Are you sure you want to remove this meal from your plan?`}
+      />
+
     </div>
   );
 };

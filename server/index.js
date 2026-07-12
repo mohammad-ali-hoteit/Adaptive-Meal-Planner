@@ -27,7 +27,11 @@ const profileRoutes = require('./routes/profileRoutes');
 const app = express();
 
 // Global middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Health check route

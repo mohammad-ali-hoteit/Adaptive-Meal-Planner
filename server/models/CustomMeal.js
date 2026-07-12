@@ -45,6 +45,11 @@ const customMealSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  // Distinguishes between explicitly saved Custom Meals vs one-off generated meals for the dashboard
+  isPantryGenerated: {
+    type: Boolean,
+    default: false,
+  }
 }, { timestamps: true });
 
 // Index for filtering by user and public status

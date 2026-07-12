@@ -24,11 +24,16 @@ export function toTimeStr(totalMins) {
 }
 
 export function parseTimeStringToMinutes(timeStr) {
-  // Parses "07:00 AM" into minutes
+  // Parses "07:00 AM" or "07:00" (24h) into minutes
   if (!timeStr) return 0;
-  const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if (!match) return 0;
-  return toMinutes(match[1], match[2], match[3].toUpperCase());
+  const match12 = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (match12) return toMinutes(match12[1], match12[2], match12[3].toUpperCase());
+  
+  const match24 = timeStr.match(/^(\d{1,2}):(\d{2})$/);
+  if (match24) {
+    return parseInt(match24[1], 10) * 60 + parseInt(match24[2], 10);
+  }
+  return 0;
 }
 
 export function parseBusyPeriods(busyPeriodsArray) {
@@ -212,13 +217,13 @@ export function generateMealSchedule(wakeMin, sleepMin, busyIntervals, totalCal)
   meals.push({ type: 'breakfast', time: breakfastTime, name: 'Breakfast', icon: '🥞' });
   
   if (needSnack1 && snack1Time !== null) {
-    meals.push({ type: 'snack', time: snack1Time, name: 'Morning Snack', icon: '🍎' });
+    meals.push({ type: 'snack', time: snack1Time, name: 'Snack', icon: '🍎' });
   }
   
   meals.push({ type: 'lunch', time: lunchTime, name: 'Lunch', icon: '🥗' });
   
   if (needSnack2 && snack2Time !== null) {
-    meals.push({ type: 'snack', time: snack2Time, name: 'Afternoon Snack', icon: '🥪' });
+    meals.push({ type: 'snack', time: snack2Time, name: 'Snack', icon: '🥪' });
   }
   
   meals.push({ type: 'dinner', time: dinnerTime, name: 'Dinner', icon: '🍲' });

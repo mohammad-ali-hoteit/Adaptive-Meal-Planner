@@ -8,27 +8,25 @@ const Topbar = () => {
   const location = useLocation();
   const { user } = useAuth();
   
-  // Streak Animation State
-  const [streak, setStreak] = useState(3);
+  const [streak, setStreak] = useState(user?.currentStreak || 1);
   const [animateStreak, setAnimateStreak] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [hasNewNotifications, setHasNewNotifications] = useState(true);
 
+  // Sync state if user changes
   useEffect(() => {
-    // 1) Initial state is Day 3.
-    // 2) After 800ms, increase to 4 and trigger pop animation.
-    const timer1 = setTimeout(() => {
-      setStreak(4);
-      setAnimateStreak(true);
-    }, 800);
+    if (user && typeof user.currentStreak !== 'undefined') {
+      setStreak(user.currentStreak);
+    }
+  }, [user]);
 
-    // 3) Remove animation class after it completes (approx 600ms)
-    const timer2 = setTimeout(() => {
+  // Optional: Pop animation on first load
+  useEffect(() => {
+    setAnimateStreak(true);
+    const timer = setTimeout(() => {
       setAnimateStreak(false);
     }, 1400);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const initials = user?.name
@@ -56,10 +54,48 @@ const Topbar = () => {
         <div className="topbar-sep" aria-hidden="true" />
 
         {/* Notification Bell */}
-        <button className="topbar-bell" aria-label="Notifications">
-          <span className="material-symbols-outlined topbar-bell-icon">notifications</span>
-          <span className="topbar-bell-dot" aria-hidden="true" />
-        </button>
+        <div style={{ position: 'relative' }}>
+          <button 
+            className="topbar-bell" 
+            aria-label="Notifications" 
+            onClick={() => {
+              setShowNotifications(!showNotifications);
+              setHasNewNotifications(false);
+            }}
+          >
+            <span className="material-symbols-outlined topbar-bell-icon">notifications</span>
+            {hasNewNotifications && <span className="topbar-bell-dot" aria-hidden="true" />}
+          </button>
+          
+          {/* Notifications Dropdown */}
+          {showNotifications && (
+            <div className="notifications-dropdown glass-panel fade-in">
+              <div className="notifications-header">
+                <h3>Notifications</h3>
+              </div>
+              <div className="notifications-list">
+                <div className="notification-item">
+                  <div className="notification-icon" style={{ background: 'var(--color-teal)' }}>
+                    <span className="material-symbols-outlined" style={{ color: 'white', fontSize: '16px' }}>check_circle</span>
+                  </div>
+                  <div className="notification-content">
+                    <p className="notification-title">Welcome to Adaptive Planner!</p>
+                    <p className="notification-time">Just now</p>
+                  </div>
+                </div>
+                <div className="notification-item">
+                  <div className="notification-icon" style={{ background: 'var(--color-accent)' }}>
+                    <span className="material-symbols-outlined" style={{ color: 'white', fontSize: '16px' }}>local_fire_department</span>
+                  </div>
+                  <div className="notification-content">
+                    <p className="notification-title">Your Day Streak started. Keep going!</p>
+                    <p className="notification-time">Today</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="topbar-sep" aria-hidden="true" />
 

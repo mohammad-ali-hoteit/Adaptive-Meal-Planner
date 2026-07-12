@@ -2,6 +2,36 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
+const updateStreak = async (user) => {
+  if (!user) return user;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  
+  if (!user.lastActiveDate) {
+    user.currentStreak = 1;
+    user.lastActiveDate = today;
+    await user.save();
+    return user;
+  }
+
+  const lastActive = new Date(user.lastActiveDate);
+  lastActive.setHours(0,0,0,0);
+  
+  const diffTime = Math.abs(today - lastActive);
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+  
+  if (diffDays === 1) {
+    user.currentStreak += 1;
+    user.lastActiveDate = today;
+    await user.save();
+  } else if (diffDays > 1) {
+    user.currentStreak = 1;
+    user.lastActiveDate = today;
+    await user.save();
+  }
+  return user;
+};
+
 // @desc    Register a new user
 // @route   POST /api/auth/register
 const register = async (req, res, next) => {
@@ -75,6 +105,9 @@ const login = async (req, res, next) => {
       throw new Error('Invalid email or password');
     }
 
+    // Update day streak
+    await updateStreak(user);
+
     // Generate token and respond
     const token = generateToken(user._id);
     const metrics = await UserMetrics.findOne({ userId: user._id });
@@ -88,6 +121,7 @@ const login = async (req, res, next) => {
         name: user.name,
         email: user.email,
         isOnboarded: user.isOnboarded,
+        currentStreak: user.currentStreak,
         metrics: metrics || null,
         schedule: settings || null
       },
@@ -104,13 +138,19 @@ const UserSettings = require('../models/UserSettings');
 // @route   GET /api/auth/me
 const getMe = async (req, res, next) => {
   try {
+    const userDoc = await User.findById(req.user._id);
+    if (userDoc) {
+      await updateStreak(userDoc);
+    }
+
     const metrics = await UserMetrics.findOne({ userId: req.user._id });
     const settings = await UserSettings.findOne({ userId: req.user._id });
     
     res.json({
       success: true,
       user: {
-        ...req.user._doc,
+        ...userDoc._doc,
+        currentStreak: userDoc.currentStreak,
         metrics: metrics || null,
         schedule: settings || null
       }

@@ -30,7 +30,13 @@ const calculateMacros = async (ingredients) => {
 // @desc Get all custom meals for a user
 const getUserCustomMeals = async (req, res) => {
   try {
-    const meals = await CustomMeal.find({ userId: req.user._id }).populate('ingredients.foodId', 'name image_url nutrition size_g').sort('-createdAt');
+    const meals = await CustomMeal.find({ 
+      userId: req.user._id,
+      $nor: [
+        { isPantryGenerated: true },
+        { name: { $regex: /^Smart Meal/i } }
+      ]
+    }).populate('ingredients.foodId', 'name image_url nutrition size_g').sort('-createdAt');
     res.json({ success: true, meals });
   } catch (error) {
     console.error('Error fetching custom meals:', error);
@@ -41,7 +47,7 @@ const getUserCustomMeals = async (req, res) => {
 // @desc Create a custom meal
 const createCustomMeal = async (req, res) => {
   try {
-    const { name, image, ingredients, slot, isPublic, manualMacros } = req.body;
+    const { name, image, ingredients, slot, isPublic, manualMacros, isPantryGenerated } = req.body;
     
     if (!name) {
       return res.status(400).json({ success: false, message: 'Name is required' });
@@ -64,11 +70,12 @@ const createCustomMeal = async (req, res) => {
     const meal = await CustomMeal.create({
       userId: req.user._id,
       name,
-      image,
+      image: image || '',
       ingredients: ingredients || [],
-      slot,
-      isPublic: isPublic ?? true,
-      ...macros
+      slot: slot || 'Lunch',
+      ...macros,
+      isPublic: isPublic !== undefined ? isPublic : true,
+      isPantryGenerated: isPantryGenerated || false
     });
 
     res.status(201).json({ success: true, meal });

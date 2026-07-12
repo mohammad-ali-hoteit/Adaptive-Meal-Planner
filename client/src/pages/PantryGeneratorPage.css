@@ -5,6 +5,31 @@
   gap: 24px;
 }
 
+/* Macro Inputs Panel */
+.macro-panel {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.input-group label { font-size: 0.85rem; color: var(--color-accent); font-weight: 600; }
+.input-group input {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  color: var(--color-text);
+  font-size: 1rem;
+  outline: none;
+}
+.input-group input:focus { border-color: var(--color-accent); }
+
 /* Pantry Grid Select Area */
 .pantry-grid-container {
   display: flex;
@@ -31,6 +56,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 140px; /* Force minimum height so it never squishes */
 }
 
 .ingredient-select-card:hover {
@@ -53,11 +79,14 @@
   background: white;
   border-radius: 50%;
   font-size: 20px;
+  z-index: 2;
 }
 
 .isc-img-wrap {
   width: 100%;
   height: 90px;
+  min-height: 90px; /* Prevent squishing */
+  flex-shrink: 0;   /* Prevent flexbox from collapsing this div */
   background: var(--color-bg);
 }
 
@@ -85,6 +114,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-grow: 1; /* Let the text take the remaining space */
 }
 
 
@@ -147,48 +177,67 @@
   gap: 16px;
 }
 
-.target-note {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  margin-top: -8px;
+/* Result Box */
+.result-box {
+  background: white;
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  padding: 1.8rem;
+  margin-top: 1.5rem;
 }
 
-.pantry-ingredients-list {
-  margin-top: 12px;
-  border-top: 1px dashed var(--color-border);
-  padding-top: 12px;
+.chips-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.6rem;
+  margin: 1rem 0 1.5rem;
 }
 
-.pantry-ingredients-list h5 {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-}
-
-.pantry-ingredient-item {
+.chip {
+  background: rgba(201, 168, 76, 0.05);
+  border: 1px solid var(--color-border);
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  align-items: center;
 }
 
-.pi-name {
-  color: var(--color-text);
-  font-weight: 500;
-}
-
-.pi-grams {
+.chip-qty {
   color: var(--color-accent);
-  font-weight: 700;
+  font-weight: bold;
+  background: rgba(201, 168, 76, 0.15);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
 }
 
-.pantry-result-card {
-  min-height: 400px;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  background: var(--color-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
+
+.stat-card { text-align: center; }
+.stat-card .val { font-size: 1.2rem; font-weight: bold; color: var(--color-accent); }
+.stat-card .lbl { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  background: var(--color-bg);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.score-card { text-align: center; }
+.score-card .val { font-size: 1.1rem; font-weight: bold; color: var(--color-tertiary); }
+.score-card .lbl { font-size: 0.72rem; color: var(--color-text-muted); }
 
 @keyframes slideInRight {
   from { transform: translateX(100%); }
@@ -197,4 +246,3 @@
 .slide-in-right {
   animation: slideInRight 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
-

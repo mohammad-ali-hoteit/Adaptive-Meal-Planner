@@ -90,7 +90,7 @@ const updateMealTime = async (req, res) => {
 // @desc Assign custom meal or food to a slot
 const assignMealToSlot = async (req, res) => {
   try {
-    const { mealType, customMealId, foodId, date } = req.body;
+    const { mealType, customMealId, foodId, date, snackIndex = 0 } = req.body;
     const targetDate = getTargetDate(date);
     let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
     
@@ -109,11 +109,26 @@ const assignMealToSlot = async (req, res) => {
       });
     }
 
-    const slotIndex = log.mealsAssigned.findIndex(m => m.mealType === mealType);
+    let slotIndex = -1;
+    let occurrences = 0;
+    for (let i = 0; i < log.mealsAssigned.length; i++) {
+      if (log.mealsAssigned[i].mealType === mealType) {
+        if (occurrences === parseInt(snackIndex, 10)) {
+          slotIndex = i;
+          break;
+        }
+        occurrences++;
+      }
+    }
+
     if (slotIndex >= 0) {
       log.mealsAssigned[slotIndex].customMealId = customMealId || null;
       log.mealsAssigned[slotIndex].foodId = foodId || null;
     } else {
+      while (occurrences < parseInt(snackIndex, 10)) {
+        log.mealsAssigned.push({ mealType });
+        occurrences++;
+      }
       log.mealsAssigned.push({ mealType, customMealId, foodId });
     }
 
@@ -131,12 +146,30 @@ const assignMealToSlot = async (req, res) => {
 // @desc Complete a meal
 const completeMeal = async (req, res) => {
   try {
-    const { mealType, date } = req.body;
+    const { mealType, date, snackIndex = 0 } = req.body;
     const targetDate = getTargetDate(date);
     let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
     if (!log) return res.status(404).json({ success: false, message: 'Log not found' });
 
-    if (!log.mealsCompleted.find(m => m.mealType === mealType)) {
+    let occurrences = 0;
+    let found = false;
+    for (let i = 0; i < log.mealsCompleted.length; i++) {
+      if (log.mealsCompleted[i].mealType === mealType) {
+        if (occurrences === parseInt(snackIndex, 10)) {
+          found = true;
+          break;
+        }
+        occurrences++;
+      }
+    }
+
+    if (!found) {
+      // pad missing completions if any
+      while (occurrences < parseInt(snackIndex, 10)) {
+        // Technically shouldn't happen without completing previous snacks, but safe fallback
+        log.mealsCompleted.push({ mealType, completedAt: new Date() });
+        occurrences++;
+      }
       log.mealsCompleted.push({ mealType, completedAt: new Date() });
       await log.save();
     }
@@ -154,19 +187,32 @@ const completeMeal = async (req, res) => {
 // @desc Remove meal from slot
 const removeMealFromSlot = async (req, res) => {
   try {
-    const { mealType, date } = req.body;
+    const { mealType, date, snackIndex = 0 } = req.body;
     const targetDate = getTargetDate(date);
     let log = await DailyLog.findOne({ userId: req.user._id, date: targetDate });
     if (!log) return res.status(404).json({ success: false, message: 'Log not found' });
 
-    const slotIndex = log.mealsAssigned.findIndex(m => m.mealType === mealType);
-    if (slotIndex >= 0) {
-      log.mealsAssigned[slotIndex].customMealId = null;
-      log.mealsAssigned[slotIndex].foodId = null;
+    let occurrences = 0;
+    let slotIndex = -1;
+    for (let i = 0; i < log.mealsAssigned.length; i++) {
+      if (log.mealsAssigned[i].mealType === mealType) {
+        if (occurrences === parseInt(snackIndex, 10)) {
+          slotIndex = i;
+          break;
+        }
+        occurrences++;
+      }
     }
 
-    // Uncomplete it if removed
+    if (slotIndex >= 0) {
+      log.mealsAssigned[slotIndex].customMealId = undefined;
+      log.mealsAssigned[slotIndex].foodId = undefined;
+      await log.save();
+    }// Uncomplete it if removed
     log.mealsCompleted = log.mealsCompleted.filter(m => m.mealType !== mealType);
+
+    log.markModified('mealsAssigned');
+    log.markModified('mealsCompleted');
 
     await log.save();
     await log.populate('mealsAssigned.customMealId');

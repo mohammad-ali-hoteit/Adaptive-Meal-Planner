@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  currentStreak: {
+    type: Number,
+    default: 0,
+  },
+  lastActiveDate: {
+    type: Date,
+    default: null,
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
