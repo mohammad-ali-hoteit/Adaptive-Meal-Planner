@@ -1,0 +1,48 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #FAF8F3;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-layout.collapsed .main-content {
+  margin-left: 80px;
+}
+
+.page-body {
+  flex: 1;
+  padding: 16px 32px;
+  margin-top: 72px;
+  background: #FAF8F3;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 95; /* just below sidebar which is 100 */
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0 !important;
+  }
+  .page-body {
+    padding: 16px 16px;
+  }
+}

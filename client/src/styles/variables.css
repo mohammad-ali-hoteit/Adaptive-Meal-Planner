@@ -1,0 +1,20 @@
+/* client/src/styles/variables.css */
+:root {
+  --color-bg-cream: #F0EDE8;
+  --color-accent-gold: #F5C518;
+  --color-accent-gold-dark: #C9A84C;
+  --color-text-main: #1f1b11;
+
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Syne', sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
